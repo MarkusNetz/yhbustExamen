@@ -1,21 +1,21 @@
 html { 
-           background: url(img/skyline.jpg) no-repeat center center fixed; /* picture is here*/
-           -webkit-background-size: cover;
-           -moz-background-size: cover;
-            -o-background-size: cover;
-             background-size: cover;
-             padding: 0px;
+	background: url(images/above-adventure-aerial-air.jpg) no-repeat center center fixed; /* picture is here*/
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	padding: 0px;
 }
 
 #menuField  /* id for black panel*/
 {
-     color: #FFFFFF;                
-     width: 100%; 
-     height: 100px;
-     background-color: #000000; 
-     position: relative;
-     top: 450px;
-     opacity: 0.75; /* How tranparent the panel will be. 1 is not at all*/
+	color: #FFFFFF;                
+	width: 100%; 
+	height: 100px;
+	background-color: #000000; 
+	position: relative;
+	top: 450px;
+	opacity: 0.70; /* How tranparent the panel will be. 1 is not at all*/
  }
 
 #menu{  /* id for black element*/
