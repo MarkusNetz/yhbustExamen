@@ -15,7 +15,7 @@ html {
 	background-color: #000000; 
 	position: relative;
 	top: 450px;
-	opacity: 0.70; /* How tranparent the panel will be. 1 is not at all*/
+	opacity: 0.70; /* How transparent the panel will be. 1 is not at all*/
  }
 
 #menu{  /* id for black element*/
