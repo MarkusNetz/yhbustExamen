@@ -55,6 +55,7 @@ li a {
 
 /* To center the menu*/
 #inner {
+	list-style-type:none;
     width: 50%;
     margin: 0 auto; 
 }
