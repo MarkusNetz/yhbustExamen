@@ -1,3 +1,62 @@
-{
-/* css goes here.... */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #2c3e50;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    background-color: #3498db;
+}
+
+.header_img {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+.header_title {
+    font-size: 26px;
+    font-weight: bold;
+    color: white;
+}
+
+.figure {
+    position: relative;
+    margin: 0 auto 15px;
+}
+
+.figure_img {
+    display: block; /* to remove space from bottom caused by inline */
+    width: 100%;
+    border-radius: 4px;
+}
+
+.figure_caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.7); /* to get transparency */
+    color: #2c3e50;
+}
+
+.main_text {
+    margin-bottom: 1em;
+    line-height: 1.4em;
+}
+
+.main_quote {
+    clear: both;
+    margin: 30px 0;
+    padding: 0 20px;
+    line-height: 1.5em;
+    font-style: italic;
+    color: #7f8c8d;
+    border-left: 4px solid #1abc9c;
 }
