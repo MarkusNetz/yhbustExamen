@@ -1,44 +1,41 @@
 <!DOCTYPE html>
 <html lang="sv">
-    <head>
-        <title>Genomskinlig meny</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<!-- Latest compiled and minified CSS -->
+	<head>
+		<title>Bootstrap Example</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-
-		<!-- jQuery library -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-		<!-- Popper JS -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-
-		<!-- Latest compiled JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> 
-		
-        <!--link rel="stylesheet" type="text/css" href="./css/reset.css">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+		<!--link rel="stylesheet" type="text/css" href="./css/reset.css">
         <link rel="stylesheet" type="text/css" href="./css/border-box-fix.css.css">
         <link rel="stylesheet" type="text/css" href="./css/play.css"-->
-		
+	</head>
+	<body>
+		<div class="jumbotron text-center">
+			<h1>My First Bootstrap Page</h1>
+			<p>Resize this responsive page to see the effect!</p> 
+		</div>
 
-		<meta charset="utf-8">
-
-    </head>
-    <body>
-		<nav id="menu">
-			<ul id="inner">
-				<li><a href="http://www.w3schools.com/html/">w3schools</a></li>
-				<li><a href="http://www.csszengarden.com/">CSS Zen Garden</a></li>
-				<li><a href="https://css-tricks.com/">CSS-tricks</a></li>
-			</ul>
-		</nav>			
-       <section class="container">
+		<div class="container">
 			<div class="row">
-				<div class="col">
-				
-				<div class="col"></div>
-				<div class="col"></div>
+				<div class="col-sm-4">
+					<h3>Column 1</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+					<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+				</div>
+				<div class="col-sm-4">
+					<h3>Column 2</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+					<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+				</div>
+				<div class="col-sm-4">
+					<h3>Column 3</h3>        
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+					<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
 				</div>
 			</div>
-       </section>
-     </body>
+		</div>
+	</body>
 </html>
