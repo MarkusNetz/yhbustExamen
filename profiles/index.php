@@ -1,48 +1,28 @@
+<?php
+$top_level="../";
+$inc_path=$top_level.$folder_inc;
+
+?>
 <!DOCTYPE html>
-<html lang='sv'>
+<html lang="sv">
 	<head>
 		<title>Vilka Netzare</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<!--  W3.CSS 'FASTER, Better than bootstrap (??) -->
-		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<?php include $metadata;?>
+		
+		<?php include $w3_css;?>
 		<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<?php include $font_awesome; ?>
 		
 		<!-- BOOTSTRAP 4 -->
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		
+		<?php include $bootstrap; ?>
 
 		<!-- jQuery library -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-		<!-- Latest compiled JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+		<?php include $jquery; ?>
 	</head>
 	<body id="myPage">
 
-		<!-- BOOTSTRAP NAV-->
-		<nav class="navbar navbar-inverse">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Netzarna.</a>
-				</div>
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
-					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Tes
-						<span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">Markus</a></li>
-							<li><a href="#">Other</a></li>
-							<li><a href="#">Page 1-3</a></li>
-						</ul>
-				  </li>
-				  <li><a href="./profiles/">Profiles</a></li>
-				  <li><a href="#">Page 3</a></li>
-				</ul>
-			</div>
-		</nav>
+		<?php include $inc_path . $file_nav; ?>
 
 		<!-- Team Container -->
 		<div class="w3-container w3-padding-64 w3-center" id="team">
@@ -54,8 +34,8 @@
 					<img src="/w3images/avatar.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
 					<h3>Markus Netz</h3>
 					<p>Web Designer</p>
-					<a class="btn btn-info" role="button" href="curriculum-vitae.html">
-						Titta på CV
+					<a class="btn btn-info" role="button" href="cv.html">
+						Visa CV
 					</a>
 				</div>
 

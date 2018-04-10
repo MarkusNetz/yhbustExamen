@@ -1,23 +1,24 @@
+<?php
+require_once "ini/settings.php";
+$inc_path=$top_level.$folder_inc;
+
+?>
 <!DOCTYPE html>
 <html lang='sv'>
 	<head>
 		<title>Netzarna</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<!--  W3.CSS 'FASTER, Better than bootstrap (??) -->
-		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<?php include $metadata;?>
+		
+		<?php include $w3_css;?>
 		<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<?php include $font_awesome; ?>
 		
 		<!-- BOOTSTRAP 4 -->
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		
+		<?php include $bootstrap; ?>
 
 		<!-- jQuery library -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-		<!-- Latest compiled JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+		<?php include $jquery; ?>
 	</head>
 	<body id="myPage">
 
@@ -30,7 +31,7 @@
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="#">Home</a></li>
 					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Tes
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Test
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="#">Markus</a></li>
@@ -43,62 +44,6 @@
 				</ul>
 			</div>
 		</nav>
-		
-		<!-- Navbar w3.css>
-		<div class="w3-top">
-			<div class="w3-bar w3-theme-d2 w3-left-align">
-				<a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-hover-white w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
-				<a href="#" class="w3-bar-item w3-button w3-teal"><i class="fa fa-home w3-margin-right"></i>Logo</a>
-				<a href="#team" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Team</a>
-				<a href="#work" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Work</a>
-				<a href="#pricing" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Price</a>
-				<a href="#contact" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Contact</a>
-					<div class="w3-dropdown-hover w3-hide-small">
-					<button class="w3-button" title="Notifications">Dropdown <i class="fa fa-caret-down"></i></button>     
-					<div class="w3-dropdown-content w3-card-4 w3-bar-block">
-					<a href="#" class="w3-bar-item w3-button">Link</a>
-					<a href="#" class="w3-bar-item w3-button">Link</a>
-					<a href="#" class="w3-bar-item w3-button">Link</a>
-					</div>
-				</div>
-				<a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-teal" title="Search"><i class="fa fa-search"></i></a>
-			</div>
-
-			<!-- Navbar on small screens -->
-			<div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium">
-				<a href="#team" class="w3-bar-item w3-button">Team</a>
-				<a href="#work" class="w3-bar-item w3-button">Work</a>
-				<a href="#pricing" class="w3-bar-item w3-button">Price</a>
-				<a href="#contact" class="w3-bar-item w3-button">Contact</a>
-				<a href="#" class="w3-bar-item w3-button">Search</a>
-			</div>
-		</div>
-
-		<!-- Image Header>
-		<div class="w3-display-container w3-animate-opacity">
-			<img src="/w3images/sailboat.jpg" alt="boat" style="width:100%;min-height:350px;max-height:600px;">
-			<div class="w3-container w3-display-bottomleft w3-margin-bottom">  
-				<button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-xlarge w3-theme w3-hover-teal" title="Go To W3.CSS">LEARN W3.CSS</button>
-			</div>
-		</div>
-
-		<!-- Modal -->
-		<div id="id01" class="w3-modal">
-			<div class="w3-modal-content w3-card-4 w3-animate-top">
-				<header class="w3-container w3-teal w3-display-container"> 
-					<span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-teal w3-display-topright"><i class="fa fa-remove"></i></span>
-					<h4>Oh snap! We just showed you a modal..</h4>
-					<h5>Because we can <i class="fa fa-smile-o"></i></h5>
-				</header>
-				<div class="w3-container">
-					<p>Cool huh? Ok, enough teasing around..</p>
-					<p>Go to our <a class="w3-text-teal" href="/w3css/default.asp">W3.CSS Tutorial</a> to learn more!</p>
-				</div>
-				<footer class="w3-container w3-teal">
-					<p>Modal footer</p>
-				</footer>
-			</div>
-		</div>
 
 		<!-- Team Container -->
 		<div class="w3-container w3-padding-64 w3-center" id="team">
