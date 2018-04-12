@@ -1,24 +1,25 @@
 <?php
 require_once "ini/settings.php";
-$inc_path=$top_level.$folder_inc;
+$path_include=$top_level."/".$folder_inc;
 
 ?>
 <!DOCTYPE html>
 <html lang='sv'>
 	<head>
 		<title>Netzarna</title>
-		<?php include $metadata;?>
+		<?php echo $metadata; ?>
 		
-		<?php include $w3_css;?>
-		<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
-		<?php include $font_awesome; ?>
+		<?php echo $w3_css;?>
+		<?php echo $font_awesome; ?>
 		
 		<!-- BOOTSTRAP 4 -->
-		
-		<?php include $bootstrap; ?>
+		<?php
+		echo $bootstrap_css;
+		echo $bootstrap_js;
+		?>
 
 		<!-- jQuery library -->
-		<?php include $jquery; ?>
+		<?php echo $jquery; ?>
 	</head>
 	<body id="myPage">
 

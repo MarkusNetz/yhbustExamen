@@ -7,29 +7,32 @@ $inc_path=$top_level.$folder_inc;
 <html lang="sv">
 	<head>
 		<title>Vilka Netzare</title>
-		<?php include $metadata;?>
+		<?php
+		/*	Metadata */
+		echo $metadata;
 		
-		<?php include $w3_css;?>
-		<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
-		<?php include $font_awesome; ?>
+		/*	W3.CSS */
+		echo $w3_css;
+		/*	Fonts */
+		echo $font_awesome;
 		
-		<!-- BOOTSTRAP 4 -->
+		/*	BOOTSTRAP */
+		echo $bootstrap_css;
+		echo $bootstrap_js;
 		
-		<?php include $bootstrap; ?>
-
-		<!-- jQuery library -->
-		<?php include $jquery; ?>
+		/*	jQuery library 	*/
+		echo $jquery; ?>
 	</head>
 	<body id="myPage">
 
 		<?php include $inc_path . $file_nav; ?>
 
 		<!-- Team Container -->
-		<div class="w3-container w3-padding-64 w3-center" id="team">
+		<section class="w3-container w3-padding-64 w3-center" id="team">
 			<h2>OUR TEAM</h2>
 			<p>Meet the team - our office rats:</p>
 
-			<div class="w3-row"><br>
+			<div class="w3-row"><br />
 				<div class="w3-quarter">
 					<img src="/w3images/avatar.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
 					<h3>Markus Netz</h3>
@@ -57,10 +60,10 @@ $inc_path=$top_level.$folder_inc;
 					<p>Fixer</p>
 				</div>
 			</div>
-		</div>
+		</section>
 
 		<!-- Contact Container -->
-		<div class="w3-container w3-padding-64 w3-theme-l5" id="contact">
+		<section class="w3-container w3-padding-64 w3-theme-l5" id="contact">
 			<div class="w3-row">
 				<div class="w3-col m5">
 					<div class="w3-padding-16"><span class="w3-xlarge w3-border-teal w3-bottombar">Contact Us</span></div>
@@ -90,7 +93,7 @@ $inc_path=$top_level.$folder_inc;
 					</form>
 				</div>
 			</div>
-		</div>
+		</section>
 
 		<!-- Google Maps -->
 		<div id="googleMap" style="width:100%;height:420px;"></div>
