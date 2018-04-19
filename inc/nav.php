@@ -1,22 +1,16 @@
-<!-- BOOTSTRAP NAV-->
-<nav class="navbar navbar-inverse">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="#">Netzarna.</a>
+<!-- W3.CSS -->
+<div class="w3-bar w3-black w3-mobile">
+	<a href="/" class="w3-bar-item w3-button">Home</a>
+	<a href="#" class="w3-bar-item w3-button">Link 1</a>
+	<div class="w3-dropdown-hover">
+		<button class="w3-button">Dropdown</button>
+		<div class="w3-dropdown-content w3-bar-block w3-card-4">
+			<a href="#" class="w3-bar-item w3-button">Link 1</a>
+			<a href="#" class="w3-bar-item w3-button">Link 2</a>
+			<a href="#" class="w3-bar-item w3-button">Link 3</a>
 		</div>
-		<ul class="nav navbar-nav">
-			<li class="active"><a href="#">Home</a></li>
-			<li class="dropdown">
-				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Tes
-				<span class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li><a href="#">Markus</a></li>
-					<li><a href="#">Other</a></li>
-					<li><a href="#">Page 1-3</a></li>
-				</ul>
-		  </li>
-		  <li><a href="./profiles/">Profiles</a></li>
-		  <li><a href="#">Page 3</a></li>
-		</ul>
 	</div>
-</nav>
+	<div class="float-right">
+		<input type="text" class="w3-bar-item w3-input" placeholder="Search.."><a href="#" class="w3-bar-item w3-button w3-theme-l2">Go</a>
+	</div>
+</div>

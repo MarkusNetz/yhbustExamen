@@ -3,6 +3,7 @@ class Database
 {
 	// The database connection
 	protected static $connection;
+	private $db_type = "mysql";
 	private $host = HOST;
 	private $user = USER;
 	private $pass = PASSWORD;
@@ -15,7 +16,7 @@ class Database
 	function __construct()
 	{
 		// Set DSN
-		$dsn = "mysql:host=" . $this -> host . ";dbname=" . $this -> dbName;
+		$dsn = $this -> db_type . ":host=" . $this -> host . ";dbname=" . $this -> dbName;
 		
 		// Set Options
 		$options = array(

@@ -1,6 +1,6 @@
 <?php
 $top_level="../";
-$inc_path=$top_level.$folder_inc;
+require_once $top_level."ini/settings.php";
 
 ?>
 <!DOCTYPE html>
@@ -13,8 +13,11 @@ $inc_path=$top_level.$folder_inc;
 		
 		/*	W3.CSS */
 		echo $w3_css;
+		echo $w3_theme;
+		
 		/*	Fonts */
 		echo $font_awesome;
+		echo $font_roboto;
 		
 		/*	BOOTSTRAP */
 		echo $bootstrap_css;
@@ -25,7 +28,7 @@ $inc_path=$top_level.$folder_inc;
 	</head>
 	<body id="myPage">
 
-		<?php include $inc_path . $file_nav; ?>
+		<?php include $path_inc ."/". $file_nav; ?>
 
 		<!-- Team Container -->
 		<section class="w3-container w3-padding-64 w3-center" id="team">
@@ -37,7 +40,7 @@ $inc_path=$top_level.$folder_inc;
 					<img src="/w3images/avatar.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
 					<h3>Markus Netz</h3>
 					<p>Web Designer</p>
-					<a class="btn btn-info" role="button" href="cv.html">
+					<a class="btn btn-info" role="button" href="../cv/?userID=1">
 						Visa CV
 					</a>
 				</div>

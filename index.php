@@ -1,53 +1,45 @@
 <?php
-require_once "ini/settings.php";
-$path_include=$top_level."/".$folder_inc;
+$top_level="";
+require_once $top_level."ini/settings.php";
+include "class/class_lib.php";
 
+$markus = new person("Markus Netz");
+$lollo = new employee("Johnny Fingers");
+
+echo "Full name of employee lollo: " . $lollo->get_name();
+// echo "Full name: " . $markus->get_name();
+// echo "Tell me something private: " . $markus->test();
 ?>
 <!DOCTYPE html>
 <html lang='sv'>
 	<head>
 		<title>Netzarna</title>
-		<?php echo $metadata; ?>
-		
-		<?php echo $w3_css;?>
-		<?php echo $font_awesome; ?>
-		
-		<!-- BOOTSTRAP 4 -->
 		<?php
+		/*	Metadata */
+		echo $metadata;
+		
+		/*	W3.CSS */
+		echo $w3_css;
+		echo $w3_theme;
+		
+		/*	Fonts */
+		echo $font_awesome;
+		echo $font_roboto;
+		
+		/*	BOOTSTRAP */
 		echo $bootstrap_css;
 		echo $bootstrap_js;
-		?>
-
-		<!-- jQuery library -->
-		<?php echo $jquery; ?>
+		
+		/*	jQuery library 	*/
+		echo $jquery; ?>
 	</head>
 	<body id="myPage">
-
-		<!-- BOOTSTRAP NAV-->
-		<nav class="navbar navbar-inverse">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Netzarna.</a>
-				</div>
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
-					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Test
-						<span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">Markus</a></li>
-							<li><a href="#">Other</a></li>
-							<li><a href="#">Page 1-3</a></li>
-						</ul>
-				  </li>
-				  <li><a href="./profiles/">Profiles</a></li>
-				  <li><a href="#">Page 3</a></li>
-				</ul>
-			</div>
-		</nav>
+		
+		<?php include $path_inc ."/". $file_nav; ?>
 
 		<!-- Team Container -->
 		<div class="w3-container w3-padding-64 w3-center" id="team">
+			
 			<h2>OUR TEAM</h2>
 			<p>Meet the team - our office rats:</p>
 

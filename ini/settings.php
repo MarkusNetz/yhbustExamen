@@ -3,13 +3,12 @@
 date_default_timezone_set('Europe/Stockholm');
 
 // Paths and names.
-$top_level="";
 $folder_class = "class";
 $folder_ini = "ini";
 $folder_inc = "inc";
 $file_class_db="database.class.php";
 $file_nav="nav.php";
-// $path_include="../".$folder_inc;
+$path_inc=$top_level.$folder_inc;
 // $path_class="../".$folder_class."/";
 
 // Metadata
@@ -36,7 +35,8 @@ $bootstrap=$bootstrap_4_1_0;
 
 // W3.CSS ==========================
 $w3_css="<link rel='stylesheet' href='https://www.w3schools.com/w3css/4/w3.css' />";
-
+$w3_theme_black="<link rel='stylesheet' href='https://www.w3schools.com/lib/w3-theme-black.css'>";
+$w3_theme=$w3_theme_black;
 // jQuery.
 $jquery_3_3_1="<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>";
 // jquery to include.
@@ -49,7 +49,7 @@ $font_roboto="<link rel='stylesheet' href='https://fonts.googleapis.com/css?fami
 
 // Include files
 include "db-config.php"; // From etc-folder.
-include($folder_class . "/" . $file_class_db); //Relative path to class.
+include $top_level . $folder_class . "/" . $file_class_db; //Relative path to class.
 
 // Setup sql-modes and connectivity.
 $sql_mode_def_5_7="ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION";

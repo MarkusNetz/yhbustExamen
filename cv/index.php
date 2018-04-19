@@ -1,30 +1,34 @@
 <?php
-include "../ini/settings.php";
 $top_level="../";
-$inc_path=$top_level.$folder_inc;
-
+require_once $top_level."ini/settings.php";
+if(!filter_has_var(INPUT_GET,'userID')){
+	header("location: ../profiles/");
+}
 ?>
 <!DOCTYPE html>
 <html lang='sv'>
 	<head>
 		<title>Curriculum Vitae</title>
-		<?php echo $metadata; ?>
+		<?php
+		/*	Metadata */
+		echo $metadata;
 		
-		<?php echo $w3_css; ?>
-		<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css" />
-		<?php echo $netz_css; ?>
-		<?php echo $font_roboto; ?>
-		<?php echo $font_awesome; ?>
+		/*	W3.CSS */
+		echo $w3_css;
+		echo $w3_theme;
 		
-		<!-- BOOTSTRAP 4 -->
+		/*	Fonts */
+		echo $font_awesome;
 		
-		<?php //$bootstrap; ?>
-
-		<!-- jQuery library -->
-		<?php echo $jquery; ?>
+		/*	BOOTSTRAP */
+		// echo $bootstrap_css;
+		// echo $bootstrap_js;
+		
+		/*	jQuery library 	*/
+		echo $jquery; ?>
 	</head>
 	<body class="w3-light-grey">
-		<?php //include $inc_path ."/". $file_nav; ?>
+		<?php // include $path_inc ."/". $file_nav; ?>
 		
 		<!-- Page Container -->
 		<div class="w3-content w3-margin-top" style="max-width:1400px;">
