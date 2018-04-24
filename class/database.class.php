@@ -60,7 +60,7 @@ class Database
 	
 	public function execute()
 	{
-		$this -> stmt -> execute();
+		return $this -> stmt -> execute();
 	}
 	
 	// Multiple rows returned.
@@ -94,17 +94,17 @@ class Database
 	*/
 	public function beginTransaction()
 	{
-		$this -> dbh -> beginTransaction();
+		return $this -> dbh -> beginTransaction();
 	}
 	
 	public function endTransaction()
 	{
-		$this -> dbh -> commit();
+		return $this -> dbh -> commit();
 	}
 	
 	public function cancelTransaction()
 	{
-		$this -> dbh -> rollbBack();
+		return $this -> dbh -> rollbBack();
 	}
 	
 	public function debugDumpParameters()
