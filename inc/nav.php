@@ -10,6 +10,7 @@
 			<a href="#" class="w3-bar-item w3-button">Link 3</a>
 		</div>
 	</div>
+	<a href="/login" class="w3-bar-item w3-button">Sign in</a>
 	<div class="float-right">
 		<input type="text" class="w3-bar-item w3-input" placeholder="Search.."><a href="#" class="w3-bar-item w3-button w3-theme-l2">Go</a>
 	</div>
