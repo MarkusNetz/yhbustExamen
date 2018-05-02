@@ -9,6 +9,7 @@ if(!filter_has_var(INPUT_GET,'userID')){
 <html lang='sv'>
 	<head>
 		<title>Curriculum Vitae</title>
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
 		<?php
 		/*	Metadata */
 		echo $metadata;

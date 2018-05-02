@@ -7,6 +7,8 @@ require_once $top_level."ini/settings.php";
 <html lang="sv">
 	<head>
 		<title>Vilka Netzare</title>
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+
 		<?php
 		/*	Metadata */
 		echo $metadata;
