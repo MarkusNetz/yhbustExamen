@@ -1,7 +1,7 @@
 <?php 		
 class person
 {
-	var $name;		
+	public $name;		
 	public $height;		
 	protected $social_insurance;
 	private $pinn_number="My pin-code.";
