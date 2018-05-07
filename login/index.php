@@ -8,7 +8,7 @@ include $top_level."class/class_lib.php";
 <html lang='sv'>
 	<head>
 		<title>Logga in</title>
-		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		<meta name="google-signin-client_id" content="94719343879-7e1sqfd256k6ive88ln8e8kph2vv26op.apps.googleusercontent.com">
 		<?php
 		/*	Metadata */
 		echo $metadata;
@@ -51,10 +51,10 @@ include $top_level."class/class_lib.php";
 				</div>
 				<div class="w3-half">
 					<div class="w3-container w3-padding-32 w3-white">
-					<h4>Eller logga in såhär</h4>
-					<div>
-						<div class="g-signin2" data-onsuccess="onSignIn"></div>
-					</div>
+						<h4>Logga in via OAuth.</h4>
+						<div class="w3-padding16">
+							<div class="g-signin2" data-onsuccess="onSignIn"></div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -76,7 +76,7 @@ include $top_level."class/class_lib.php";
 				<i class="fa fa-chevron-circle-up"></i></span></a>
 			</div>
 		</footer>
-		<script source="/js/nav-script.j" />
-
+		
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
 	</body>
 </html>
