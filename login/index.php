@@ -8,7 +8,7 @@ include $top_level."class/class_lib.php";
 <html lang='sv'>
 	<head>
 		<title>Logga in</title>
-		<meta name="google-signin-client_id" content="94719343879-eo9fi600ua8k99tbn4omr34f841cbp3b.apps.googleusercontent.com">
+		<meta name="google-signin-client_id" content="94719343879-eo9fi600ua8k99tbn4omr34f841cbp3b.apps.googleusercontent.com" redirect_uri=>
 		<?php
 		/*	Metadata */
 		echo $metadata;
@@ -29,7 +29,7 @@ include $top_level."class/class_lib.php";
 		echo $jquery; ?>
 	</head>
 	<body id="myPage">
-		
+	<script source="/js/fb-sdk.js" />
 		<?php include $path_inc ."/". $file_nav; ?>
 
 		<!-- Contact Container -->

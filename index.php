@@ -34,7 +34,7 @@ echo "Full name of employee lollo: " . $lollo->get_name();
 		echo $jquery; ?>
 	</head>
 	<body id="myPage">
-		
+		<script source="/js/fb-sdk.js" />
 		<?php include $path_inc ."/". $file_nav; ?>
 
 		<!-- Team Container -->

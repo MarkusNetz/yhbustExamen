@@ -29,6 +29,7 @@ if(!filter_has_var(INPUT_GET,'userID')){
 		echo $jquery; ?>
 	</head>
 	<body class="w3-light-grey">
+		<script source="/js/fb-sdk.js" />
 		<?php // include $path_inc ."/". $file_nav; ?>
 		
 		<!-- Page Container -->

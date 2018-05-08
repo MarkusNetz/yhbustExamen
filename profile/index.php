@@ -29,7 +29,7 @@ require_once $top_level."ini/settings.php";
 		echo $jquery; ?>
 	</head>
 	<body id="myPage">
-
+		<script source="/js/fb-sdk.js" />
 		<?php include $path_inc ."/". $file_nav; ?>
 
 		<!-- Team Container -->
@@ -141,7 +141,7 @@ require_once $top_level."ini/settings.php";
 				<i class="fa fa-chevron-circle-up"></i></span></a>
 			</div>
 		</footer>
-		<script source="/js/nav-script.j" />
+		
 
 	</body>
 </html>
