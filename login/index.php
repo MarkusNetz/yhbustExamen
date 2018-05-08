@@ -8,7 +8,7 @@ include $top_level."class/class_lib.php";
 <html lang='sv'>
 	<head>
 		<title>Logga in</title>
-		<meta name="google-signin-client_id" content="94719343879-7e1sqfd256k6ive88ln8e8kph2vv26op.apps.googleusercontent.com">
+		<meta name="google-signin-client_id" content="94719343879-eo9fi600ua8k99tbn4omr34f841cbp3b.apps.googleusercontent.com">
 		<?php
 		/*	Metadata */
 		echo $metadata;
