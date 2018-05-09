@@ -64,8 +64,20 @@ include $top_level."class/class_lib.php";
 						<div class="w3-margin">
 							<div class="g-signin2" data-onsuccess="onSignIn"></div>
 						</div>
-						<div class="w3-margin">
-							<div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+						<div class="w3-margin">				
+							<script>
+								var finished_rendering = function() {
+									console.log("finished rendering plugins");
+									var spinner = document.getElementById("spinner");
+									spinner.removeAttribute("style");
+									spinner.removeChild(spinner.childNodes[0]);
+								}
+								FB.Event.subscribe('xfbml.render', finished_rendering);
+							</script>
+							<div id="spinner" style="background: #4267b2;border-radius: 5px;color: white;height: 40px;text-align: center;width: 250px;">
+								Loading
+								<div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false"></div>
+							</div>
 						</div>
 					</div>
 				</div>
