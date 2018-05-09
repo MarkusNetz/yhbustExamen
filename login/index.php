@@ -29,9 +29,18 @@ include $top_level."class/class_lib.php";
 		echo $jquery; ?>
 	</head>
 	<body id="myPage">
-	<script source="/js/fb-sdk.js" />
+		<script source="/js/fb-sdk.js"></script>
 		<?php include $path_inc ."/". $file_nav; ?>
-
+		<div id="fb-root"></div>
+		<script>
+			(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = 'https://connect.facebook.net/sv_SE/sdk.js#xfbml=1&version=v3.0&appId=2077280685881658&autoLogAppEvents=1';
+			fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+		</script>
 		<!-- Contact Container -->
 		<div class="w3-container w3-padding-32 w3-theme-l5" id="contact">
 			<div class="w3-row">
@@ -52,8 +61,11 @@ include $top_level."class/class_lib.php";
 				<div class="w3-half">
 					<div class="w3-container w3-padding-32 w3-white">
 						<h4>Logga in via OAuth.</h4>
-						<div class="w3-padding16">
+						<div class="w3-margin">
 							<div class="g-signin2" data-onsuccess="onSignIn"></div>
+						</div>
+						<div class="w3-margin">
+							<div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
 						</div>
 					</div>
 				</div>
