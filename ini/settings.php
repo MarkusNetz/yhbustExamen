@@ -2,6 +2,9 @@
 // PHP INI-settings
 date_default_timezone_set('Europe/Stockholm');
 
+$path="/etc";
+set_include_path(get_include_path() . PATH_SEPARATOR . $path);
+
 // Paths and names.
 $folder_class = "class";
 $folder_ini = "ini";

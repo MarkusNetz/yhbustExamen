@@ -30,12 +30,6 @@ class Database
 		catch(PDOException $e ){
 			$this -> error = $e ->getMessage();
 		}
-		
-		$this -> Hello();
-	}
-	public function Hello( )
-	{
-		print_r( $this -> error);
 	}
 	
 	public function query( $query )
