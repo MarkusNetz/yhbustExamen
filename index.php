@@ -2,13 +2,33 @@
 $top_level="";
 require_once $top_level."ini/settings.php";
 include "class/class_lib.php";
+include "inc/function.wtf.php";
 
 $markus = new person("Markus Netz");
 $lollo = new employee("Johnny Fingers");
 
-echo "Full name of employee lollo: " . $lollo->get_name();
+// echo "Full name of employee lollo: " . $lollo->get_name();
 // echo "Full name: " . $markus->get_name();
 // echo "Tell me something private: " . $markus->test();
+$con = new mysqli("cpsrv31.misshosting.com","pjdqirfm_markus","i.D!r3kVw0ah","pjdqirfm_netz");
+
+// $stmt=$con->query("INSERT INTO t_users(personal_number) values('19890127-2412')");
+// $stmt=$con->query("SELECT * FROM t_users");
+// while($row=$stmt->fetch_assoc()){
+	// echo $row['personal_number'];
+// }
+
+$connection=new Database();
+
+// $connection->query("CREATE TABLE IF NOT EXISTS groda (col1 varchar(10) NOT NULL)");
+// $connection->query("INSERT INTO groda VALUES(':name')");
+// $connection->beginTransaction;
+// $connection->bind(":name", "Boll");
+// $connection->execute();
+// $connection->bind(":name", "Tennisboll");
+// $connection->execute();
+// $connection->bind(":name", "Slagboll");
+// $connection->cancelTransaction;
 ?>
 <!DOCTYPE html>
 <html lang='sv'>
@@ -34,7 +54,7 @@ echo "Full name of employee lollo: " . $lollo->get_name();
 		echo $jquery; ?>
 	</head>
 	<body id="myPage">
-		<script source="/js/fb-sdk.js" />
+		<script src='/js/fb-sdk.js'></script
 		<?php include $path_inc ."/". $file_nav; ?>
 
 		<!-- Team Container -->
@@ -42,6 +62,20 @@ echo "Full name of employee lollo: " . $lollo->get_name();
 			
 			<h2>OUR TEAM</h2>
 			<p>Meet the team - our office rats:</p>
+			<div
+				class="fb-like"
+				data-share="true"
+				data-width="450"
+				data-show-faces="true">
+			</div>
+			
+			
+			
+			
+			<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+</fb:login-button>
+
+
 
 			<div class="w3-row"><br>
 				<div class="w3-quarter">
