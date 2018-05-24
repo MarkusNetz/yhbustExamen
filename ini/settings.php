@@ -1,18 +1,18 @@
 <?php
 // PHP INI-settings
 date_default_timezone_set('Europe/Stockholm');
+ini_set("error_reporting", E_ALL);
 
 $path="/etc";
 set_include_path(get_include_path() . PATH_SEPARATOR . $path);
 
 // Paths and names.
-$folder_class = "class";
-$folder_ini = "ini";
-$folder_inc = "inc";
+$folder_class = "class/";
+$folder_inc = "inc/";
+$folder_ini = "ini/";
 $file_class_db="database.class.php";
+$file_class_cv="curriculum.class.php";
 $file_nav="nav.php";
-$path_inc=$top_level.$folder_inc;
-// $path_class="../".$folder_class."/";
 
 // Metadata
 $metadata=
@@ -51,10 +51,12 @@ $font_awesome="<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/li
 $font_roboto="<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>";
 
 // Include files
-include "db-config.php"; // From etc-folder.
-include $top_level . $folder_class . "/" . $file_class_db; //Relative path to class.
-
+/* 
+*	DATABASE CONNECTION includes
+*/
+// include "db-config.php"; // From etc-folder.
+include $top_level . $folder_class . $file_class_db;
 // Setup sql-modes and connectivity.
 $sql_mode_def_5_7="ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION";
 $sql_set_sql_mode="SET SESSION sql-mode='$sql_mode_def_5_7'";
-?>
+include $top_level . $folder_ini . "dbConnect.php"; // Initializes a db-connection.

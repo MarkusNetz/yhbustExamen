@@ -29,7 +29,7 @@ require_once $top_level."ini/settings.php";
 		echo $jquery; ?>
 	</head>
 	<body id="myPage">
-		<script source="/js/fb-sdk.js" />
+		<script src='/js/fb-sdk.js'></script
 		<?php include $path_inc ."/". $file_nav; ?>
 
 		<!-- Team Container -->
@@ -42,7 +42,7 @@ require_once $top_level."ini/settings.php";
 					<img src="/w3images/avatar.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
 					<h3>Markus Netz</h3>
 					<p>Web Designer</p>
-					<a class="btn btn-info" role="button" href="../cv/?userID=1">
+					<a class="btn btn-info" role="button" href="../cv/?userID=1&cvID=1">
 						Visa CV
 					</a>
 				</div>

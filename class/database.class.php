@@ -31,6 +31,9 @@ class Database
 			$this -> error = $e ->getMessage();
 		}
 	}
+	public function hello(){
+		return "Hello";
+	}
 	
 	public function query( $query )
 	{

@@ -1,18 +1,12 @@
 <?php
 $top_level="../";
 require_once $top_level . "ini/" . "settings.php";
-if(!filter_has_var(INPUT_GET,'userID') && !filter_has_var(INPUT_GET,'cvID')){
+if(!filter_has_var(INPUT_GET,'cvID')){
 	header("location: ../profile/");
 }
-
-// echo "denna sökväg: ".$top_level.$folder_class.$file_class_cv.". Slut på sökväg.";
-// include $top_level . $folder_class . "class_lib.php";
-include $top_level . $folder_class . $file_class_cv;
-// include $top_level . $folder_inc . "function.wtf.php";
-
-$myCurriculum=new curriculum();
-
-
+include $top_level . $folder_class . "class_lib.php";
+include $top_level . $folder_class . "curriculum.class.php";
+include $top_level . $folder_inc . "function.wtf.php";
 ?>
 <!DOCTYPE html>
 <html lang='sv'>
@@ -58,7 +52,7 @@ $myCurriculum=new curriculum();
 							</div>
 						</div>
 						<div class="w3-container">
-							<a class="w3-btn w3-orange w3-round-large w3-right w3-margin-top" href="/cv/edit.php?cvID=1"><i class="fa fa-edit"></i> Ändra</a>
+							<a class="w3-btn w3-orange w3-round-large w3-right w3-margin-top" href="/cv/edit.php?userID=1"><i class="fa fa-edit"></i> Ändra</a>
 							<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Databasadministratör</p>
 							<p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>Stockholm, Sverige</p>
 							<p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>markus.netz.89@gmail.com</p>
@@ -112,9 +106,7 @@ $myCurriculum=new curriculum();
 			<div class="w3-twothird">
 			
 				<div class="w3-container w3-card w3-white w3-margin-bottom">
-					<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i><?php echo $myCurriculum->getHeaderWork(); ?></h2>
-					<?php echo $myCurriculum->getWorkExperiencesList();?>
-					<!--
+					<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Arbetsliv</h2>
 					<div class="w3-container">
 						<h5 class="w3-opacity"><b>Databasadministratör / Polismyndigheten</b></h5>
 						<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Dec 2017 - <span class="w3-tag w3-teal w3-round">Nuvarande</span></h6>
@@ -144,16 +136,10 @@ $myCurriculum=new curriculum();
 						<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Nov 2016 - Dec 2017</h6>
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p><br>
 					</div>
-					
-					-->
-					
 				</div>
 
 				<div class="w3-container w3-card w3-white">
-					<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i><?php echo $myCurriculum->getHeaderEducation();?></h2>
-					<?php echo $myCurriculum->getEducationsList();?>
-					
-					<!--
+					<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Utbildning & kurser</h2>
 					<div class="w3-container">
 						<h5 class="w3-opacity"><b>Lernia YH</b></h5>
 						<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Aug 2016 - <span class="w3-tag w3-teal w3-round">Nuvarande</span></h6>
@@ -173,7 +159,6 @@ $myCurriculum=new curriculum();
 					</div>
 				</div>
 
-				-->
 			<!-- End Right Column -->
 			</div>
 			
