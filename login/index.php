@@ -41,7 +41,7 @@ foreach($stmtGetLoginUser as $rowUser){
 	</head>
 	<body id="myPage">
 		<script src="/js/fb-sdk.js"></script>
-		<?php include $path_inc ."/". $file_nav; ?>
+		<?php include $top_level . $folder_inc . $file_nav; ?>
 		
 		<!-- Contact Container -->
 		<div class="w3-container w3-padding-32 w3-theme-l5" id="contact">
