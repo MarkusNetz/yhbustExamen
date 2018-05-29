@@ -34,8 +34,8 @@ require_once $top_level."ini/settings.php";
 
 		<!-- Team Container -->
 		<section class="w3-container w3-padding-64 w3-center" id="team">
-			<h2>OUR TEAM</h2>
-			<p>Meet the team - our office rats:</p>
+			<h2>Mina CV/Meritförteckningar</h2>
+			<p>Redigera eller skapa nya</p>
 
 			<div class="w3-row"><br />
 				<div class="w3-quarter">
