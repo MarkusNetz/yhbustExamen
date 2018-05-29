@@ -41,7 +41,7 @@ require_once $top_level."ini/settings.php";
 				<div class="w3-quarter">
 					<!--img src="/w3images/avatar.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity"-->
 					<h3><a class="" href="../cv/card.php">Markus Netz</a></h3>
-					<p>Web Designer</p>
+					<p>Web Developer</p>
 					<a class="btn btn-info" role="button" href="../cv/?userID=1&cvID=1">
 						Visa CV
 					</a>
