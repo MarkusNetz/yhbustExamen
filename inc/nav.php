@@ -7,11 +7,11 @@
 	<a href="/profile" class="w3-bar-item w3-button w3-block w3-col s12 m4 l1">Presentation</a>
 	
 	<div class="w3-dropdown-hover">
-		<button class="w3-button">CV</button>
-		<div class="w3-dropdown-content w3-bar-block w3-card-4">
-			<a href="#" class="w3-bar-item w3-button w3-col s12 m4 l1">CV-hantering</a>
-			<a href="#" class="w3-bar-item w3-button w3-col s12 m4 l1">Dela CV</a>
-			<a href="#" class="w3-bar-item w3-button w3-col s12 m4 l1">Link 3</a>
+		<button class="w3-button w3-bar-item">Dropdown</button>
+		<div class="w3-dropdown-content w3-card-4">
+			<a href="#" class="w3-bar-item w3-button w3-col s12">CV-hantering</a>
+			<a href="#" class="w3-bar-item w3-button w3-col s12">Dela CV</a>
+			<a href="#" class="w3-bar-item w3-button w3-col s12">Link 3</a>
 		</div>
 	</div>
 	
