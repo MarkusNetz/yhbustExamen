@@ -3,6 +3,17 @@ $top_level="../";
 require_once $top_level."ini/settings.php";
 include $top_level."class/class_lib.php";
 
+
+$sqlSelectUser="SELECT uhl.id_user, name_first, name_last, unique_hash, CONCAT(name_first, ' ', name_last) name_full FROM t_user_has_login uhl RIGHT JOIN t_users u USING(id_user) WHERE uhl.login = :user_login";
+$param_user_login="markus.netz.89@gmail.com";
+$dbConn->query($sqlSelectUser);
+$dbConn->bind(":user_login", $param_user_login);
+$stmtGetLoginUser = $dbConn -> single();
+foreach($stmtGetLoginUser as $rowUser){
+	$rowUser['full_name'];
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang='sv'>

@@ -53,7 +53,7 @@ $lollo = new employee("Johnny Fingers");
 	</head>
 	<body id="myPage">
 		<script src='/js/fb-sdk.js'></script
-		<?php include $path_inc . $file_nav; ?>
+		<?php include $top_level . $folder_inc . $file_nav; ?>
 
 		<!-- Team Container -->
 		<div class="w3-container w3-padding-64 w3-center" id="team">

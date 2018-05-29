@@ -4,13 +4,11 @@ require_once $top_level . "ini/" . "settings.php";
 if(!filter_has_var(INPUT_GET,'userID') && !filter_has_var(INPUT_GET,'cvID')){
 	header("location: ../profile/");
 }
-
-// echo "denna sökväg: ".$top_level.$folder_class.$file_class_cv.". Slut på sökväg.";
-// include $top_level . $folder_class . "class_lib.php";
 include $top_level . $folder_class . $file_class_cv;
-// include $top_level . $folder_inc . "function.wtf.php";
-
 $myCurriculum=new curriculum();
+
+include $top_level . $folder_class . "user.class.php";
+$activeUser=new user(1);
 
 
 ?>
@@ -53,55 +51,32 @@ $myCurriculum=new curriculum();
 					<div class="w3-white w3-text-grey w3-card-4">
 						<div class="w3-display-container">
 							<img src="../images/netz/markus-netz-1.jpg" style="width:100%" alt="Avatar" />
-							<div class="w3-display-bottomleft w3-container w3-text-black w3-gray w3-opacity">
-								<h2>Markus Netz</h2>
+							<div class="w3-display-bottommiddle w3-container w3-text-white w3-black w3-opacity">
+								<h2 class="Toggle-CV-Business"><a href="./card.php">Markus Netz</a></h2>
 							</div>
 						</div>
 						<div class="w3-container">
 							<a class="w3-btn w3-orange w3-round-large w3-right w3-margin-top" href="/cv/edit.php?cvID=1"><i class="fa fa-edit"></i> Ändra</a>
-							<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Databasadministratör</p>
-							<p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>Stockholm, Sverige</p>
-							<p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>markus.netz.89@gmail.com</p>
-							<p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>073 - 362 90 96</p>
+							<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i> Databasadministratör</p>
+							<p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i> Stockholm, Sverige</p>
+							<p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i> markus.netz.89@gmail.com</p>
+							<p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i> 073 - 362 90 96</p>
 							<hr>
 
-							<p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Färdigheter & intressen</b></p>
-							<p>MySQL</p>
-							<div class="w3-light-grey w3-round-xlarge w3-small">
-								<div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:90%">90%</div>
-							</div>
-							<p>ORACLE DB</p>
-							<div class="w3-light-grey w3-round-xlarge w3-small">
-								<div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:80%">
-									<div class="w3-center w3-text-white">80%</div>
-								</div>
-							</div>
-							<p>SQL Server</p>
-							<div class="w3-light-grey w3-round-xlarge w3-small">
-								<div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:75%">75%</div>
-							</div>
-							<p>Media</p>
-							<div class="w3-light-grey w3-round-xlarge w3-small">
-								<div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:50%">50%</div>
-							</div>
+							<p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i><?php echo $myCurriculum->getHeaderSkills();?></b> <a href=''><i class='fa fa-pencil'></i></a></p>
+							
+								<?php
+								$skillList = $myCurriculum->getSkillsList($dbConn);
+								echo $skillList;
+								?>
 							<br />
 
-							<p class="w3-large w3-text-theme">
-								<b><i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Språkkunskaper</b>
-							</p>
-							<p>Svenska</p>
-							<div class="w3-light-grey w3-round-xlarge">
-								<div class="w3-round-xlarge w3-teal" style="height:24px;width:100%"></div>
-							</div>
-							<p>English</p>
-							<div class="w3-light-grey w3-round-xlarge">
-								<div class="w3-round-xlarge w3-teal" style="height:24px;width:90%"></div>
-							</div>
-							<p>Deutsch</p>
-							<div class="w3-light-grey w3-round-xlarge">
-								<div class="w3-round-xlarge w3-teal" style="height:24px;width:15%"></div>
-							</div>
-							<br>
+							<p class="w3-large"><b><i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i><?php echo $myCurriculum->getHeaderLanguages();?></b></p>
+							<?php
+								$langList=$myCurriculum->getLangugesList($dbConn);
+								echo $langList;
+							?>
+							<br />
 						</div>
 					</div><br />
 
@@ -112,73 +87,28 @@ $myCurriculum=new curriculum();
 			<div class="w3-twothird">
 			
 				<div class="w3-container w3-card w3-white w3-margin-bottom">
-					<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i><?php echo $myCurriculum->getHeaderWork(); ?></h2>
-					<?php echo $myCurriculum->getWorkExperiencesList();?>
-					<!--
-					<div class="w3-container">
-						<h5 class="w3-opacity"><b>Databasadministratör / Polismyndigheten</b></h5>
-						<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Dec 2017 - <span class="w3-tag w3-teal w3-round">Nuvarande</span></h6>
-						<p>Lorem ipsum dolor sit amet. Praesentium magnam consectetur vel in deserunt aspernatur est reprehenderit sunt hic. Nulla tempora soluta ea et odio, unde doloremque repellendus iure, iste.</p>
-						<hr />
-					</div>
-					<div class="w3-container">
-						<h5 class="w3-opacity"><b>Web Developer / Stockholmshem AB</b></h5>
-						<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Okt 2015 - Jun 2018</h6>
-						<p>Consectetur adipisicing elit. Praesentium magnam consectetur vel in deserunt aspernatur est reprehenderit sunt hic. Nulla tempora soluta ea et odio, unde doloremque repellendus iure, iste.</p>
-						<hr />
-					</div>
-					<div class="w3-container">
-						<h5 class="w3-opacity"><b>Busschaufför / Nobina Sverige AB</b></h5>
-						<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Mar 2017 - Sept 2017</h6>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p><br>
-						<hr />
-					</div>
-					<div class="w3-container">
-						<h5 class="w3-opacity"><b>IT-tekniker / IT-assistans AB</b></h5>
-						<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Nov 2016 - Mar 2017</h6>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p><br>
-						<hr />
-					</div>
-					<div class="w3-container">
-						<h5 class="w3-opacity"><b>Busschaufför / Kerstins Taxi & Buss AB</b></h5>
-						<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Nov 2016 - Dec 2017</h6>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p><br>
-					</div>
-					
-					-->
-					
+					<form id='formWork' action="<?php echo "./?userID=1&cvID=1&save=work"; ?>" method="post">
+					<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i><?php echo $myCurriculum->getHeaderWork();?></b> <?php echo( isset($_GET['edit']) && $_GET['edit']=="work" ? "<button type='submit' class='w3-button w3-xlarge'><i class='fa fa-check'></i></button>  <a class='w3-button w3-xlarge' href='./?userID=1&cvID=1'><i class='fa fa-close w3-xlarge'></i></a>" : "<a href='./?userID=1&cvID=1&edit=work'><i class='fa fa-pencil'></i></a>" )?></h2>
+					<?php
+					$workList = $myCurriculum->getWorkExperiencesList($dbConn);
+					echo $workList;
+					?>
 				</div>
 
 				<div class="w3-container w3-card w3-white">
-					<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i><?php echo $myCurriculum->getHeaderEducation();?></h2>
-					<?php echo $myCurriculum->getEducationsList();?>
+					<form id='formEdu' action="<?php echo "./?userID=1&cvID=1&save=edu"; ?>" method="post">
+					<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i><?php echo $myCurriculum->getHeaderEducation();?></b> <?php echo ( isset($_GET['edit']) && $_GET['edit']=="edu" ? "<button type='submit' class='w3-button w3-xlarge'><i class='fa fa-check'></i></button>  <a class='w3-button w3-xlarge' href='./?userID=1&cvID=1'><i class='fa fa-close w3-xlarge'></i></a>" : "<a href='./?userID=1&cvID=1&edit=edu'><i class='fa fa-pencil'></i></a>" )?></h2>
+					<?php
+					$eduList = $myCurriculum->getEducationsList($dbConn);
+					echo $eduList;
 					
-					<!--
-					<div class="w3-container">
-						<h5 class="w3-opacity"><b>Lernia YH</b></h5>
-						<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Aug 2016 - <span class="w3-tag w3-teal w3-round">Nuvarande</span></h6>
-						<p>Backendutvecklare med C#</p>
-						<hr />
-					</div>
-					<div class="w3-container">
-						<h5 class="w3-opacity"><b>Jensen Education</b></h5>
-						<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Aug 2008 -  Jan 2010</h6>
-						<p>Databasadministration- och utveckling.</p>
-						<hr />
-					</div>
-					<div class="w3-container">
-						<h5 class="w3-opacity"><b>Tyresö Gymnasium</b></h5>
-						<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Aug 2005 - Jun 2008</h6>
-						<p>Samhällskunskap inriktning samhällsvetenskap</p><br>
-					</div>
+					?>
+					</form>
+				<!-- End Right Column -->
 				</div>
-
-				-->
-			<!-- End Right Column -->
-			</div>
 			
-		<!-- End Grid -->
-		</div>
+			<!-- End Grid -->
+			</div>
 		  
 		<!-- End Page Container -->
 		</div>

@@ -30,7 +30,7 @@ require_once $top_level."ini/settings.php";
 	</head>
 	<body id="myPage">
 		<script src='/js/fb-sdk.js'></script
-		<?php include $path_inc ."/". $file_nav; ?>
+		<?php include $top_level . $folder_inc ."/". $file_nav; ?>
 
 		<!-- Team Container -->
 		<section class="w3-container w3-padding-64 w3-center" id="team">
@@ -39,8 +39,8 @@ require_once $top_level."ini/settings.php";
 
 			<div class="w3-row"><br />
 				<div class="w3-quarter">
-					<img src="/w3images/avatar.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
-					<h3>Markus Netz</h3>
+					<!--img src="/w3images/avatar.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity"-->
+					<h3><a class="" href="../cv/card.php">Markus Netz</a></h3>
 					<p>Web Designer</p>
 					<a class="btn btn-info" role="button" href="../cv/?userID=1&cvID=1">
 						Visa CV
@@ -48,19 +48,19 @@ require_once $top_level."ini/settings.php";
 				</div>
 
 				<div class="w3-quarter">
-					<img src="/w3images/avatar.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
+					<!--img src="/w3images/avatar.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity"-->
 					<h3>Jane Doe</h3>
 					<p>Support</p>
 				</div>
 
 				<div class="w3-quarter">
-					<img src="/w3images/avatar.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
+					<!--img src="/w3images/avatar.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity"-->
 					<h3>John Doe</h3>
 					<p>Boss man</p>
 				</div>
 
 				<div class="w3-quarter">
-					<img src="/w3images/avatar.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
+					<!--img src="/w3images/avatar.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity"-->
 					<h3>John Doe</h3>
 					<p>Fixer</p>
 				</div>
@@ -68,7 +68,7 @@ require_once $top_level."ini/settings.php";
 		</section>
 
 		<!-- Contact Container -->
-		<section class="w3-container w3-padding-64 w3-theme-l5" id="contact">
+		<!--section class="w3-container w3-padding-64 w3-theme-l5" id="contact">
 			<div class="w3-row">
 				<div class="w3-col m5">
 					<div class="w3-padding-16"><span class="w3-xlarge w3-border-teal w3-bottombar">Contact Us</span></div>
@@ -98,11 +98,12 @@ require_once $top_level."ini/settings.php";
 					</form>
 				</div>
 			</div>
-		</section>
+		</section-->
 
 		<!-- Google Maps -->
-		<div id="googleMap" style="width:100%;height:420px;"></div>
+		<!--div id="googleMap" style="width:100%;height:420px;"></div>
 		<script>
+		/*
 			function myMap()
 			{
 				myCenter=new google.maps.LatLng(41.878114, -87.629798);
@@ -117,7 +118,7 @@ require_once $top_level."ini/settings.php";
 					position: myCenter,
 				});
 				marker.setMap(map);
-			}
+			}*/
 		</script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap" />
 		<!--
@@ -141,7 +142,6 @@ require_once $top_level."ini/settings.php";
 				<i class="fa fa-chevron-circle-up"></i></span></a>
 			</div>
 		</footer>
-		
 
 	</body>
 </html>

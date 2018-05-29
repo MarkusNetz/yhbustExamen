@@ -13,8 +13,7 @@ class Database
 	private $dbh;
 	private $error;
 	
-	function __construct()
-	{
+	function __construct(){
 		// Set DSN
 		$dsn = $this -> db_type . ":host=" . $this -> host . ";dbname=" . $this -> dbName;
 		
@@ -31,17 +30,12 @@ class Database
 			$this -> error = $e ->getMessage();
 		}
 	}
-	public function hello(){
-		return "Hello";
-	}
 	
-	public function query( $query )
-	{
+	public function query( $query ){
 		$this -> stmt = $this -> dbh -> prepare( $query );
 	}
 	
-	public function bind($param, $value, $type = null)
-	{
+	public function bind($param, $value, $type = null){
 		if( is_null( $type ) ){
 			switch ( true ){
 				case ( is_int( $value ) ):
@@ -56,33 +50,28 @@ class Database
 				default:
 					$type = PDO::PARAM_STR;
 			}
-			
 		}
 		$this -> stmt -> bindValue( $param, $value, $type );
 	}
 	
-	public function execute()
-	{
+	public function execute(){
 		return $this -> stmt -> execute();
 	}
 	
 	// Multiple rows returned.
-	public function resultSet()
-	{
+	public function resultSet(){
 		$this -> execute();
 		return $this -> stmt -> fetchAll( PDO::FETCH_ASSOC );
 	}
 	
 	// Fetch the first row of the returned result set.
-	public function single()
-	{
+	public function single(){
 		$this -> execute();
 		return $this -> stmt -> fetch( PDO::FETCH_ASSOC );
 	}
 	
 	// Count number of returned rows.
-	public function rowCount()
-	{
+	public function rowCount(){
 		return $this -> stmt -> rowCount();
 	}
 	
@@ -95,23 +84,19 @@ class Database
 	* Transaction handling
 	*
 	*/
-	public function beginTransaction()
-	{
+	public function beginTransaction(){
 		return $this -> dbh -> beginTransaction();
 	}
 	
-	public function endTransaction()
-	{
+	public function endTransaction(){
 		return $this -> dbh -> commit();
 	}
 	
-	public function cancelTransaction()
-	{
+	public function cancelTransaction(){
 		return $this -> dbh -> rollbBack();
 	}
 	
-	public function debugDumpParameters()
-	{
+	public function debugDumpParameters(){
 		return $this -> dbh -> debugDumpParameters();
 	}
 }
