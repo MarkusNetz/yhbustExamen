@@ -4,6 +4,12 @@ require_once $top_level . "ini/" . "settings.php";
 if(!filter_has_var(INPUT_GET,'userID') && !filter_has_var(INPUT_GET,'cvID')){
 	header("location: ../profile/");
 }
+if( filter_has_var(INPUT_POST, "save") && filter_has_var(INPUT_POST, "")){
+	
+	echo "sparar data";
+}
+
+
 include $top_level . $folder_class . $file_class_cv;
 $myCurriculum=new curriculum();
 

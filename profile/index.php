@@ -28,42 +28,57 @@ require_once $top_level."ini/settings.php";
 		/*	jQuery library 	*/
 		echo $jquery; ?>
 	</head>
-	<body id="myPage">
-		<script src='/js/fb-sdk.js'></script
+	<body id="profilePage">
+		<script src='/js/fb-sdk.js'></script>
 		<?php include $top_level . $folder_inc ."/". $file_nav; ?>
-
+		
 		<!-- Team Container -->
-		<section class="w3-container w3-padding-64 w3-center" id="team">
-			<h2>Mina CV/Meritförteckningar</h2>
-			<p>Redigera eller skapa nya</p>
-			<p>Klicka på namnet för att snabbt komma till visitkortet.</p>
+		<section class="w3-container w3-padding-32 w3-center" id="profilePresentation">
+			<div class="jumbotron">
+				<h1>Hej, [Namn_output]</h1>
+				<p>Här är din profil.</p>
+			</div>
+			
+			<section class="w3-row">
+				<div class="w3-third">
+					<h1>Min presentation</h1>
+					<p>Lorem ipsum ....</p>
+				</div>
+				<div class="w3-third">
+					<h1>Min framtidsvision</h1>
+					<p>Lorem ipsum ....</p>
+				</div>
+				<div class="w3-third">
+					<h1>Mina karriärsmål</h1>
+					<p>Lorem ipsum ....</p>
+				</div>
+			</section>
+		</section>
 
-			<div class="w3-row"><br />
-				<div class="w3-quarter">
-					<!--img src="/w3images/avatar.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity"-->
-					<h3><a class="" href="../cv/card.php">Markus Netz</a></h3>
+		<section class="w3-container w3-padding-32 w3-center" id="curriculum">
+			<div class="w3-row">
+				<div class="w3-quarter w3-card w3-amber w3-padding-16" style="min-height:10em;">
+					<h3>IT-CV</h3>
 					<p>Detta CV är för IT-branschen.</p>
-					<a class="btn btn-info" role="button" href="../cv/?userID=1&cvID=1">
-						Visa CV
-					</a>
+					<a class="btn btn-info" role="button" href="../cv/?userID=1&cvID=1">Visa CV</a>
 				</div>
 
-				<div class="w3-quarter">
-					<!--img src="/w3images/avatar.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity"-->
-					<h3>Jane Doe</h3>
-					<p>Support</p>
-				</div>
-
-				<div class="w3-quarter">
-					<!--img src="/w3images/avatar.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity"-->
+				<div class="w3-quarter w3-card w3-deep-orange w3-padding-16" style="min-height:10em;">
 					<h3>John Doe</h3>
 					<p>Boss man</p>
+					<a class="btn btn-info" role="button" href="../cv/?userID=1&cvID=2">Visa CV</a>
+				</div>
+				
+				<div class="w3-quarter w3-card w3-khaki w3-padding-16" style="min-height:10em;">
+					<h3>Jane Doe</h3>
+					<p>Support</p>
+					<a class="btn btn-info" role="button" href="../cv/?userID=1&cvID=3">Visa CV</a>
 				</div>
 
-				<div class="w3-quarter">
-					<!--img src="/w3images/avatar.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity"-->
-					<h3>John Doe</h3>
-					<p>Fixer</p>
+				<div class="w3-quarter w3-card w3-blue-gray w3-padding-16" style="min-height:10em;">
+					<h3>Meritförteckning</h3>
+					<p>Min fullständiga meritförteckning</p>
+					<a class="btn btn-info" role="button" href="../cv/?userID=1&cvID=4">Visa CV</a>
 				</div>
 			</div>
 		</section>
@@ -143,6 +158,5 @@ require_once $top_level."ini/settings.php";
 				<i class="fa fa-chevron-circle-up"></i></span></a>
 			</div>
 		</footer>
-
 	</body>
 </html>
