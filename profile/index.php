@@ -1,7 +1,9 @@
 <?php
 $top_level="../";
 require_once $top_level."ini/settings.php";
-
+if(isset()){
+	
+}
 ?>
 <!DOCTYPE html>
 <html lang="sv">
@@ -35,7 +37,7 @@ require_once $top_level."ini/settings.php";
 		<!-- Team Container -->
 		<section class="w3-container w3-padding-32 w3-center" id="profilePresentation">
 			<div class="jumbotron">
-				<h1>Hej, [Namn_output]</h1>
+				<h1>Hej, <?php echo $currentUser->getDisplayName(); ?></h1>
 				<p>Här är din profil.</p>
 			</div>
 			

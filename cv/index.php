@@ -4,9 +4,32 @@ require_once $top_level . "ini/" . "settings.php";
 if(!filter_has_var(INPUT_GET,'userID') && !filter_has_var(INPUT_GET,'cvID')){
 	header("location: ../profile/");
 }
-if( filter_has_var(INPUT_POST, "save") && filter_has_var(INPUT_POST, "")){
-	
-	echo "sparar data";
+if( isset($_POST['submitting'])){
+	if(isset($_POST['submitType'])){
+		if( strpos( $_POST['submitType'], 'Work') !== false){
+			$rowCountWorkXP = filter_input(INPUT_POST, "rowCountWorkXP", FILTER_VALIDATE_INT);
+			$workID="";
+			filter_input( INPUT_POST, "work_title_", FILTER_SANITIZE_STRING);
+			if( $_POST['submitType'] == "saveWork" ){
+				echo "Sparar data om befintligt jobb";
+				
+			}
+			elseif($_POST['submitType']=="addWork"){
+				echo "Sparar data om nytt jobb";
+				
+			}
+		}
+		elseif( strpos( $_POST['submitType'], "Edu") !== false){
+			if( $_POST['submitType'] == "saveEdu" ){
+				echo "Sparar data om befintlig utb.";
+				
+			}
+			elseif( $_POST['submitType'] == "addEdu" ){
+				echo "Sparar data om ny utb.";
+			}
+		}
+		else{}
+	}
 }
 
 
@@ -93,16 +116,35 @@ $activeUser=new user(1);
 			<div class="w3-twothird">
 			
 				<div class="w3-container w3-card w3-white w3-margin-bottom">
-					<form id='formWork' action="<?php echo "./?userID=1&cvID=1&save=work"; ?>" method="post">
-					<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i><?php echo $myCurriculum->getHeaderWork();?></b> <?php echo( isset($_GET['edit']) && $_GET['edit']=="work" ? "<button type='submit' class='w3-button w3-xlarge'><i class='fa fa-check'></i></button>  <a class='w3-button w3-xlarge' href='./?userID=1&cvID=1'><i class='fa fa-close w3-xlarge'></i></a>" : "<a href='./?userID=1&cvID=1&edit=work'><i class='fa fa-pencil'></i></a>" )?></h2>
+					<form id='formWork' action="<?php echo "./?userID=1&cvID=1"; ?>" method="post">
+						
+					<div class="w3-row">
+						<h2 class="w3-text-grey w3-padding-16 w3-col l7">
+							<i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
+							<?php echo $myCurriculum->getHeaderWork();?>
+						</h2>
+						<div class="w3-col l5 w3-margin-top w3-padding-top">
+							<a href='./?userID=1&cvID=1&edit=work#formWork' class="w3-button w3-mobile w3-amber w3-right fa fa-pencil-alt"> Ändra</a>
+							<a href="./?userID=1&cvID=1&add=work#formWork" class="w3-button w3-mobile w3-light-green w3-right fa fa-plus"> Lägg till</a>
+						</div>
+					<?php if( isset($_GET['add']) || isset($_GET['edit']) ){ ?>
+						<div class="w3-col l5 w3-padding-top">
+							<a href="./?userID=1&cvID=1" class="w3-button w3-mobile w3-red w3-right fa fa-close"> Avbryt</a>
+							<button type="submit" name="submitting" class="w3-button w3-mobile w3-light-gray w3-right fa fa-save"> Spara</button>
+						</div>
+					<?php
+					}
+					?>
+					</div>
 					<?php
 					$workList = $myCurriculum->getWorkExperiencesList($dbConn);
 					echo $workList;
 					?>
+					</form>
 				</div>
 
 				<div class="w3-container w3-card w3-white">
-					<form id='formEdu' action="<?php echo "./?userID=1&cvID=1&save=edu"; ?>" method="post">
+					<form id='formEdu' action="<?php echo "./?userID=1&cvID=1&".( isset($_GET['save']) ? "save=edu" : isset($_GET['add']) ? "add=edu" : "" ); ?>" method="post">
 					<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i><?php echo $myCurriculum->getHeaderEducation();?></b> <?php echo ( isset($_GET['edit']) && $_GET['edit']=="edu" ? "<button type='submit' class='w3-button w3-xlarge'><i class='fa fa-check'></i></button>  <a class='w3-button w3-xlarge' href='./?userID=1&cvID=1'><i class='fa fa-close w3-xlarge'></i></a>" : "<a href='./?userID=1&cvID=1&edit=edu'><i class='fa fa-pencil'></i></a>" )?></h2>
 					<?php
 					$eduList = $myCurriculum->getEducationsList($dbConn);
@@ -127,6 +169,15 @@ $activeUser=new user(1);
 			<i class="fa fa-pinterest-p w3-hover-opacity"></i>
 			<i class="fa fa-twitter w3-hover-opacity"></i>
 			<i class="fa fa-linkedin w3-hover-opacity"></i>
+			<script>
+				$(document).ready(function(){	
+					var $inputs = $('input[name=end_date],checkbox[name=current_work]');
+					$inputs.on('input', function () {
+						// Set the required property of the other input to false if this input is not empty.
+						$inputs.not(this).prop('required', !$(this).val().length);
+					});
+				});
+			</script>
 		</footer>
 
 	</body>

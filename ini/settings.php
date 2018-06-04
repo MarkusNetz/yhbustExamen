@@ -47,7 +47,7 @@ $jquery=$jquery_3_3_1;
 
 // Fonts
 $netz_css="<link rel='stylesheet' href='../css/netz.css'>";
-$font_awesome="<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>";
+$font_awesome='<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">';
 $font_roboto="<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>";
 
 // Include files
@@ -60,3 +60,7 @@ include $top_level . $folder_class . $file_class_db;
 $sql_mode_def_5_7="ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION";
 $sql_set_sql_mode="SET SESSION sql-mode='$sql_mode_def_5_7'";
 include "dbConnect.php"; // Initializes a db-connection.
+
+
+//FAKE VARS
+$loggedIn=1;
