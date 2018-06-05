@@ -173,6 +173,7 @@ class curriculum {
 			if(isset($_GET['edit']) && $_GET['edit']=="work"){
 				$list.=
 					"<div class='w3-container w3-card w3-pale-green w3-margin-bottom w3-margin-top w3-padding-bottom'>"
+						."<input type='hidden' value='". $work['id_work_experience'] ."' name='work_id' id='work_id' />"
 						."<div class='w3-row w3-margin-bottom w3-margin-top'>"
 							."<div class='w3-col l5 s12'>"
 								."<input class='w3-input w3-border' type='text' name='work_title_".$work['id_work_experience']."' value='". $work['work_title']."' placeholder='Jobbtitel' required='required' />"

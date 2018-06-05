@@ -8,15 +8,21 @@ if( isset($_POST['submitting'])){
 	if(isset($_POST['submitType'])){
 		if( strpos( $_POST['submitType'], 'Work') !== false){
 			$rowCountWorkXP = filter_input(INPUT_POST, "rowCountWorkXP", FILTER_VALIDATE_INT);
-			$workID="";
-			filter_input( INPUT_POST, "work_title_", FILTER_SANITIZE_STRING);
+			if(filter_has_var(INPUT_POST, "work_id"))
+				$cv_work_id=filter_input(INPUT_POST, "work_id", FILTER_VALIDATE_INT);
 			if( $_POST['submitType'] == "saveWork" ){
 				echo "Sparar data om befintligt jobb";
+				$nrOfWorkXpRows=$_POST['rowCountWorkXP']; // Total number of rows from form.
+				var_dump($_POST);
+				for($y=1;$i <= $_POST['rowCountWorkXP']){
+					$save_work_title = filter_input( INPUT_POST, "work_title_". $y, FILTER_SANITIZE_STRING );
+					$save_work_employer = filter_input( INPUT_POST, "work_employer_". $y, FILTER_SANITIZE_STRING );
 				
+				}
 			}
 			elseif($_POST['submitType']=="addWork"){
 				echo "Sparar data om nytt jobb";
-				
+				var_dump($_POST);
 			}
 		}
 		elseif( strpos( $_POST['submitType'], "Edu") !== false){
