@@ -1,17 +1,13 @@
 <?php
 $top_level="../";
 require_once $top_level."ini/settings.php";
-include $top_level."class/class_lib.php";
+include $top_level."class/user.class.php";
 
+// $stmtGetLoginUser = $dbConn -> single();
 
-$sqlSelectUser="SELECT uhl.id_user, name_first, name_last, unique_hash, CONCAT(name_first, ' ', name_last) name_full FROM t_user_has_login uhl RIGHT JOIN t_users u USING(id_user) WHERE uhl.login = :user_login";
-$param_user_login="markus.netz.89@gmail.com";
-$dbConn->query($sqlSelectUser);
-$dbConn->bind(":user_login", $param_user_login);
-$stmtGetLoginUser = $dbConn -> single();
-foreach($stmtGetLoginUser as $rowUser){
-	$rowUser['full_name'];
-}
+// foreach($stmtGetLoginUser as $rowUser){
+	// $rowUser['full_name'];	
+// }
 
 
 ?>
@@ -19,7 +15,7 @@ foreach($stmtGetLoginUser as $rowUser){
 <html lang='sv'>
 	<head>
 		<title>Logga in</title>
-		<meta name="google-signin-client_id" content="94719343879-eo9fi600ua8k99tbn4omr34f841cbp3b.apps.googleusercontent.com" redirect_uri=>
+		<meta name="google-signin-client_id" content="94719343879-eo9fi600ua8k99tbn4omr34f841cbp3b.apps.googleusercontent.com" redirect_uri="" />
 		<?php
 		/*	Metadata */
 		echo $metadata;
@@ -39,35 +35,42 @@ foreach($stmtGetLoginUser as $rowUser){
 		/*	jQuery library 	*/
 		echo $jquery; ?>
 	</head>
-	<body id="myPage">
+	<body id="myPage" class="w3-theme-l5">
 		<script src="/js/fb-sdk.js"></script>
 		<?php include $top_level . $folder_inc . $file_nav; ?>
 		
 		<!-- Contact Container -->
-		<div class="w3-container w3-padding-32 w3-theme-l5" id="contact">
+		<div class="w3-container w3-padding-32">
 			<div class="w3-row">
-				<div class="w3-half">
-					<form class="w3-container w3-padding-32 w3-white">
-						<h4>Logga in med användaruppgifter</h4>
+				<div class="w3-border w3-col l5 w3-mobile w3-white">
+					<form class="w3-container">
+						<h4 class=" w3-margin-top">Logga in med användaruppgifter</h4>
 						<div class="w3-section">
-							<input class="w3-input" style="width:100%;" type="text" required>
-							<label>Username</label>
+							<input class="w3-input" style="width:100%;" type="text" required="required">
+							<label>Användarnamn</label>
 						</div>
 						<div class="w3-section">
-							<input class="w3-input" style="width:100%;" type="password" required>
-							<label>Password</label>
+							<input class="w3-input" style="width:100%;" type="password" required="required">
+							<label>Lösenord</label>
 						</div>
 						<button type="button" class="w3-btn btn-info">Logga in</button>
 					</form>
 				</div>
-				<div class="w3-half">
-					<div class="w3-container w3-padding-32 w3-white">
-						<h4>Logga in via OAuth.</h4>
-						<div class="w3-margin">
+				
+				<div class="w3-col l1 w3-small-hide">&nbsp;</div>
+				
+				<div class="w3-border w3-col l6 w3-mobile w3-white">
+					<div class="w3-container w3-white">
+						<h4 class="w3-margin-top w3-margin-bottom">Logga in med hjälp av</h4>
+						<div class="w3-padding-top">
 							<div class="g-signin2" data-onsuccess="onSignIn"></div>
+							<p class="w3-mobile">Google</p>
+							<hr />
 						</div>
-						<div class="w3-margin">
+						<div class="w3-padding-top">
 							<div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false" data-onlogin="checkLoginState();"></div>
+							<p class="w3-mobile">facebook</p>
+							<hr />
 						</div>
 					</div>
 				</div>

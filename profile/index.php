@@ -1,9 +1,6 @@
 <?php
 $top_level="../";
 require_once $top_level."ini/settings.php";
-if(isset()){
-	
-}
 ?>
 <!DOCTYPE html>
 <html lang="sv">
@@ -30,119 +27,61 @@ if(isset()){
 		/*	jQuery library 	*/
 		echo $jquery; ?>
 	</head>
-	<body id="profilePage">
+	<body id="profilePage" class="w3-theme-l5">
 		<script src='/js/fb-sdk.js'></script>
 		<?php include $top_level . $folder_inc ."/". $file_nav; ?>
 		
 		<!-- Team Container -->
-		<section class="w3-container w3-padding-32 w3-center" id="profilePresentation">
-			<div class="jumbotron">
-				<h1>Hej, <?php echo $currentUser->getDisplayName(); ?></h1>
-				<p>Här är din profil.</p>
+		<section class="w3-container w3-center w3-padding" id="profilePresentation">
+			<div class="w3-row w3-card-2 w3-white w3-round w3-padding-32">
+				<h1>Hej, <?php if($loggedIn && isset($loggedInUser)){ echo $loggedInUser->getDisplayName();} ?></h1>
+				<p>
+					<span class="w3-bottombar w3-border-teal">Här är din profil.</span>
+				</p>
+				
+				<div class="w3-margin-top w3-padding">
+					<div class="w3-third w3-margin-top">
+						<h1>Min historia</h1>
+						<p>Lorem ipsum ....</p>
+					</div>
+					<div class="w3-third w3-margin-top">
+						<h1>Mina karriärsmål</h1>
+						<p>Lorem ipsum ....</p>
+					</div>
+					<div class="w3-third w3-margin-top">
+						<h1>Min framtidsvision</h1>
+						<p>Lorem ipsum ....</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		<!-- CV-section -->
+		<section class="w3-container w3-padding-32 w3-center w3-row" id="curriculum">
+			<div class="w3-quarter w3-card w3-amber w3-padding-16" style="min-height:10em;">
+				<h3>IT-CV</h3>
+				<p>Detta CV är för IT-branschen.</p>
+				<a class="btn btn-info" role="button" href="../cv/?userID=1&cvID=1">Visa CV</a>
+			</div>
+
+			<div class="w3-quarter w3-card w3-deep-orange w3-padding-16" style="min-height:10em;">
+				<h3>John Doe</h3>
+				<p>Boss man</p>
+				<a class="btn btn-info" role="button" href="../cv/?userID=1&cvID=2">Visa CV</a>
 			</div>
 			
-			<section class="w3-row">
-				<div class="w3-third">
-					<h1>Min presentation</h1>
-					<p>Lorem ipsum ....</p>
-				</div>
-				<div class="w3-third">
-					<h1>Min framtidsvision</h1>
-					<p>Lorem ipsum ....</p>
-				</div>
-				<div class="w3-third">
-					<h1>Mina karriärsmål</h1>
-					<p>Lorem ipsum ....</p>
-				</div>
-			</section>
-		</section>
+			<div class="w3-quarter w3-card w3-khaki w3-padding-16" style="min-height:10em;">
+				<h3>Jane Doe</h3>
+				<p>Support</p>
+				<a class="btn btn-info" role="button" href="../cv/?userID=1&cvID=3">Visa CV</a>
+			</div>
 
-		<section class="w3-container w3-padding-32 w3-center" id="curriculum">
-			<div class="w3-row">
-				<div class="w3-quarter w3-card w3-amber w3-padding-16" style="min-height:10em;">
-					<h3>IT-CV</h3>
-					<p>Detta CV är för IT-branschen.</p>
-					<a class="btn btn-info" role="button" href="../cv/?userID=1&cvID=1">Visa CV</a>
-				</div>
-
-				<div class="w3-quarter w3-card w3-deep-orange w3-padding-16" style="min-height:10em;">
-					<h3>John Doe</h3>
-					<p>Boss man</p>
-					<a class="btn btn-info" role="button" href="../cv/?userID=1&cvID=2">Visa CV</a>
-				</div>
-				
-				<div class="w3-quarter w3-card w3-khaki w3-padding-16" style="min-height:10em;">
-					<h3>Jane Doe</h3>
-					<p>Support</p>
-					<a class="btn btn-info" role="button" href="../cv/?userID=1&cvID=3">Visa CV</a>
-				</div>
-
-				<div class="w3-quarter w3-card w3-blue-gray w3-padding-16" style="min-height:10em;">
-					<h3>Meritförteckning</h3>
-					<p>Min fullständiga meritförteckning</p>
-					<a class="btn btn-info" role="button" href="../cv/?userID=1&cvID=4">Visa CV</a>
-				</div>
+			<div class="w3-quarter w3-card w3-blue-gray w3-padding-16" style="min-height:10em;">
+				<h3>Meritförteckning</h3>
+				<p>Min fullständiga meritförteckning</p>
+				<a class="btn btn-info" role="button" href="../cv/?userID=1&cvID=4">Visa CV</a>
 			</div>
 		</section>
-
-		<!-- Contact Container -->
-		<!--section class="w3-container w3-padding-64 w3-theme-l5" id="contact">
-			<div class="w3-row">
-				<div class="w3-col m5">
-					<div class="w3-padding-16"><span class="w3-xlarge w3-border-teal w3-bottombar">Contact Us</span></div>
-					<h3>Address</h3>
-					<p>Swing by for a cup of coffee, or whatever.</p>
-					<p><i class="fa fa-map-marker w3-text-teal w3-xlarge"></i>  Chicago, US</p>
-					<p><i class="fa fa-phone w3-text-teal w3-xlarge"></i>  +00 1515151515</p>
-					<p><i class="fa fa-envelope-o w3-text-teal w3-xlarge"></i>  test@test.com</p>
-				</div>
-				<div class="w3-col m7">
-					<form class="w3-container w3-card-4 w3-padding-16 w3-white" action="/action_page.php" target="_blank">
-						<div class="w3-section">      
-							<label>Name</label>
-							<input class="w3-input" type="text" name="Name" required>
-						</div>
-						<div class="w3-section">      
-							<label>Email</label>
-							<input class="w3-input" type="text" name="Email" required>
-						</div>
-						<div class="w3-section">      
-							<label>Message</label>
-							<input class="w3-input" type="text" name="Message" required>
-						</div>  
-						<input class="w3-check" type="checkbox" checked name="Like" />
-						<label>I Like it!</label>
-						<button type="submit" class="w3-button w3-right w3-theme">Send</button>
-					</form>
-				</div>
-			</div>
-		</section-->
-
-		<!-- Google Maps -->
-		<!--div id="googleMap" style="width:100%;height:420px;"></div>
-		<script>
-		/*
-			function myMap()
-			{
-				myCenter=new google.maps.LatLng(41.878114, -87.629798);
-				var mapOptions= {
-					center:myCenter,
-					zoom:12, scrollwheel: false, draggable: false,
-					mapTypeId:google.maps.MapTypeId.ROADMAP
-				};
-				var map=new google.maps.Map(document.getElementById("googleMap"),mapOptions);
-
-				var marker = new google.maps.Marker({
-					position: myCenter,
-				});
-				marker.setMap(map);
-			}*/
-		</script>
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap" />
-		<!--
-			To use this code on your website, get a free API key from Google.
-			Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
-		-->
 
 		<!-- Footer -->
 		<footer class="w3-container w3-padding-32 w3-theme-d1 w3-center">

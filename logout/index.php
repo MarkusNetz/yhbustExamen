@@ -1,3 +1,3 @@
 <?php
 
-echo "Loggar ut."
+echo "Loggar ut.";

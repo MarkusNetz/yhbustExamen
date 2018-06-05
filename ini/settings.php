@@ -2,6 +2,8 @@
 // PHP INI-settings
 date_default_timezone_set('Europe/Stockholm');
 ini_set("error_reporting", E_ALL);
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 
 $path="/etc";
 set_include_path(get_include_path() . PATH_SEPARATOR . $path);
@@ -51,16 +53,30 @@ $font_awesome='<link rel="stylesheet" href="https://use.fontawesome.com/releases
 $font_roboto="<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>";
 
 // Include files
+include($top_level . $folder_class . "user.class.php");
+
 /* 
 *	DATABASE CONNECTION includes
 */
 // include "db-config.php"; // From etc-folder.
 include $top_level . $folder_class . $file_class_db;
 // Setup sql-modes and connectivity.
-$sql_mode_def_5_7="ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION";
-$sql_set_sql_mode="SET SESSION sql-mode='$sql_mode_def_5_7'";
+$sqlMode_MySQL_ver_5_7="ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION";
+$sqlMode_MariaDB_ver_10_2_4="NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO";
 include "dbConnect.php"; // Initializes a db-connection.
 
+
+// Logga in
+$sqlSelectUser="SELECT uhl.id_user, name_first, name_last, unique_hash, CONCAT(name_first, ' ', name_last) name_full FROM t_user_has_login uhl RIGHT JOIN t_users u USING(id_user) WHERE uhl.login = :user_login";
+$param_user_login="markus.netz.89@gmail.com";
+$dbConn->query($sqlSelectUser);
+$dbConn->bind(":user_login", $param_user_login);
+$fetchedUser=$dbConn->single();
+if($dbConn->rowCount() == 1){
+	// $_SESSION['']="";
+	$loggedInUser=new LoggedInUser();
+	$loggedInUser->setDisplayName( $fetchedUser['name_full'] );
+}
 
 //FAKE VARS
 $loggedIn=1;

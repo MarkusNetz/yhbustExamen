@@ -1,5 +1,5 @@
 <?php
-class user{
+class LoggedInUser{
 	protected $user_Id;
 	public $displayName;
 	public $displayWorkTitle;
@@ -7,8 +7,8 @@ class user{
 	public $displayNumber;
 	
 	// Constructor
-	function __construct($con_userId){
-		$this -> setUserId($con_userId);
+	function __construct(){
+		// $this -> setUserId();
 		// $this -> setDisplayName("Arbetslivserfarenhet");
 		// $this -> setDisplayWorkTitle("Utbildning & kurser");
 		// $this -> setDisplayMail("Färdigheter & intressen");
