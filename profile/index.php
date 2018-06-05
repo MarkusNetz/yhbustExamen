@@ -34,7 +34,7 @@ require_once $top_level."ini/settings.php";
 		<!-- Team Container -->
 		<section class="w3-container w3-center w3-padding" id="profilePresentation">
 			<div class="w3-row w3-card-2 w3-white w3-round w3-padding-32">
-				<h1>Hej, <?php if($loggedIn && isset($loggedInUser)){ echo $loggedInUser->getDisplayName();} ?></h1>
+				<h1><?php if($loggedIn && isset($loggedInUser)){ echo $loggedInUser->getDisplayName();} ?></h1>
 				<p>
 					<span class="w3-bottombar w3-border-teal">Här är din profil.</span>
 				</p>
