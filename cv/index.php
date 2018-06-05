@@ -14,7 +14,7 @@ if( isset($_POST['submitting'])){
 				echo "Sparar data om befintligt jobb";
 				$nrOfWorkXpRows=$_POST['rowCountWorkXP']; // Total number of rows from form.
 				var_dump($_POST);
-				for($y=1;$i <= $_POST['rowCountWorkXP']){
+				for($y=1; $y <= $nrOfWorkXpRows; $y++){
 					$save_work_title = filter_input( INPUT_POST, "work_title_". $y, FILTER_SANITIZE_STRING );
 					$save_work_employer = filter_input( INPUT_POST, "work_employer_". $y, FILTER_SANITIZE_STRING );
 				
