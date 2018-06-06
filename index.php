@@ -1,6 +1,6 @@
 <?php
 $top_level="";
-require_once $top_level . $folder_ini . "settings.php";
+require_once $top_level . "ini/" . "settings.php";
 include $top_level . $folder_inc . "function.wtf.php";
 
 ?>
@@ -21,21 +21,23 @@ include $top_level . $folder_inc . "function.wtf.php";
 		echo $font_roboto;
 		
 		/*	BOOTSTRAP */
-		echo $bootstrap_css;
-		echo $bootstrap_js;
+		// echo $bootstrap_css;
+		// echo $bootstrap_js;
 		
 		/*	jQuery library 	*/
 		echo $jquery; ?>
 	</head>
-	<body id="myPage" class="w3-theme-l5">
-		<script src='/js/fb-sdk.js'></script>
+	<body class="w3-theme-l5" id="myPage">
+		<!--script src="/js/fb-sdk.js"></script-->
 		<?php include $top_level . $folder_inc . $file_nav; ?>
 
 		<!-- Team Container -->
-		<div class="w3-container w3-center w3-white" id="team">
-			<h3>Välkommen till Netzarna.</h3>
-			<p>Just nu används sidan för att bygga upp mitt examensarbete för min kurs i Backendutvecklare med C# på Lernia Yrkeshögskola.</p>
-		</div>
+		<section class="w3-container w3-center w3-white" id="team">
+			<div class="w3-padding-32">
+				<h2>Välkommen till Netzarna.</h2>
+				<p>Just nu används sidan för att bygga upp mitt examensarbete för min kurs i Backendutvecklare med C# på Lernia Yrkeshögskola.</p>
+			</div>
+		</section>
 
 		<!-- Work Row -->
 		<!--div class="w3-row-padding w3-padding-64 w3-theme-l1" id="work">

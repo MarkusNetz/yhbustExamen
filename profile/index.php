@@ -21,35 +21,35 @@ require_once $top_level."ini/settings.php";
 		echo $font_roboto;
 		
 		/*	BOOTSTRAP */
-		echo $bootstrap_css;
-		echo $bootstrap_js;
+		// echo $bootstrap_css;
+		// echo $bootstrap_js;
 		
 		/*	jQuery library 	*/
 		echo $jquery; ?>
 	</head>
-	<body id="profilePage" class="w3-theme-l5">
+	<body class="w3-theme-l5" id="profilePage">
 		<script src="/js/fb-sdk.js"></script>
-		<?php include $top_level . $folder_inc ."/". $file_nav; ?>
+		<?php include $top_level . $folder_inc . $file_nav; ?>
 		
 		<!-- Team Container -->
-		<section class="w3-container w3-center w3-padding" id="profilePresentation">
-			<div class="w3-row w3-card-2 w3-white w3-round w3-padding-32">
-				<h1><?php if($loggedIn && isset($loggedInUser)){ echo $loggedInUser->getDisplayName();} ?></h1>
+		<section class="w3-container w3-center w3-white" id="profilePresentation">
+			<div class="w3-padding-16 w3-row">
+				<h2><?php if($loggedIn && isset($loggedInUser)){ echo $loggedInUser->getDisplayName();} ?></h2>
 				<p><span class="w3-bottombar w3-border-teal">Här är din profil.</span></p>
-				
-				<div class="w3-margin-top w3-padding">
-					<div class="w3-third w3-margin-top">
-						<h1>Min historia <i class="fa fa-"></i></h1>
-						<p>Lorem ipsum ....</p>
-					</div>
-					<div class="w3-third w3-margin-top">
-						<h1>Mina karriärsmål <i class="fa fa-"></i></h1>
-						<p>Lorem ipsum ....</p>
-					</div>
-					<div class="w3-third w3-margin-top">
-						<h1>Min framtidsvision <i class="fa fa-"></i></h1>
-						<p>Lorem ipsum ....</p>
-					</div>
+			</div>
+			
+			<div class="w3-padding-16 w3-row">
+				<div class="w3-third w3-margin-top">
+					<h1>Min historia <i class="fa fa-"></i></h1>
+					<p>Lorem ipsum ....</p>
+				</div>
+				<div class="w3-third w3-margin-top">
+					<h1>Mina karriärsmål <i class="fa fa-"></i></h1>
+					<p>Lorem ipsum ....</p>
+				</div>
+				<div class="w3-third w3-margin-top">
+					<h1>Min framtidsvision <i class="fa fa-"></i></h1>
+					<p>Lorem ipsum ....</p>
 				</div>
 			</div>
 		</section>
@@ -59,25 +59,25 @@ require_once $top_level."ini/settings.php";
 			<div class="w3-quarter w3-card w3-amber w3-padding-16" style="min-height:10em;">
 				<h3>IT-CV</h3>
 				<p>Detta CV är för IT-branschen.</p>
-				<a class="btn btn-info" role="button" href="../cv/?userID=1&cvID=1">Visa CV</a>
+				<a class="w3-button w3-teal w3-hover-indigo" href="../cv/?userID=1&cvID=1">Visa CV</a>
 			</div>
 
 			<div class="w3-quarter w3-card w3-deep-orange w3-padding-16" style="min-height:10em;">
 				<h3>John Doe</h3>
 				<p>Boss man</p>
-				<a class="btn btn-info" role="button" href="../cv/?userID=1&cvID=2">Visa CV</a>
+				<a class="w3-button w3-teal w3-hover-indigo" href="../cv/?userID=1&cvID=2">Visa CV</a>
 			</div>
 			
 			<div class="w3-quarter w3-card w3-khaki w3-padding-16" style="min-height:10em;">
 				<h3>Jane Doe</h3>
 				<p>Support</p>
-				<a class="btn btn-info" role="button" href="../cv/?userID=1&cvID=3">Visa CV</a>
+				<a class="w3-button w3-teal w3-hover-indigo" href="../cv/?userID=1&cvID=3">Visa CV</a>
 			</div>
 
 			<div class="w3-quarter w3-card w3-blue-gray w3-padding-16" style="min-height:10em;">
 				<h3>Meritförteckning</h3>
 				<p>Min fullständiga meritförteckning</p>
-				<a class="btn btn-info" role="button" href="../cv/?userID=1&cvID=4">Visa CV</a>
+				<a class="w3-button w3-white w3-hover-blue" href="../cv/?userID=1&cvID=4">Visa CV</a>
 			</div>
 		</section>
 
