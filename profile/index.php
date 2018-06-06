@@ -28,28 +28,26 @@ require_once $top_level."ini/settings.php";
 		echo $jquery; ?>
 	</head>
 	<body id="profilePage" class="w3-theme-l5">
-		<script src='/js/fb-sdk.js'></script>
+		<script src="/js/fb-sdk.js"></script>
 		<?php include $top_level . $folder_inc ."/". $file_nav; ?>
 		
 		<!-- Team Container -->
 		<section class="w3-container w3-center w3-padding" id="profilePresentation">
 			<div class="w3-row w3-card-2 w3-white w3-round w3-padding-32">
 				<h1><?php if($loggedIn && isset($loggedInUser)){ echo $loggedInUser->getDisplayName();} ?></h1>
-				<p>
-					<span class="w3-bottombar w3-border-teal">Här är din profil.</span>
-				</p>
+				<p><span class="w3-bottombar w3-border-teal">Här är din profil.</span></p>
 				
 				<div class="w3-margin-top w3-padding">
 					<div class="w3-third w3-margin-top">
-						<h1>Min historia</h1>
+						<h1>Min historia <i class="fa fa-"></i></h1>
 						<p>Lorem ipsum ....</p>
 					</div>
 					<div class="w3-third w3-margin-top">
-						<h1>Mina karriärsmål</h1>
+						<h1>Mina karriärsmål <i class="fa fa-"></i></h1>
 						<p>Lorem ipsum ....</p>
 					</div>
 					<div class="w3-third w3-margin-top">
-						<h1>Min framtidsvision</h1>
+						<h1>Min framtidsvision <i class="fa fa-"></i></h1>
 						<p>Lorem ipsum ....</p>
 					</div>
 				</div>

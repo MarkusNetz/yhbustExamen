@@ -171,38 +171,47 @@ class curriculum {
 			$i++;
 			// lista alla rader i redigeringsläge för arbetserfarenhet.
 			if(isset($_GET['edit']) && $_GET['edit']=="work"){
+				$id_workXp=$work['id_work_experience'];
+				$disable_end_date=$end_date_value="";
+				$checkbox_current_work=" value='0'";
+				if( $work['end_date_name'] == "Nuvarande"){
+					$checkbox_current_work=" value='1' checked='checked' required='required'";
+					$disable_end_date=" disabled='disabled'";
+				}
+				else
+					$end_date_value=$work['end_date'];
 				$list.=
 					"<div class='w3-container w3-card w3-pale-green w3-margin-bottom w3-margin-top w3-padding-bottom'>"
-						."<input type='hidden' value='". $work['id_work_experience'] ."' name='work_id' id='work_id' />"
+						."<input type='hidden' value='". $id_workXp ."' name='row_work_id[]' id='row_work_id' />"
 						."<div class='w3-row w3-margin-bottom w3-margin-top'>"
 							."<div class='w3-col l5 s12'>"
-								."<input class='w3-input w3-border' type='text' name='work_title_".$work['id_work_experience']."' value='". $work['work_title']."' placeholder='Jobbtitel' required='required' />"
+								."<input class='w3-input w3-border' type='text' name='work_title_".$id_workXp."' value='". $work['work_title']."' placeholder='Jobbtitel' required='required' />"
 							."</div>"
 							."<div class='w3-col l1 w3-hide-small w3-hide-medium'>&nbsp;</div>"
 							."<div class='w3-col l5 s12'>"
-								."<input class='w3-input w3-border' type='text' name='work_employer_".$work['id_work_experience']."' value='". $work['employer']."' placeholder='Arbetsgivare' required='required' />"
+								."<input class='w3-input w3-border' type='text' name='work_employer_".$id_workXp."' value='". $work['employer']."' placeholder='Arbetsgivare' required='required' />"
 							."</div>"
 						."</div>"
 						
 						."<div class='w3-row'>"
 							."<div class='w3-mobile w3-col l3'>"
-								."<label class='w3-hide-medium w3-hide-large' for='start_date_".$work['id_work_experience']."'>Start</label>"
-								. "<input class='w3-border w3-mobile' type='date' name='start_date_".$work['id_work_experience']."' id='start_date_".$work['id_work_experience']."' value='" . $work['start_date'] . "' required='required' />"
-								."<label class='w3-hide-small fa fa-calendar fa-fw w3-margin-right' for='start_date_".$work['id_work_experience']."'></label>"
+								."<label class='w3-hide-medium w3-hide-large' for='start_date_".$id_workXp."'>Start</label>"
+								. "<input class='w3-border w3-mobile' type='date' name='start_date_".$id_workXp."' id='start_date_".$id_workXp."' value='" . $work['start_date'] . "' required='required' />"
+								."<label class='w3-hide-small fa fa-calendar fa-fw w3-margin-right' for='start_date_".$id_workXp."'></label>"
 							."</div>"
 							."<div class='w3-mobile w3-col l3'>"
-								."<label class='w3-hide-medium w3-hide-large' for='end_date_".$work['id_work_experience']."'>Slut</label>"
-								."<input class='w3-border w3-mobile' type='date' name='end_date' id='end_date' value='' />"
-								."<label class='w3-hide-small fa fa-calendar fa-fw w3-margin-right' for='end_date_".$work['id_work_experience']."'></label>"
+								."<label class='w3-hide-medium w3-hide-large' for='end_date_".$id_workXp."'>Slut</label>"
+								."<input".$disable_end_date." class='w3-border w3-mobile' type='date' name='end_date_". $id_workXp ."' id='end_date_".$id_workXp."' value='".$end_date_value."' />"
+								."<label class='w3-hide-small fa fa-calendar fa-fw w3-margin-right' for='end_date_".$id_workXp."'></label>"
 							."</div>"
 							
 							."<div class='w3-mobile w3-col l6 w3-margin-bottom'>"
-								."<input class='w3-check w3-border' type='checkbox' id='current_work_". $work['id_work_experience'] ."' name='current_work_". $work['id_work_experience'] ."' value='" . ( $work['end_date_name'] == "Nuvarande" ? "1' checked='checked'" : "0'" ) ." /> "
-								."<label for='current_work_". $work['id_work_experience'] ."'>nuvarande jobb</label>"
+								."<input data-checkToggleInput='1' data-rowId='".$id_workXp."' class='w3-check w3-border' type='checkbox' id='current_work_". $id_workXp ."' name='current_work_". $id_workXp ."' ".$checkbox_current_work." /> "
+								."<label for='current_work_". $id_workXp ."'>nuvarande jobb</label>"
 							."</div>"
 							
 							."<div class='w3-mobile w3-margin-bottom w3-margin-top'>"
-								."<textarea placeholder='Din beskrivning av arbetet.' required='required' class='w3-input w3-border name='work_description_". $work['id_work_experience'] ."' id='work_description_". $work['id_work_experience']."' style='resize:none;'>".(!empty($work['work_description']) ? $work['work_description'] : "") ."</textarea>"
+								."<textarea placeholder='Din beskrivning av arbetet.' required='required' class='w3-input w3-border name='work_description_". $id_workXp ."' id='work_description_". $id_workXp."' style='resize:none;'>".(!empty($work['work_description']) ? $work['work_description'] : "") ."</textarea>"
 							."</div>"
 						."</div>"
 					."</div>";

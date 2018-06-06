@@ -10,14 +10,22 @@ if( isset($_POST['submitting'])){
 			$rowCountWorkXP = filter_input(INPUT_POST, "rowCountWorkXP", FILTER_VALIDATE_INT);
 			if(filter_has_var(INPUT_POST, "work_id"))
 				$cv_work_id=filter_input(INPUT_POST, "work_id", FILTER_VALIDATE_INT);
-			if( $_POST['submitType'] == "saveWork" ){
-				echo "Sparar data om befintligt jobb";
-				$nrOfWorkXpRows=$_POST['rowCountWorkXP']; // Total number of rows from form.
-				var_dump($_POST);
-				for($y=1; $y <= $nrOfWorkXpRows; $y++){
-					$save_work_title = filter_input( INPUT_POST, "work_title_". $y, FILTER_SANITIZE_STRING );
-					$save_work_employer = filter_input( INPUT_POST, "work_employer_". $y, FILTER_SANITIZE_STRING );
-				
+			if( $_POST['submitType'] == "saveWork" )
+			{
+				$nrOfRowsInForm=$_POST['rowCountWorkXP']; // Total number of rows from form.
+				// var_dump($_POST);
+				foreach($_POST['row_work_id'] as $row_work_id){
+					$save_work_title=$save_work_employer=$save_start_date=$save_end_date=$save_current_work="";
+					$save_work_title = filter_input( INPUT_POST, "work_title_". $row_work_id, FILTER_SANITIZE_STRING );
+					$save_work_employer = filter_input( INPUT_POST, "work_employer_". $row_work_id, FILTER_SANITIZE_STRING );
+					$save_start_date = filter_input( INPUT_POST, "start_date_". $row_work_id );
+					$save_end_date = filter_input( INPUT_POST, "end_date_". $row_work_id );
+					if(isset($_POST['current_work_'. $row_work_id ])){
+						$save_current_work = filter_input( INPUT_POST, "current_work_". $row_work_id );
+					}
+					if( (empty($save_end_date) && empty($save_current_work)) || (!empty($save_current_work) && $save_current_work == 1 ))
+						$save_end_date="9999-12-31";
+					echo "Slutdatum $row_work_id: ". $save_end_date.". ";
 				}
 			}
 			elseif($_POST['submitType']=="addWork"){
@@ -41,9 +49,6 @@ if( isset($_POST['submitting'])){
 
 include $top_level . $folder_class . $file_class_cv;
 $myCurriculum=new curriculum();
-
-include $top_level . $folder_class . "user.class.php";
-$activeUser=new user(1);
 
 
 ?>
@@ -71,7 +76,7 @@ $activeUser=new user(1);
 		echo $jquery; ?>
 	</head>
 	<body class="w3-light-grey">
-		<script src='/js/fb-sdk.js'></script
+		<script src="/js/fb-sdk.js"></script>
 		<?php // include $path_inc ."/". $file_nav; ?>
 		
 		<!-- Page Container -->
@@ -136,7 +141,7 @@ $activeUser=new user(1);
 					<?php if( isset($_GET['add']) || isset($_GET['edit']) ){ ?>
 						<div class="w3-col l5 w3-padding-top">
 							<a href="./?userID=1&cvID=1" class="w3-button w3-mobile w3-red w3-right fa fa-close"> Avbryt</a>
-							<button type="submit" name="submitting" class="w3-button w3-mobile w3-light-gray w3-right fa fa-save"> Spara</button>
+							<button type="submit" name="submitting" class="w3-button w3-mobile w3-light-gray w3-right fa fa-save" value="formWork"> Spara</button>
 						</div>
 					<?php
 					}
@@ -175,16 +180,26 @@ $activeUser=new user(1);
 			<i class="fa fa-pinterest-p w3-hover-opacity"></i>
 			<i class="fa fa-twitter w3-hover-opacity"></i>
 			<i class="fa fa-linkedin w3-hover-opacity"></i>
-			<script>
-				$(document).ready(function(){	
-					var $inputs = $('input[name=end_date],checkbox[name=current_work]');
-					$inputs.on('input', function () {
-						// Set the required property of the other input to false if this input is not empty.
-						$inputs.not(this).prop('required', !$(this).val().length);
-					});
-				});
-			</script>
+			
 		</footer>
-
+		<script>
+			$(document).ready(function(){
+				$("input[type='checkbox']").change( function(){
+					if($(this).attr("data-checkToggleInput") ==1 ){
+						var attr_row_id=$(this).attr("data-rowId");
+						if ( $( this ).prop( "checked" ) ){
+							$("#end_date_" + attr_row_id).prop("disabled", true);
+							$("#end_date_" + attr_row_id).prop("required", false);
+							$( this ).prop("required", true);
+						}
+						else{
+							$("#end_date_" + attr_row_id).prop("disabled", false);
+							$("#end_date_" + attr_row_id).prop("required", true);
+							$( this ).prop("required", false);
+						}
+					}
+				});
+			});
+		</script>
 	</body>
 </html>

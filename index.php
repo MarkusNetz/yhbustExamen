@@ -52,7 +52,7 @@ $lollo = new employee("Johnny Fingers");
 		echo $jquery; ?>
 	</head>
 	<body id="myPage" class="w3-theme-l5">
-		<script src='/js/fb-sdk.js'></script
+		<script src='/js/fb-sdk.js'></script>
 		<?php include $top_level . $folder_inc . $file_nav; ?>
 
 		<!-- Team Container -->
