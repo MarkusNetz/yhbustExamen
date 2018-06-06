@@ -4,6 +4,10 @@ require_once $top_level . "ini/" . "settings.php";
 if(!filter_has_var(INPUT_GET,'userID') && !filter_has_var(INPUT_GET,'cvID')){
 	header("location: ../profile/");
 }
+else{
+	$_GETcvID = filter_input(INPUT_GET, "cvID", FILTER_VALIDATE_INT);
+	$_GETuserID = filter_input(INPUT_GET, "userID", FILTER_VALIDATE_INT);
+}
 if( isset($_POST['submitting'])){
 	if(isset($_POST['submitType'])){
 		if( strpos( $_POST['submitType'], 'Work') !== false){
@@ -46,27 +50,29 @@ if( isset($_POST['submitting'])){
 				$dbConn->endTransaction();
 			}
 			elseif($_POST['submitType']=="addWork"){
-				var_dump($_POST);
+				$sqlInsertWorkRow="INSERT INTO t_cv_work_experience (id_cv, start_date, end_date, employer, work_title, work_description) VALUES (:id_cv, :start_date, :end_date, :work_employer, :work_title, :work_description)";
+				$dbConn->query( $sqlInsertWorkRow );
+				// empty strings.
 				$save_work_title=$save_work_description=$save_work_employer=$save_start_date=$save_end_date=$save_current_work="";
 				
-				$save_work_title = filter_input( INPUT_POST, "work_title_". $row_work_id, FILTER_SANITIZE_STRING );
-				$save_work_employer = filter_input( INPUT_POST, "work_employer_". $row_work_id, FILTER_SANITIZE_STRING );
-				$save_work_description = htmlspecialchars($_POST["work_description_". $row_work_id]);
-				$save_start_date = filter_input( INPUT_POST, "start_date_". $row_work_id );
-				$save_end_date = filter_input( INPUT_POST, "end_date_". $row_work_id );
-				if(isset($_POST['current_work_'. $row_work_id ])){
-					$save_current_work = filter_input( INPUT_POST, "current_work_". $row_work_id );
+				// Get values from $_POST.
+				$save_work_title = filter_input( INPUT_POST, "work_title", FILTER_SANITIZE_STRING );
+				$save_work_employer = filter_input( INPUT_POST, "work_employer", FILTER_SANITIZE_STRING );
+				$save_work_description = htmlspecialchars($_POST["work_description"]);
+				$save_start_date = filter_input( INPUT_POST, "start_date" );
+				$save_end_date = filter_input( INPUT_POST, "end_date" );
+				if( isset( $_POST['current_work'] ) ){
+					$save_current_work = filter_input( INPUT_POST, "current_work" );
 				}
 				if( (empty($save_end_date) && empty($save_current_work)) || (!empty($save_current_work) && $save_current_work == 1 ))
 					$save_end_date="9999-12-31";
-				// echo "Slutdatum $row_work_id: ". $save_end_date.". ";
-				// echo $save_work_description;
+				
 				$dbConn->bind( ":work_title", $save_work_title );
 				$dbConn->bind( ":work_employer", $save_work_employer );
 				$dbConn->bind( ":start_date", $save_start_date );
 				$dbConn->bind( ":end_date", $save_end_date );
 				$dbConn->bind( ":work_description", $save_work_description );
-				$dbConn->bind( ":id_work_experience", $row_work_id );
+				$dbConn->bind( ":id_cv", $_GETcvID );
 				$dbConn->execute();
 			}
 		}
