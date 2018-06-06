@@ -57,15 +57,8 @@ $lollo = new employee("Johnny Fingers");
 
 		<!-- Team Container -->
 		<div class="w3-container w3-center w3-white" id="team">
-			<h3 class="w3-padding">Nu tar vi och firar lite på svenska flaggans dag!</h3>
-			
-			<!-- present a swedish flag -->
-			<div class="w3-display-container w3-card-4 w3-yellow" style="height:200px;width:350px">
-				<div class="w3-blue w3-display-topleft" style="width:25%;height:40%"></div>
-				<div class="w3-blue w3-display-topright" style="width:60%;height:40%"></div>
-				<div class="w3-blue w3-display-bottomleft" style="width:25%;height:40%"></div>
-				<div class="w3-blue w3-display-bottomright" style="width:60%;height:40%"></div>
-			</div>
+			<h3>Välkommen till Netzarna.</h3>
+			<p>Just nu används sidan för att bygga upp mitt examensarbete för min kurs i Backendutvecklare med C# på Lernia Yrkeshögskola.</p>
 		</div>
 
 		<!-- Work Row -->
