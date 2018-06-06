@@ -161,7 +161,7 @@ class curriculum {
 						
 						."<div class='w3-row w3-margin-bottom w3-margin-top'>"
 							."<div class='w3-block'>"
-								."<textarea required='required' placeholder='Din beskrivning av arbetet.' class='w3-input w3-border name='work_description' style='resize:none; height:5em;'></textarea>"
+								."<textarea required='required' placeholder='Din beskrivning av arbetet.' class='w3-input w3-border' name='work_description' style='resize:none; height:5em;'></textarea>"
 							."</div>"
 						."</div>"
 					."</div>";
@@ -211,7 +211,7 @@ class curriculum {
 							."</div>"
 							
 							."<div class='w3-mobile w3-margin-bottom w3-margin-top'>"
-								."<textarea placeholder='Din beskrivning av arbetet.' required='required' class='w3-input w3-border name='work_description_". $id_workXp ."' id='work_description_". $id_workXp."' style='resize:none;'>".(!empty($work['work_description']) ? $work['work_description'] : "") ."</textarea>"
+								."<textarea placeholder='Din beskrivning av arbetet.' required='required' class='w3-input w3-border' name='work_description_". $id_workXp ."' id='work_description_". $id_workXp."' style='resize:none;'>".(!empty($work['work_description']) ? $work['work_description'] : "") ."</textarea>"
 							."</div>"
 						."</div>"
 					."</div>";

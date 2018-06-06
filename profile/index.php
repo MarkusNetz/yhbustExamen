@@ -35,19 +35,19 @@ require_once $top_level."ini/settings.php";
 		<section class="w3-container w3-center w3-white" id="profilePresentation">
 			<div class="w3-padding-16 w3-row">
 				<h2><?php if($loggedIn && isset($loggedInUser)){ echo $loggedInUser->getDisplayName();} ?></h2>
-				<p><span class="w3-bottombar w3-border-teal">Här är din profil.</span></p>
+				<p><span class="w3-bottombar w3-border-teal">Här är din profil</span></p>
 			</div>
 			
 			<div class="w3-padding-16 w3-row">
-				<div class="w3-third w3-margin-top">
+				<div class="w3-third">
 					<h1>Min historia <i class="fa fa-"></i></h1>
 					<p>Lorem ipsum ....</p>
 				</div>
-				<div class="w3-third w3-margin-top">
+				<div class="w3-third">
 					<h1>Mina karriärsmål <i class="fa fa-"></i></h1>
 					<p>Lorem ipsum ....</p>
 				</div>
-				<div class="w3-third w3-margin-top">
+				<div class="w3-third">
 					<h1>Min framtidsvision <i class="fa fa-"></i></h1>
 					<p>Lorem ipsum ....</p>
 				</div>

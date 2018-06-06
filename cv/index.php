@@ -10,14 +10,22 @@ if( isset($_POST['submitting'])){
 			$rowCountWorkXP = filter_input(INPUT_POST, "rowCountWorkXP", FILTER_VALIDATE_INT);
 			if(filter_has_var(INPUT_POST, "work_id"))
 				$cv_work_id=filter_input(INPUT_POST, "work_id", FILTER_VALIDATE_INT);
+			
 			if( $_POST['submitType'] == "saveWork" )
 			{
 				$nrOfRowsInForm=$_POST['rowCountWorkXP']; // Total number of rows from form.
-				// var_dump($_POST);
+				$dbConn->beginTransaction();
+				$sqlUpdateWorkRows="UPDATE t_cv_work_experience SET start_date = :start_date, end_date = :end_date, employer = :work_employer, work_title= :work_title, work_description = :work_description WHERE id_work_experience = :id_work_experience";
+				$dbConn->query( $sqlUpdateWorkRows );
+				// Loop over all distinct work_ids from $_POST.
 				foreach($_POST['row_work_id'] as $row_work_id){
-					$save_work_title=$save_work_employer=$save_start_date=$save_end_date=$save_current_work="";
+					// Empty all strings.
+					$save_work_title=$save_work_description=$save_work_employer=$save_start_date=$save_end_date=$save_current_work="";
+					
+					// Get $_POST-values.
 					$save_work_title = filter_input( INPUT_POST, "work_title_". $row_work_id, FILTER_SANITIZE_STRING );
 					$save_work_employer = filter_input( INPUT_POST, "work_employer_". $row_work_id, FILTER_SANITIZE_STRING );
+					$save_work_description = htmlspecialchars($_POST["work_description_". $row_work_id]);
 					$save_start_date = filter_input( INPUT_POST, "start_date_". $row_work_id );
 					$save_end_date = filter_input( INPUT_POST, "end_date_". $row_work_id );
 					if(isset($_POST['current_work_'. $row_work_id ])){
@@ -25,12 +33,41 @@ if( isset($_POST['submitting'])){
 					}
 					if( (empty($save_end_date) && empty($save_current_work)) || (!empty($save_current_work) && $save_current_work == 1 ))
 						$save_end_date="9999-12-31";
-					echo "Slutdatum $row_work_id: ". $save_end_date.". ";
+					
+					// Bind-values
+					$dbConn->bind( ":work_title", $save_work_title );
+					$dbConn->bind( ":work_employer", $save_work_employer );
+					$dbConn->bind( ":start_date", $save_start_date );
+					$dbConn->bind( ":end_date", $save_end_date );
+					$dbConn->bind( ":work_description", $save_work_description );
+					$dbConn->bind( ":id_work_experience", $row_work_id );
+					$dbConn->execute();
 				}
+				$dbConn->endTransaction();
 			}
 			elseif($_POST['submitType']=="addWork"){
-				echo "Sparar data om nytt jobb";
 				var_dump($_POST);
+				$save_work_title=$save_work_description=$save_work_employer=$save_start_date=$save_end_date=$save_current_work="";
+				
+				$save_work_title = filter_input( INPUT_POST, "work_title_". $row_work_id, FILTER_SANITIZE_STRING );
+				$save_work_employer = filter_input( INPUT_POST, "work_employer_". $row_work_id, FILTER_SANITIZE_STRING );
+				$save_work_description = htmlspecialchars($_POST["work_description_". $row_work_id]);
+				$save_start_date = filter_input( INPUT_POST, "start_date_". $row_work_id );
+				$save_end_date = filter_input( INPUT_POST, "end_date_". $row_work_id );
+				if(isset($_POST['current_work_'. $row_work_id ])){
+					$save_current_work = filter_input( INPUT_POST, "current_work_". $row_work_id );
+				}
+				if( (empty($save_end_date) && empty($save_current_work)) || (!empty($save_current_work) && $save_current_work == 1 ))
+					$save_end_date="9999-12-31";
+				// echo "Slutdatum $row_work_id: ". $save_end_date.". ";
+				// echo $save_work_description;
+				$dbConn->bind( ":work_title", $save_work_title );
+				$dbConn->bind( ":work_employer", $save_work_employer );
+				$dbConn->bind( ":start_date", $save_start_date );
+				$dbConn->bind( ":end_date", $save_end_date );
+				$dbConn->bind( ":work_description", $save_work_description );
+				$dbConn->bind( ":id_work_experience", $row_work_id );
+				$dbConn->execute();
 			}
 		}
 		elseif( strpos( $_POST['submitType'], "Edu") !== false){
@@ -75,13 +112,12 @@ $myCurriculum=new curriculum();
 		/*	jQuery library 	*/
 		echo $jquery; ?>
 	</head>
-	<body class="w3-light-grey">
+	<body class="w3-light-grey" id="cvPresentation">
 		<script src="/js/fb-sdk.js"></script>
 		<?php // include $path_inc ."/". $file_nav; ?>
 		
 		<!-- Page Container -->
 		<div class="w3-content w3-margin-top" style="max-width:1400px;">
-
 			<!-- The Grid -->
 			<div class="w3-row-padding">
 		  
