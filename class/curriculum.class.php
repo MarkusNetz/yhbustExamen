@@ -120,7 +120,7 @@ class curriculum {
 	}
 	
 	public function getWorkExperiencesList($db){
-		$sqlSelectWorkXP="SELECT id_work_experience, 1+1 as work_time, start_date, DATE_FORMAT(start_date, '%b %Y') start_date_name, end_date, IF(end_date = '9999-12-31', 'Nuvarande', DATE_FORMAT(end_date, '%b %Y')) end_date_name, employer, work_title, work_description FROM t_cv_work_experience we WHERE we.id_cv = :id_cv ORDER BY end_date DESC";
+		$sqlSelectWorkXP="SELECT id_work_experience, work_time, start_date, DATE_FORMAT(start_date, '%b %Y') start_date_name, end_date, IF(end_date = '9999-12-31', 'Nuvarande', DATE_FORMAT(end_date, '%b %Y')) end_date_name, employer, work_title, work_description FROM t_cv_work_experience we WHERE we.id_cv = :id_cv ORDER BY end_date DESC";
 		$db -> query($sqlSelectWorkXP);
 		$db -> bind(':id_cv', $this -> getCvId());
 		$rowsWorkXP = $db -> resultSet();
@@ -185,11 +185,11 @@ class curriculum {
 						."<input type='hidden' value='". $id_workXp ."' name='row_work_id[]' id='row_work_id' />"
 						."<div class='w3-row w3-margin-bottom w3-margin-top'>"
 							."<div class='w3-col l5 s12'>"
-								."<input class='w3-input w3-border' type='text' name='work_title_".$id_workXp."' value='". $work['work_title']."' placeholder='Jobbtitel' required='required' />"
+								."<input class='w3-input w3-border w3-mobile' type='text' name='work_title_".$id_workXp."' value='". $work['work_title']."' placeholder='Jobbtitel' required='required' />"
 							."</div>"
-							."<div class='w3-col l1 w3-hide-small w3-hide-medium'>&nbsp;</div>"
-							."<div class='w3-col l5 s12'>"
-								."<input class='w3-input w3-border' type='text' name='work_employer_".$id_workXp."' value='". $work['employer']."' placeholder='Arbetsgivare' required='required' />"
+							."<div class='w3-col l6 s12'>"
+								."<input class='w3-input w3-twothird w3-border w3-mobile' type='text' name='work_employer_".$id_workXp."' id='work_employer_".$id_workXp."' value='". $work['employer']."' placeholder='Arbetsgivare' required='required' />"
+								."<input class='w3-input w3-third w3-border w3-mobile' type='text' name='work_time_".$id_workXp."' id='work_time_".$id_workXp."' value='". $work['work_time']."' placeholder='Heltid, deltid, projekt..' required='required' />"
 							."</div>"
 						."</div>"
 						
@@ -225,7 +225,7 @@ class curriculum {
 								. $work['work_title']
 								." / "
 								. $work['employer']
-							."</b>"
+							."</b> "
 							. $work['work_time']
 						."</h5>"
 						."<h6 class='w3-text-teal'>"

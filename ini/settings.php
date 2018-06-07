@@ -5,8 +5,8 @@ ini_set("error_reporting", E_ALL);
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
-$path="/etc";
-set_include_path(get_include_path() . PATH_SEPARATOR . $path);
+// $path="/etc";
+// set_include_path(get_include_path() . PATH_SEPARATOR . $path);
 
 // Paths and names.
 $folder_class = "class/";
