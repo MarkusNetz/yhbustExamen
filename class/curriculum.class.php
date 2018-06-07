@@ -120,7 +120,7 @@ class curriculum {
 	}
 	
 	public function getWorkExperiencesList($db){
-		$sqlSelectWorkXP="SELECT id_work_experience, start_date, DATE_FORMAT(start_date, '%b %Y') start_date_name, end_date, IF(end_date = '9999-12-31', 'Nuvarande', DATE_FORMAT(end_date, '%b %Y')) end_date_name, employer, work_title, work_description FROM t_cv_work_experience we WHERE we.id_cv = :id_cv ORDER BY end_date DESC";
+		$sqlSelectWorkXP="SELECT id_work_experience, 1+1 as work_time, start_date, DATE_FORMAT(start_date, '%b %Y') start_date_name, end_date, IF(end_date = '9999-12-31', 'Nuvarande', DATE_FORMAT(end_date, '%b %Y')) end_date_name, employer, work_title, work_description FROM t_cv_work_experience we WHERE we.id_cv = :id_cv ORDER BY end_date DESC";
 		$db -> query($sqlSelectWorkXP);
 		$db -> bind(':id_cv', $this -> getCvId());
 		$rowsWorkXP = $db -> resultSet();
@@ -220,7 +220,14 @@ class curriculum {
 			else{
 				$list.=
 					"<div class='w3-container'>"
-						."<h5 class='w3-opacity'><b>". $work['work_title']." / ". $work['employer']."</b></h5>"
+						."<h5 class='w3-opacity'>"
+							."<b>"
+								. $work['work_title']
+								." / "
+								. $work['employer']
+							."</b>"
+							. $work['work_time']
+						."</h5>"
 						."<h6 class='w3-text-teal'>"
 							."<i class='fa fa-calendar fa-fw w3-margin-right'></i>"
 							.ucfirst($work['start_date_name']) . " - "  . ( $work['end_date_name'] != "Nuvarande" ? ucfirst($work['end_date_name']) : "<span class='w3-tag w3-teal w3-round'>". $work['end_date_name'] ."</span>" )
@@ -241,7 +248,7 @@ class curriculum {
 		if( !empty( $listAddEmptyInput ))
 			$list.=$listAddEmptyInput;
 		
-		return $list;
+		return $list; // Returns the list with work experience, either in display, edit or add mode.
 	}
 	
 	public function getSkillsList($db){
