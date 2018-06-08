@@ -138,11 +138,10 @@ $myCurriculum=new curriculum();
 						<div class="w3-display-container">
 							<img src="../images/netz/markus-netz-1.jpg" style="width:100%" alt="Avatar" />
 							<div class="w3-display-bottommiddle w3-container w3-text-white w3-black w3-opacity">
-								<h2 class="Toggle-CV-Business"><a href="./card.php">Markus Netz</a></h2>
+								<h2 class="Toggle-CV-Business w3-xlarge"><a href="./card.php">Markus Netz</a></h2>
 							</div>
 						</div>
 						<div class="w3-container">
-							<a class="w3-btn w3-orange w3-round-large w3-right w3-margin-top" href="/cv/edit.php?cvID=1"><i class="fa fa-edit"></i> Ändra</a>
 							<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i> Databasadministratör</p>
 							<p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i> Stockholm, Sverige</p>
 							<p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i> markus.netz.89@gmail.com</p>
