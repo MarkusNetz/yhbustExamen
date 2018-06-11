@@ -47,49 +47,83 @@ class curriculum {
 		return $this -> headerEducation;
 	}
 	public function getEducationsList($db){
-		$sqlSelectEducations="SELECT id_education, start_date, DATE_FORMAT(start_date, '%b %Y') start_date_name, end_date, IF(end_date = '9999-12-31', 'Pågående', IF(end_date >= CURDATE(), 'Pågående', DATE_FORMAT(end_date,'%b %Y') ) ) end_date_name, school, education_title, education_description FROM t_cv_educations edu WHERE edu.id_cv = :id_cv ORDER BY start_date DESC, end_date DESC";
+		$sqlSelectEducations="SELECT edu_time, id_education, start_date, DATE_FORMAT(start_date, '%b %Y') start_date_name, end_date, IF(end_date = '9999-12-31', 'Pågående', IF(end_date >= CURDATE(), 'Pågående', DATE_FORMAT(end_date,'%b %Y') ) ) end_date_name, school, education_title, education_description FROM t_cv_educations edu WHERE edu.id_cv = :id_cv ORDER BY start_date DESC, end_date DESC";
 		$db -> query($sqlSelectEducations);
 		$db -> bind(':id_cv', $this -> getCvId());
 		$rowsEducations = $db -> resultSet();
 		$list="";
 		$listAddEmptyInput="";
-		if(isset($_GET['edit']) && $_GET['edit']=="edu" || (!isset($_GET['edit']) && $db->rowCount() <= 0) ){
+		if(isset($_GET['add']) && $_GET['add']=="edu"){
 			$listAddEmptyInput.=
-					"<div class='w3-container'>"
-						."<h5>"
-							."<input type='text' name='edu_title' value='' placeholder='Utbildning, inriktning' />"
-							." / "
-							."<input type='text' name='edu_school' value='' placeholder='Utbildare, skola' />"
-						."</h5>"
-						."<h6 class='w3-text-teal'>"
-							."<i class='fa fa-calendar fa-fw w3-margin-right'></i>"
-							. "<input type='date' name='start_date' value='' />"
-							." - "
-							."<input type='date' name='end_date' value='' /> "
-						."</h6>"
-						."<p><input type='text' name='education_description' value='' style='width:100%;' placeholder='Beskrivning av utbildningen.' /></p>"
-						."<hr />"
+					"<div class='w3-container w3-card w3-pale-yellow w3-margin-bottom w3-margin-top w3-padding-bottom'>"
+						."<input type='hidden' value='addEdu' name='submitType' />"
+						."<div class='w3-row w3-margin-bottom w3-margin-top'>"
+							."<input class='w3-input w3-border w3-mobile w3-third' type='text' name='edu_title' id='edu_title' placeholder='Utbildning, inriktning' required='required' />"
+							."<input class='w3-input w3-border w3-mobile w3-third' type='text' name='edu_school' id='edu_school' placeholder='Utbildare, skola' required='required' />"
+							."<input class='w3-input w3-border w3-mobile w3-third' type='text' name='edu_time' id='edu_time' placeholder='Helfart, distans halvfart etc.' />"
+						."</div>"
+						
+						."<div class='w3-row'>"
+							."<div class='w3-third'>"
+								."<label class='w3-hide-medium w3-hide-large' for='start_date'>Start</label>"
+								. "<input class='w3-border w3-mobile' type='date' name='start_date' id='start_date' required='required' />"
+								."<label class='w3-hide-small fa fa-calendar fa-fw w3-margin-right' for='start_date'></label>"
+							."</div>"
+							
+							."<div class='w3-third'>"
+								."<label class='w3-hide-medium w3-hide-large' for='end_date'>Slut</label>"
+								."<input class='w3-border w3-mobile' type='date' name='end_date' id='end_date' />"
+								."<label class='w3-hide-small fa fa-calendar fa-fw w3-margin-right' for='end_date'></label>"
+							."</div>"
+						."</div>"
+						
+						."<div class='w3-mobile w3-margin-bottom w3-margin-top'>"
+							."<textarea placeholder='Din beskrivning av utbildningen och dess innehåll av kurser och moment.' required='required' class='w3-input w3-border' name='education_description' id='education_description' style='resize:none;'></textarea>"
+						."</div>"
 					."</div>";
 		}
 		$i=0;
 		foreach($rowsEducations as $educations){
 			$i++;
+			// lista alla rader i redigeringsläge för utbildningar.
 			if(isset($_GET['edit']) && $_GET['edit']=="edu"){
+				$id_edu=$educations['id_education'];
+				$disable_end_date=$end_date_value="";
+				$checkbox_current_work=" value='0'";
+				if( $educations['end_date_name'] == "Nuvarande"){
+					$checkbox_current_work=" value='1' checked='checked' required='required'";
+					$disable_end_date=" disabled='disabled'";
+				}
+				else
+					$end_date_value=$educations['end_date'];
+				
 				$list.=
-					"<div class='w3-container'>"
-						."<h5>"
-							."<input type='text' name='edu_title_" . $educations['id_education'] . "' value='" . $educations['education_title'] . "' placeholder='Utbildning, inriktning' />"
-							." / "
-							."<input type='text' name='edu_school_" . $educations['id_education'] . "' value='" . $educations['school'] . "' placeholder='Utbildare, skola' />"
-						."</h5>"
-						."<h6 class='w3-text-teal'>"
-							."<i class='fa fa-calendar fa-fw w3-margin-right'></i>"
-							. "<input type='date' name='start_date_" . $educations['id_education'] . "' value='" . $educations['start_date'] . "' />"
-							." - "
-							."<input type='date' name='end_date_" . $educations['id_education'] . "' value='".$educations['end_date']."' /> "
-						."</h6>"
-						."<p><input type='text' name='education_description_".$educations['id_education']."' value='". $educations['education_description']."' style='width:100%;' placeholder='Beskrivning av utbildningen.' /></p>"
-						."<hr />"
+					"<div class='w3-container w3-card w3-pale-green w3-margin-bottom w3-margin-top w3-padding-bottom'>"
+						."<input type='hidden' value='". $id_edu ."' name='row_edu_id[]' id='row_edu_id' />"
+						
+						."<div class='w3-row w3-margin-bottom w3-margin-top'>"
+							."<input class='w3-input w3-border w3-mobile w3-third' type='text' name='edu_title_".$id_edu."' id='edu_title_".$id_edu."' value='". $educations['education_title']."' placeholder='Utbildning, inriktning' required='required' />"
+							."<input class='w3-input w3-border w3-mobile w3-third' type='text' name='edu_school_".$id_edu."' id='edu_school_".$id_edu."' value='". $educations['school']."' placeholder='Utbildare, skola' required='required' />"
+							."<input class='w3-input w3-border w3-mobile w3-third' type='text' name='edu_time_".$id_edu."' id='edu_time_".$id_edu."' value='". $educations['edu_time']."' placeholder='Helfart, distans halvfart etc.' />"
+						."</div>"
+						
+						."<div class='w3-row'>"
+							."<div class='w3-third'>"
+								."<label class='w3-hide-medium w3-hide-large' for='start_date_".$id_edu."'>Start</label>"
+								. "<input class='w3-border w3-mobile' type='date' name='start_date_".$id_edu."' id='start_date_".$id_edu."' value='" . $educations['start_date'] . "' required='required' />"
+								."<label class='w3-hide-small fa fa-calendar fa-fw w3-margin-right' for='start_date_".$id_edu."'></label>"
+							."</div>"
+							
+							."<div class='w3-third'>"
+								."<label class='w3-hide-medium w3-hide-large' for='end_date_".$id_edu."'>Slut</label>"
+								."<input".$disable_end_date." class='w3-border w3-mobile' type='date' name='end_date_". $id_edu ."' id='end_date_".$id_edu."' value='".$end_date_value."' />"
+								."<label class='w3-hide-small fa fa-calendar fa-fw w3-margin-right' for='end_date_".$id_edu."'></label>"
+							."</div>"
+						."</div>"
+						
+						."<div class='w3-mobile w3-margin-bottom w3-margin-top'>"
+							."<textarea placeholder='Din beskrivning av utbildningen och dess innehåll av kurser och moment.' required='required' class='w3-input w3-border' name='education_description_". $id_edu ."' id='education_description_". $id_edu."' style='resize:none;'>".(!empty($educations['education_description']) ? $educations['education_description'] : "") ."</textarea>"
+						."</div>"
 					."</div>";
 			}
 			else{
@@ -105,7 +139,17 @@ class curriculum {
 					."</div>";
 			}
 		}
-		$list .=  $listAddEmptyInput;
+		// If in edit mode we add the submit-type here, not in the loop, since it spawns x number of hidden inputs.... Lesson learned.
+		if(isset($_GET['edit']) && $_GET['edit']=="edu")
+			$list.="<input type='hidden' value='saveEdu' name='submitType' />";
+		
+		// the $i-variable is made to start at 0 and increase by one at the beginning of every loop when listing work XP already in the database.
+		$list.="<input type='hidden' value='". $i ."' name='rowCountEdu' id='rowCountEdu' />";
+		
+		// If we are in add-mode then we show that part in the returned form. The empty input is only filled with values if "add" is the current $_GET-variable.
+		if( !empty( $listAddEmptyInput ))
+			$list=$listAddEmptyInput . $list;
+		
 		return $list;
 	}
 	
@@ -133,7 +177,7 @@ class curriculum {
 						."<h3 class='w3-text-teal'>Ny arbetserfarenhet</h3>"
 						."<input type='hidden' value='addWork' name='submitType' />"
 						."<div class='w3-row w3-margin-bottom w3-margin-top'>"
-							."<input class='w3-input w3-border w3-third' type='text' name='work_title' placeholder='Jobbtitel' required='required' />"
+							."<input class='w3-input w3-border w3-third' type='text' name='work_title' id='work_title' placeholder='Jobbtitel' required='required' />"
 							."<input class='w3-input w3-border w3-mobile w3-third' type='text' name='work_employer' value='' placeholder='Arbetsgivare' required='required' />"
 							."<input class='w3-input w3-border w3-mobile w3-third ' type='text' name='work_time' id='work_time' placeholder='Heltid, deltid, projekt..' required='required' />"
 						."</div>"
@@ -182,9 +226,9 @@ class curriculum {
 					"<div class='w3-container w3-card w3-pale-green w3-margin-bottom w3-margin-top w3-padding-bottom'>"
 						."<input type='hidden' value='". $id_workXp ."' name='row_work_id[]' id='row_work_id' />"
 						."<div class='w3-row w3-margin-bottom w3-margin-top'>"
-							."<input class='w3-input w3-border w3-mobile w3-third' type='text' name='work_title_".$id_workXp."' value='". $work['work_title']."' placeholder='Jobbtitel' required='required' />"
-							."<input class='w3-input w3-border w3-mobile w3-third' type='text' name='work_employer_".$id_workXp."' id='work_employer_".$id_workXp."' value='". $work['employer']."' placeholder='Arbetsgivare' required='required' />"
-							."<input class='w3-input w3-border w3-mobile w3-third' type='text' name='work_time_".$id_workXp."' id='work_time_".$id_workXp."' value='". $work['work_time']."' placeholder='Heltid, deltid, projekt..' required='required' />"
+							."<input class='w3-input w3-border w3-mobile w3-third' type='text' name='work_title_". $id_workXp ."' id='work_title_". $id_workXp ."' value='". $work['work_title'] ."' placeholder='Jobbtitel' required='required' />"
+							."<input class='w3-input w3-border w3-mobile w3-third' type='text' name='work_employer_". $id_workXp ."' id='work_employer_". $id_workXp ."' value='". $work['employer'] ."' placeholder='Arbetsgivare' required='required' />"
+							."<input class='w3-input w3-border w3-mobile w3-third' type='text' name='work_time_". $id_workXp ."' id='work_time_". $id_workXp ."' value='". $work['work_time'] ."' placeholder='Heltid, deltid, projektanställning, etc.' />"
 						."</div>"
 						
 						."<div class='w3-row'>"
@@ -194,20 +238,20 @@ class curriculum {
 								."<label class='w3-hide-small fa fa-calendar fa-fw w3-margin-right' for='start_date_".$id_workXp."'></label>"
 							."</div>"
 							
-							."<div class='w3-third '>"
+							."<div class='w3-third'>"
 								."<label class='w3-hide-medium w3-hide-large' for='end_date_".$id_workXp."'>Slut</label>"
 								."<input".$disable_end_date." class='w3-border w3-mobile' type='date' name='end_date_". $id_workXp ."' id='end_date_".$id_workXp."' value='".$end_date_value."' />"
 								."<label class='w3-hide-small fa fa-calendar fa-fw w3-margin-right' for='end_date_".$id_workXp."'></label>"
 							."</div>"
 							
-							."<div class='w3-third w3-margin-bottom'>"
+							."<div class='w3-third'>"
 								."<input data-checkToggleInput='1' data-rowId='".$id_workXp."' class='w3-check w3-border' type='checkbox' id='current_work_". $id_workXp ."' name='current_work_". $id_workXp ."' ".$checkbox_current_work." /> "
 								."<label for='current_work_". $id_workXp ."'>nuvarande jobb</label>"
 							."</div>"
+						."</div>"
 							
-							."<div class='w3-mobile w3-margin-bottom w3-margin-top'>"
-								."<textarea placeholder='Din beskrivning av arbetet.' required='required' class='w3-input w3-border' name='work_description_". $id_workXp ."' id='work_description_". $id_workXp."' style='resize:none;'>".(!empty($work['work_description']) ? $work['work_description'] : "") ."</textarea>"
-							."</div>"
+						."<div class='w3-mobile w3-margin-bottom w3-margin-top'>"
+							."<textarea placeholder='Din beskrivning av arbetet.' required='required' class='w3-input w3-border' name='work_description_". $id_workXp ."' id='work_description_". $id_workXp."' style='resize:none;'>".(!empty($work['work_description']) ? $work['work_description'] : "") ."</textarea>"
 						."</div>"
 					."</div>";
 			}
@@ -241,7 +285,7 @@ class curriculum {
 		
 		// If we are in add-mode then we show that part in the returned form. The empty input is only filled with values if "add" is the current $_GET-variable.
 		if( !empty( $listAddEmptyInput ))
-			$list.=$listAddEmptyInput;
+			$list=$listAddEmptyInput . $list;
 		
 		return $list; // Returns the list with work experience, either in display, edit or add mode.
 	}

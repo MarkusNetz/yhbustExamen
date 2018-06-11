@@ -81,6 +81,7 @@ if( isset($_POST['submitting'])){
 			}
 		}
 		elseif( strpos( $_POST['submitType'], "Edu") !== false){
+			var_dump($_POST);
 			if( $_POST['submitType'] == "saveEdu" ){
 				echo "Sparar data om befintlig utb.";
 				
@@ -137,7 +138,7 @@ $myCurriculum=new curriculum();
 					<div class="w3-white w3-text-grey w3-card-4">
 						<div class="w3-display-container">
 							<img src="../images/netz/markus-netz-1.jpg" style="width:100%" alt="Avatar" />
-							<div class="w3-display-bottommiddle w3-container w3-text-white w3-black w3-opacity">
+							<div class="w3-display-bottommiddle w3-container w3-text-white w3-black w3-opacity w3-twothird w3-center">
 								<h2 class="Toggle-CV-Business w3-xlarge"><a href="./card.php">Markus Netz</a></h2>
 							</div>
 						</div>
@@ -175,22 +176,22 @@ $myCurriculum=new curriculum();
 					<form id='formWork' action="<?php echo "./?userID=1&cvID=1"; ?>" method="post">
 						
 					<div class="w3-row">
-						<h2 class="w3-text-grey w3-padding-16 w3-col l7">
-							<i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
-							<?php echo $myCurriculum->getHeaderWork();?>
-						</h2>
+						<div class="w3-col l7 w3-margin-top w3-padding-top w3-mobile">
+							<h2 class="w3-text-grey w3-padding-16 w3-col">
+								<i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
+								<?php echo $myCurriculum->getHeaderWork();?>
+							</h2>
+						</div>
 						<div class="w3-col l5 w3-margin-top w3-padding-top">
-							<a href='./?userID=1&cvID=1&edit=work#formWork' class="w3-button w3-mobile w3-amber w3-right fa fa-pencil-alt"> Ändra</a>
-							<a href="./?userID=1&cvID=1&add=work#formWork" class="w3-button w3-mobile w3-light-green w3-right fa fa-plus"> Lägg till</a>
+			<?php	if( (isset($_GET['add']) && $_GET['add'] == "work") || (isset($_GET['edit']) && $_GET['edit'] == "work") ){ ?>
+							<a href="./?userID=1&cvID=1" class="w3-button w3-mobile w3-red w3-half fa fa-ban"> Avbryt</a>
+							<button type="submit" name="submitting" class="w3-button w3-mobile w3-light-green w3-half fa fa-save" value="formWork"> Spara</button>
+			<?php	}
+					else{	?>
+							<a href='./?userID=1&cvID=1&edit=work#formWork' class="w3-button w3-half w3-amber fa fa-pencil-alt"> Ändra</a>
+							<a href="./?userID=1&cvID=1&add=work#formWork" class="w3-button w3-half w3-light-green fa fa-plus"> Lägg till</a>
+			<?php	}	?>
 						</div>
-					<?php if( isset($_GET['add']) || isset($_GET['edit']) ){ ?>
-						<div class="w3-col l5 w3-padding-top">
-							<a href="./?userID=1&cvID=1" class="w3-button w3-mobile w3-red w3-right fa fa-close"> Avbryt</a>
-							<button type="submit" name="submitting" class="w3-button w3-mobile w3-light-gray w3-right fa fa-save" value="formWork"> Spara</button>
-						</div>
-					<?php
-					}
-					?>
 					</div>
 					<?php
 					$workList = $myCurriculum->getWorkExperiencesList($dbConn);
@@ -200,8 +201,27 @@ $myCurriculum=new curriculum();
 				</div>
 
 				<div class="w3-container w3-card w3-white">
-					<form id='formEdu' action="<?php echo "./?userID=1&cvID=1&".( isset($_GET['save']) ? "save=edu" : isset($_GET['add']) ? "add=edu" : "" ); ?>" method="post">
-					<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i><?php echo $myCurriculum->getHeaderEducation();?></b> <?php echo ( isset($_GET['edit']) && $_GET['edit']=="edu" ? "<button type='submit' class='w3-button w3-xlarge'><i class='fa fa-check'></i></button>  <a class='w3-button w3-xlarge' href='./?userID=1&cvID=1'><i class='fa fa-close w3-xlarge'></i></a>" : "<a href='./?userID=1&cvID=1&edit=edu'><i class='fa fa-pencil'></i></a>" )?></h2>
+					<form id='formEdu' action="<?php echo "./?userID=1&cvID=1"; ?>" method="post">
+					<div class="w3-row">
+						<div class="w3-col l7 w3-margin-top w3-padding-top w3-mobile">
+							<h2 class="w3-text-grey w3-padding-16 w3-col">
+								<i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
+								<?php echo $myCurriculum->getHeaderEducation();?>
+							</h2>
+						</div>
+			<?php	if(1==1){ ?>
+						<div class="w3-col l5 w3-margin-top w3-padding-top">
+			<?php	if( (isset($_GET['add']) && $_GET['add'] == "edu") || (isset($_GET['edit']) && $_GET['edit'] == "edu") ){ ?>
+							<a href="./?userID=1&cvID=1" class="w3-button w3-mobile w3-red w3-half fa fa-ban"> Avbryt</a>
+							<button type="submit" name="submitting" class="w3-button w3-mobile w3-light-green w3-half fa fa-save" value="formEdu"> Spara</button>
+			<?php	}
+					else{	?>
+							<a href='./?userID=1&cvID=1&edit=edu#formEdu' class="w3-button w3-half w3-amber fa fa-pencil-alt"> Ändra</a>
+							<a href="./?userID=1&cvID=1&add=edu#formEdu" class="w3-button w3-half w3-light-green fa fa-plus"> Lägg till</a>
+			<?php	}	?>
+						</div>
+			<?php	}	?>
+					</div>
 					<?php
 					$eduList = $myCurriculum->getEducationsList($dbConn);
 					echo $eduList;
