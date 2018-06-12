@@ -8,6 +8,8 @@ else{
 	$_GETcvID = filter_input(INPUT_GET, "cvID", FILTER_VALIDATE_INT);
 	$_GETuserID = filter_input(INPUT_GET, "userID", FILTER_VALIDATE_INT);
 }
+
+// CV Formulär
 if( isset($_POST['submitting'])){
 	if(isset($_POST['submitType'])){
 		if( strpos( $_POST['submitType'], 'Work') !== false){
@@ -19,7 +21,7 @@ if( isset($_POST['submitting'])){
 			{
 				$nrOfRowsInForm=$_POST['rowCountWorkXP']; // Total number of rows from form.
 				$dbConn->beginTransaction();
-				$sqlUpdateWorkRows="UPDATE t_cv_work_experience SET ork_time = :work_time, start_date = :start_date, end_date = :end_date, employer = :work_employer, work_title= :work_title, work_description = :work_description WHERE id_work_experience = :id_work_experience";
+				$sqlUpdateWorkRows="UPDATE t_cv_work_experience SET work_time = :work_time, start_date = :start_date, end_date = :end_date, employer = :work_employer, work_title= :work_title, work_description = :work_description WHERE id_work_experience = :id_work_experience";
 				$dbConn->query( $sqlUpdateWorkRows );
 				// Loop over all distinct work_ids from $_POST.
 				foreach($_POST['row_work_id'] as $row_work_id){
@@ -80,14 +82,70 @@ if( isset($_POST['submitting'])){
 				$dbConn->execute();
 			}
 		}
+		
+		//Skola/utbildningar.
 		elseif( strpos( $_POST['submitType'], "Edu") !== false){
-			var_dump($_POST);
-			if( $_POST['submitType'] == "saveEdu" ){
-				echo "Sparar data om befintlig utb.";
+			// var_dump($_POST);
+			if( $_POST['submitType'] == "saveEdu" )
+			{
+				$nrOfRowsInForm=$_POST['rowCountEdu']; // Total number of rows from form.
+				$dbConn->beginTransaction();
+				$sqlUpdateEduRows="UPDATE t_cv_educations SET edu_time = :edu_time, start_date = :start_date, end_date = :end_date, school = :edu_school, education_title= :edu_title, education_description = :edu_description WHERE id_education = :id_education";
+				$dbConn->query( $sqlUpdateEduRows );
+				// Loop over all distinct work_ids from $_POST.
+				foreach($_POST['row_edu_id'] as $row_edu_id){
+					// empty strings.
+					$save_edu_time=$save_edu_title=$save_edu_description=$save_edu_school=$save_start_date=$save_end_date="";
+					
+					// Get values from $_POST.
+					$save_edu_title = filter_input( INPUT_POST, "edu_title_".$row_edu_id, FILTER_SANITIZE_STRING );
+					$save_edu_time = filter_input( INPUT_POST, "edu_time_".$row_edu_id, FILTER_SANITIZE_STRING );
+					$save_edu_school = filter_input( INPUT_POST, "edu_school_".$row_edu_id, FILTER_SANITIZE_STRING );
+					$save_edu_description = htmlspecialchars($_POST["education_description_".$row_edu_id]);
+					$save_start_date = filter_input( INPUT_POST, "start_date_".$row_edu_id );
+					if( empty( $save_end_date ) )
+						$save_end_date="9999-12-31";
+					else
+						$save_end_date = filter_input( INPUT_POST, "end_date_".$row_edu_id );
+					
+					// Bind-values
+					$dbConn->bind( ":edu_title", $save_edu_title );
+					$dbConn->bind( ":edu_school", $save_edu_school );
+					$dbConn->bind( ":edu_time", $save_edu_time );
+					$dbConn->bind( ":edu_description", $save_edu_description );
+					$dbConn->bind( ":start_date", $save_start_date );
+					$dbConn->bind( ":end_date", $save_end_date );
+					$dbConn->bind( ":id_education", $row_edu_id );
+					$dbConn->execute();
+				}
+				$dbConn->endTransaction();
 				
 			}
 			elseif( $_POST['submitType'] == "addEdu" ){
-				echo "Sparar data om ny utb.";
+				$sqlInsertEduRow="INSERT INTO t_cv_educations (id_cv,edu_time, start_date, end_date,school, education_title, education_description) VALUES(:id_cv,:edu_time, :start_date, :end_date,:edu_school,:edu_title, :edu_description)";
+				$dbConn->query( $sqlInsertEduRow );
+				// empty strings.
+				$save_edu_time=$save_edu_title=$save_edu_description=$save_edu_school=$save_start_date=$save_end_date="";
+				
+				// Get values from $_POST.
+				$save_edu_title = filter_input( INPUT_POST, "edu_title", FILTER_SANITIZE_STRING );
+				$save_edu_time = filter_input( INPUT_POST, "edu_time", FILTER_SANITIZE_STRING );
+				$save_edu_school = filter_input( INPUT_POST, "edu_school", FILTER_SANITIZE_STRING );
+				$save_edu_description = htmlspecialchars($_POST["education_description"]);
+				$save_start_date = filter_input( INPUT_POST, "start_date" );
+				if( empty($save_end_date) )
+					$save_end_date="9999-12-31";
+				else
+					$save_end_date = filter_input( INPUT_POST, "end_date" );
+					
+				$dbConn->bind( ":edu_time", $save_edu_time );
+				$dbConn->bind( ":edu_title", $save_edu_title );
+				$dbConn->bind( ":edu_school", $save_edu_school );
+				$dbConn->bind( ":edu_description", $save_edu_description );
+				$dbConn->bind( ":start_date", $save_start_date );
+				$dbConn->bind( ":end_date", $save_end_date );
+				$dbConn->bind( ":id_cv", $_GETcvID );
+				$dbConn->execute();
 			}
 		}
 		else{}

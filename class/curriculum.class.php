@@ -48,6 +48,7 @@ class curriculum {
 	}
 	public function getEducationsList($db){
 		$sqlSelectEducations="SELECT edu_time, id_education, start_date, DATE_FORMAT(start_date, '%b %Y') start_date_name, end_date, IF(end_date = '9999-12-31', 'Pågående', IF(end_date >= CURDATE(), 'Pågående', DATE_FORMAT(end_date,'%b %Y') ) ) end_date_name, school, education_title, education_description FROM t_cv_educations edu WHERE edu.id_cv = :id_cv ORDER BY start_date DESC, end_date DESC";
+		
 		$db -> query($sqlSelectEducations);
 		$db -> bind(':id_cv', $this -> getCvId());
 		$rowsEducations = $db -> resultSet();
@@ -89,13 +90,10 @@ class curriculum {
 			if(isset($_GET['edit']) && $_GET['edit']=="edu"){
 				$id_edu=$educations['id_education'];
 				$disable_end_date=$end_date_value="";
-				$checkbox_current_work=" value='0'";
-				if( $educations['end_date_name'] == "Nuvarande"){
-					$checkbox_current_work=" value='1' checked='checked' required='required'";
-					$disable_end_date=" disabled='disabled'";
+				$end_date_value=$educations['end_date'];
+				if( $end_date_value == "9999-12-31"){
+					$end_date_value="";
 				}
-				else
-					$end_date_value=$educations['end_date'];
 				
 				$list.=
 					"<div class='w3-container w3-card w3-pale-green w3-margin-bottom w3-margin-top w3-padding-bottom'>"
@@ -116,7 +114,7 @@ class curriculum {
 							
 							."<div class='w3-third'>"
 								."<label class='w3-hide-medium w3-hide-large' for='end_date_".$id_edu."'>Slut</label>"
-								."<input".$disable_end_date." class='w3-border w3-mobile' type='date' name='end_date_". $id_edu ."' id='end_date_".$id_edu."' value='".$end_date_value."' />"
+								."<input class='w3-border w3-mobile' type='date' name='end_date_". $id_edu ."' id='end_date_".$id_edu."' value='".$end_date_value."' />"
 								."<label class='w3-hide-small fa fa-calendar fa-fw w3-margin-right' for='end_date_".$id_edu."'></label>"
 							."</div>"
 						."</div>"
@@ -132,7 +130,7 @@ class curriculum {
 						."<h5 class='w3-opacity'><b>". $educations['education_title']." / ". $educations['school']."</b></h5>"
 						."<h6 class='w3-text-teal'>"
 							."<i class='fa fa-calendar fa-fw w3-margin-right'></i>"
-							.ucfirst($educations['start_date']) . " - "  . ( $educations['end_date'] != "Nuvarande" ? ucfirst($educations['end_date']) : "<span class='w3-tag w3-teal w3-round'>". $educations['end_date'] ."</span>" )
+							.ucfirst($educations['start_date']) . " - "  . ( $educations['end_date_name'] != "Pågående" ? $educations['end_date'] : "<span class='w3-tag w3-teal w3-round'>". $educations['end_date_name'] ."</span>" )
 						."</h6>"
 						."<p>". $educations['education_description']."</p>"
 						."<hr />"
