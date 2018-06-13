@@ -265,12 +265,13 @@ class curriculum {
 				$list.=
 					"<div class='w3-container'>"
 						."<div class='w3-row'>"
-							."<div class='w3-col s10 m10 l10>"
+							."<div class='w3-col s12 m10 l10>"
 								."<h5 class='w3-opacity'><b>". $work['work_title'] ." / ". $work['employer']."</b> ". $work['work_time']."</h5>"
 							."</div>"
-							."<div class='w3-col s2 m2 l2'>"
-								."<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_workXp ."&actionDelete=work' class='w3-button w3-circle w3-right w3-white' type='submit' name='delete_edu'><i class='fa fa-trash-alt'></i></a>
-							</div>"
+							."<div class='w3-col s12 m2 l2'>"
+								."<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_workXp ."&actionDelete=work' class='w3-hide-small w3-button w3-circle w3-right w3-white' type='submit' name='delete_edu'><i class='fa fa-trash-alt'></i></a>"
+								."<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_workXp ."&actionDelete=work' class='w3-mobile w3-hide-medium w3-hide-large w3-button w3-right w3-red' type='submit' name='delete_edu'><i class='fa fa-trash-alt'></i></a>"
+							."</div>"
 						."</div>"
 						."<h6 class='w3-text-teal'>"
 							."<i class='fa fa-calendar fa-fw w3-margin-right'></i>"
