@@ -266,20 +266,12 @@ class curriculum {
 					"<div class='w3-container'>"
 						."<div class='w3-row'>"
 							."<div class='w3-col s10 m10 l10>"
-								."<h5 class='w3-opacity'><b>". $work['work_title'] ." / ". $work['employer']."</b></h5>"
+								."<h5 class='w3-opacity'><b>". $work['work_title'] ." / ". $work['employer']."</b> ". $work['work_time']."</h5>"
 							."</div>"
 							."<div class='w3-col s2 m2 l2'>"
 								."<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_workXp ."&actionDelete=work' class='w3-button w3-circle w3-right w3-white' type='submit' name='delete_edu'><i class='fa fa-trash-alt'></i></a>
 							</div>"
 						."</div>"
-						."<h5 class='w3-opacity'>"
-							."<b>"
-								. $work['work_title']
-								." / "
-								. $work['employer']
-							."</b> "
-							. $work['work_time']
-						."</h5>"
 						."<h6 class='w3-text-teal'>"
 							."<i class='fa fa-calendar fa-fw w3-margin-right'></i>"
 							.ucfirst($work['start_date_name']) . " - "  . ( $work['end_date_name'] != "Nuvarande" ? ucfirst($work['end_date_name']) : "<span class='w3-tag w3-teal w3-round'>". $work['end_date_name'] ."</span>" )
