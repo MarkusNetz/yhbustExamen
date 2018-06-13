@@ -8,6 +8,7 @@ else{
 	$_GETcvID = filter_input(INPUT_GET, "cvID", FILTER_VALIDATE_INT);
 	$_GETuserID = filter_input(INPUT_GET, "userID", FILTER_VALIDATE_INT);
 }
+$HtmlObjProps = new HtmlObjectProperties();
 
 // CV | Delete
 if(isset($_GET['action']) && $_GET['action'] == "delete" && isset($_GET['actionID'])){
