@@ -86,9 +86,9 @@ class curriculum {
 		$i=0;
 		foreach($rowsEducations as $educations){
 			$i++;
-			$id_edu=$educations['id_education'];
 			// lista alla rader i redigeringsläge för utbildningar.
 			if(isset($_GET['edit']) && $_GET['edit']=="edu"){
+				$id_edu=$educations['id_education'];
 				$disable_end_date=$end_date_value="";
 				$end_date_value=$educations['end_date'];
 				if( $end_date_value == "9999-12-31"){
@@ -122,20 +122,14 @@ class curriculum {
 						."<div class='w3-mobile w3-margin-bottom w3-margin-top'>"
 							."<textarea placeholder='Din beskrivning av utbildningen och dess innehåll av kurser och moment.' required='required' class='w3-input w3-border' name='education_description_". $id_edu ."' id='education_description_". $id_edu."' style='resize:none;'>".(!empty($educations['education_description']) ? $educations['education_description'] : "") ."</textarea>"
 						."</div>"
+						."<button class='w3-button w3-circle w3-right w3-margin w3-padding w3-white' type='submit'><i class='fa fa-trash-alt'></i></button>"
 					."</div>";
 			}
 			else{
 				$list.=
 					"<div class='w3-container'>"
-						."<div class='w3-row'>"
-							."<div class='w3-col s10 m10 l10>"
-								."<h5 class='w3-opacity'><b>". $educations['education_title']." / ". $educations['school']."</b></h5>"
-							."</div>"
-							."<div class='w3-col s2 m2 l2'>"
-								."<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_edu ."&actionDelete=edu' class='w3-button w3-circle w3-right w3-white' type='submit' name='delete_edu'><i class='fa fa-trash-alt'></i></a>
-							</div>"
-						."</div>"
-						."<h6 class='w3-text-teal' style='width:80%>"
+						."<h5 class='w3-opacity'><b>". $educations['education_title']." / ". $educations['school']."</b></h5>"
+						."<h6 class='w3-text-teal'>"
 							."<i class='fa fa-calendar fa-fw w3-margin-right'></i>"
 							.ucfirst($educations['start_date']) . " - "  . ( $educations['end_date_name'] != "Pågående" ? $educations['end_date'] : "<span class='w3-tag w3-teal w3-round'>". $educations['end_date_name'] ."</span>" )
 						."</h6>"
@@ -216,9 +210,9 @@ class curriculum {
 		$i=0;
 		foreach($rowsWorkXP as $work){
 			$i++;
-			$id_workXp=$work['id_work_experience'];
 			// lista alla rader i redigeringsläge för arbetserfarenhet.
 			if(isset($_GET['edit']) && $_GET['edit']=="work"){
+				$id_workXp=$work['id_work_experience'];
 				$disable_end_date=$end_date_value="";
 				$checkbox_current_work=" value='0'";
 				if( $work['end_date_name'] == "Nuvarande"){
@@ -264,14 +258,6 @@ class curriculum {
 			else{
 				$list.=
 					"<div class='w3-container'>"
-						."<div class='w3-row'>"
-							."<div class='w3-col s10 m10 l10>"
-								."<h5 class='w3-opacity'><b>". $work['work_title'] ." / ". $work['employer']."</b></h5>"
-							."</div>"
-							."<div class='w3-col s2 m2 l2'>"
-								."<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_workXp ."&actionDelete=work' class='w3-button w3-circle w3-right w3-white' type='submit' name='delete_edu'><i class='fa fa-trash-alt'></i></a>
-							</div>"
-						."</div>"
 						."<h5 class='w3-opacity'>"
 							."<b>"
 								. $work['work_title']

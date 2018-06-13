@@ -9,7 +9,36 @@ else{
 	$_GETuserID = filter_input(INPUT_GET, "userID", FILTER_VALIDATE_INT);
 }
 
-// CV Formulär
+// CV | Delete
+if(isset($_GET['action']) && $_GET['action'] == "delete" && isset($_GET['actionID'])){
+	$_GETactionID=filter_input(INPUT_GET, "actionID", FILTER_VALIDATE_INT);
+	$sqlDelete="";
+	// En specifierad typ måste finnas för önskad delete.
+	if(isset($_GET['actionDelete'])) {
+		if($_GET['actionDelete']=="edu"){
+			$sqlDelete="DELETE FROM t_cv_educations WHERE id_education = :id_action_get AND id_cv = :id_cv_get";
+		}
+		elseif($_GET['actionDelete']=="work"){
+			$sqlDelete="DELETE FROM t_cv_work_experience WHERE id_work_experience = :id_action_get AND id_cv = :id_cv_get";
+		}
+	}
+	// Koll att sql-satsen är gjord.
+	if(!empty($sqlDelete)){
+		$dbConn->beginTransaction();
+		$dbConn->query($sqlDelete);
+		$dbConn->bind(":id_action_get", $_GETactionID);
+		$dbConn->bind(":id_cv_get", $_GETcvID);
+		if($dbConn->execute()){
+			$dbConn->endTransaction();
+			header("location: ./?userID=".$_GETuserID."&cvID=".$_GETcvID);
+		}
+		else{
+			$dbConn->cancelTransaction();
+		}
+	}
+}
+
+// CV Formulär | Insert, Update
 if( isset($_POST['submitting'])){
 	if(isset($_POST['submitType'])){
 		if( strpos( $_POST['submitType'], 'Work') !== false){
@@ -81,11 +110,14 @@ if( isset($_POST['submitting'])){
 				$dbConn->bind( ":id_cv", $_GETcvID );
 				$dbConn->execute();
 			}
-		}
-		
-		//Skola/utbildningar.
+		}		
+		/*
+		 *	Skola/utbildningar
+		 */
 		elseif( strpos( $_POST['submitType'], "Edu") !== false){
-			// var_dump($_POST);
+			/*
+				Uppdatera befintliga rader om utbildning/kurser
+			*/
 			if( $_POST['submitType'] == "saveEdu" )
 			{
 				$nrOfRowsInForm=$_POST['rowCountEdu']; // Total number of rows from form.
@@ -121,6 +153,9 @@ if( isset($_POST['submitting'])){
 				$dbConn->endTransaction();
 				
 			}
+			/*
+				Lägg till ny rad om utbildning/kurser.
+			*/
 			elseif( $_POST['submitType'] == "addEdu" ){
 				$sqlInsertEduRow="INSERT INTO t_cv_educations (id_cv,edu_time, start_date, end_date,school, education_title, education_description) VALUES(:id_cv,:edu_time, :start_date, :end_date,:edu_school,:edu_title, :edu_description)";
 				$dbConn->query( $sqlInsertEduRow );
