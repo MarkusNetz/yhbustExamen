@@ -278,18 +278,18 @@ $myCurriculum=new curriculum();
 						
 						<div class="w3-mobile w3-quarter w3-padding-top w3-margin-top">
 			<?php	if( (isset($_GET['add']) && $_GET['add'] == "work") || (isset($_GET['edit']) && $_GET['edit'] == "work") ){ ?>
-							<a href="./?userID=1&cvID=1" class="w3-button w3-round w3-red">
+							<a href="./?userID=1&cvID=1" class="w3-button w3-col s6 m5 l5 w3-round w3-red">
 								<i class="fa fa-ban"> Avbryt</i>
 							</a>
-							<button type="submit" name="submitting" class="w3-button w3-round w3-light-green" value="formWork">
+							<button type="submit" name="submitting" class="w3-button w3-col s6 m6 l6 w3-round w3-light-green" value="formWork">
 								<i class="fa fa-save"> Spara</i>
 							</button>
 			<?php	}
 					else{	?>
-							<a href='./?userID=1&cvID=1&edit=work#formWork' class="w3-button w3-round w3-amber">
+							<a href="./?userID=1&cvID=1&edit=work#formWork" class="w3-button w3-col s6 m5 l5 w3-round w3-amber">
 								<i class="fa fa-pencil-alt"> Ändra</i>
 							</a>
-							<a href="./?userID=1&cvID=1&add=work#formWork" class="w3-button w3-round w3-light-green">
+							<a href="./?userID=1&cvID=1&add=work#formWork" class="w3-button w3-col s6 m6 l6 w3-round w3-light-green">
 								<i class="fa fa-plus"> Lägg till</i>
 							</a>
 			<?php	}	?>
@@ -315,18 +315,18 @@ $myCurriculum=new curriculum();
 			<?php	if(1==1){ ?>
 						<div class="w3-mobile w3-quarter w3-padding-top w3-margin-top">
 			<?php	if( (isset($_GET['add']) && $_GET['add'] == "edu") || (isset($_GET['edit']) && $_GET['edit'] == "edu") ){ ?>
-							<a href="./?userID=1&cvID=1" class="w3-button w3-round w3-red">
+							<a href="./?userID=1&cvID=1" class="w3-button w3-col s6 m5 l5 w3-round w3-red">
 								<i class="fa fa-ban"> Avbryt</i>
 							</a>
-							<button type="submit" name="submitting" class="w3-button w3-round w3-light-green" value="formEdu">
+							<button type="submit" name="submitting" class="w3-button w3-col s6 m6 l6 w3-round w3-light-green" value="formEdu">
 								<i class="fa fa-save"> Spara</i>
 							</button>
 			<?php	}
 					else{	?>
-							<a href="./?userID=1&cvID=1&edit=edu#formEdu" class="w3-button w3-round w3-amber">
+							<a href="./?userID=1&cvID=1&edit=edu#formEdu" class="w3-button w3-col s6 m5 l5 w3-round w3-amber">
 								<i class="fa fa-pencil-alt"> Ändra</i>
 							</a>
-							<a href="./?userID=1&cvID=1&add=edu#formEdu" class="w3-button w3-round w3-light-green">
+							<a href="./?userID=1&cvID=1&add=edu#formEdu" class="w3-button w3-col s6 m6 l6 w3-round w3-light-green">
 								<i class="fa fa-plus"> Lägg till</i>
 							</a>
 			<?php	}	?>
