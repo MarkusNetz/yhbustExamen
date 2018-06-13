@@ -8,6 +8,7 @@ else{
 	$_GETcvID = filter_input(INPUT_GET, "cvID", FILTER_VALIDATE_INT);
 	$_GETuserID = filter_input(INPUT_GET, "userID", FILTER_VALIDATE_INT);
 }
+include($top_level.$folder_class."elements.class.php");
 $HtmlObjProps = new HtmlObjectProperties();
 
 // CV | Delete
@@ -246,15 +247,13 @@ $myCurriculum=new curriculum();
 							<p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i><?php echo $myCurriculum->getHeaderSkills();?></b> <a href=''><i class='fa fa-pencil'></i></a></p>
 							
 								<?php
-								$skillList = $myCurriculum->getSkillsList($dbConn);
-								echo $skillList;
+								echo $myCurriculum->getSkillsList($dbConn);
 								?>
 							<br />
 
 							<p class="w3-large"><b><i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i><?php echo $myCurriculum->getHeaderLanguages();?></b></p>
 							<?php
-								$langList=$myCurriculum->getLangugesList($dbConn);
-								echo $langList;
+								echo $myCurriculum->getLangugesList($dbConn, $HtmlObjProps);
 							?>
 							<br />
 						</div>
@@ -269,57 +268,73 @@ $myCurriculum=new curriculum();
 				<div class="w3-container w3-card w3-white w3-margin-bottom">
 					<form id='formWork' action="<?php echo "./?userID=1&cvID=1"; ?>" method="post">
 						
-					<div class="w3-row">
-						<div class="w3-col l7 w3-margin-top w3-padding-top w3-mobile">
-							<h2 class="w3-text-grey w3-padding-16 w3-col">
+					<div class="w3-row w3-margin-top">
+						<div class="w3-mobile w3-threequarter">
+							<h2 class="w3-text-grey w3-margin-top">
 								<i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
 								<?php echo $myCurriculum->getHeaderWork();?>
 							</h2>
 						</div>
-						<div class="w3-col l5 w3-margin-top w3-padding-top">
+						
+						<div class="w3-mobile w3-quarter w3-padding-top w3-margin-top">
 			<?php	if( (isset($_GET['add']) && $_GET['add'] == "work") || (isset($_GET['edit']) && $_GET['edit'] == "work") ){ ?>
-							<a href="./?userID=1&cvID=1" class="w3-button w3-mobile w3-red w3-half fa fa-ban"> Avbryt</a>
-							<button type="submit" name="submitting" class="w3-button w3-mobile w3-light-green w3-half fa fa-save" value="formWork"> Spara</button>
+							<a href="./?userID=1&cvID=1" class="w3-button w3-round w3-red">
+								<i class="fa fa-ban"> Avbryt</i>
+							</a>
+							<button type="submit" name="submitting" class="w3-button w3-round w3-light-green" value="formWork">
+								<i class="fa fa-save"> Spara</i>
+							</button>
 			<?php	}
 					else{	?>
-							<a href='./?userID=1&cvID=1&edit=work#formWork' class="w3-button w3-half w3-amber fa fa-pencil-alt"> Ändra</a>
-							<a href="./?userID=1&cvID=1&add=work#formWork" class="w3-button w3-half w3-light-green fa fa-plus"> Lägg till</a>
+							<a href='./?userID=1&cvID=1&edit=work#formWork' class="w3-button w3-round w3-amber">
+								<i class="fa fa-pencil-alt"> Ändra</i>
+							</a>
+							<a href="./?userID=1&cvID=1&add=work#formWork" class="w3-button w3-round w3-light-green">
+								<i class="fa fa-plus"> Lägg till</i>
+							</a>
 			<?php	}	?>
 						</div>
 					</div>
 					<?php
-					$workList = $myCurriculum->getWorkExperiencesList($dbConn);
-					echo $workList;
+					echo $myCurriculum->getWorkExperiencesList($dbConn,$HtmlObjProps);
 					?>
 					</form>
 				</div>
 
 				<div class="w3-container w3-card w3-white">
 					<form id='formEdu' action="<?php echo "./?userID=1&cvID=1"; ?>" method="post">
-					<div class="w3-row">
-						<div class="w3-col l7 w3-margin-top w3-padding-top w3-mobile">
-							<h2 class="w3-text-grey w3-padding-16 w3-col">
+					
+					<div class="w3-row w3-margin-top">
+						<div class="w3-mobile w3-threequarter">
+							<h2 class="w3-text-grey w3-margin-top">
 								<i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
 								<?php echo $myCurriculum->getHeaderEducation();?>
 							</h2>
 						</div>
+						
 			<?php	if(1==1){ ?>
-						<div class="w3-col l5 w3-margin-top w3-padding-top">
+						<div class="w3-mobile w3-quarter w3-padding-top w3-margin-top">
 			<?php	if( (isset($_GET['add']) && $_GET['add'] == "edu") || (isset($_GET['edit']) && $_GET['edit'] == "edu") ){ ?>
-							<a href="./?userID=1&cvID=1" class="w3-button w3-mobile w3-red w3-half fa fa-ban"> Avbryt</a>
-							<button type="submit" name="submitting" class="w3-button w3-mobile w3-light-green w3-half fa fa-save" value="formEdu"> Spara</button>
+							<a href="./?userID=1&cvID=1" class="w3-button w3-round w3-red">
+								<i class="fa fa-ban"> Avbryt</i>
+							</a>
+							<button type="submit" name="submitting" class="w3-button w3-round w3-light-green" value="formEdu">
+								<i class="fa fa-save"> Spara</i>
+							</button>
 			<?php	}
 					else{	?>
-							<a href='./?userID=1&cvID=1&edit=edu#formEdu' class="w3-button w3-half w3-amber fa fa-pencil-alt"> Ändra</a>
-							<a href="./?userID=1&cvID=1&add=edu#formEdu" class="w3-button w3-half w3-light-green fa fa-plus"> Lägg till</a>
+							<a href="./?userID=1&cvID=1&edit=edu#formEdu" class="w3-button w3-round w3-amber">
+								<i class="fa fa-pencil-alt"> Ändra</i>
+							</a>
+							<a href="./?userID=1&cvID=1&add=edu#formEdu" class="w3-button w3-round w3-light-green">
+								<i class="fa fa-plus"> Lägg till</i>
+							</a>
 			<?php	}	?>
 						</div>
 			<?php	}	?>
 					</div>
 					<?php
-					$eduList = $myCurriculum->getEducationsList($dbConn);
-					echo $eduList;
-					
+					echo $myCurriculum->getEducationsList($dbConn, $HtmlObjProps);
 					?>
 					</form>
 				<!-- End Right Column -->

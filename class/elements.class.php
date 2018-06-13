@@ -1,12 +1,12 @@
 <?php
 class HtmlObjectProperties {
-	protected $btnDeleteNonSmallScreen;
-	protected $btnDeleteSmallScreen;
+	public $btnDeleteNonSmallScreen;
+	public $btnDeleteSmallScreen;
 	
 	// Constructor
 	function __construct(){
 		$this -> setBtnDeleteNonSmallScreen("w3-hide-small w3-button w3-circle w3-right w3-white");
-		$this -> setBtnDeleteSmallScreen("w3-mobile w3-hide-medium w3-hide-large w3-button w3-right w3-red");
+		$this -> setBtnDeleteSmallScreen("w3-mobile w3-hide-medium w3-hide-large w3-button w3-red");
 	}
 	
 	/*

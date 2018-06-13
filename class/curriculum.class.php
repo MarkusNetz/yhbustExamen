@@ -46,7 +46,7 @@ class curriculum {
 	public function getHeaderEducation(){
 		return $this -> headerEducation;
 	}
-	public function getEducationsList($db){
+	public function getEducationsList($db, $objProps){
 		$sqlSelectEducations="SELECT edu_time, id_education, start_date, DATE_FORMAT(start_date, '%b %Y') start_date_name, end_date, IF(end_date = '9999-12-31', 'Pågående', IF(end_date >= CURDATE(), 'Pågående', DATE_FORMAT(end_date,'%b %Y') ) ) end_date_name, school, education_title, education_description FROM t_cv_educations edu WHERE edu.id_cv = :id_cv ORDER BY start_date DESC, end_date DESC";
 		
 		$db -> query($sqlSelectEducations);
@@ -127,19 +127,34 @@ class curriculum {
 			else{
 				$list.=
 					"<div class='w3-container'>"
+						
 						."<div class='w3-row'>"
-							."<div class='w3-col s10 m10 l10>"
+							
+							."<div class='m10 l10 w3-hide-small'>"
 								."<h5 class='w3-opacity'><b>". $educations['education_title']." / ". $educations['school']."</b></h5>"
 							."</div>"
-							."<div class='w3-col s2 m2 l2'>"
+							
+							."<div class='w3-mobile w3-hide-medium w3-hide-large'>"
+								."<h5 class='w3-opacity'><b>". $educations['education_title']." / ". $educations['school']."</b></h5>"
+							."</div>"
+							
+							."<div class='m2 l2 w3-hide-small'>"
 								."<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_edu ."&actionDelete=edu' class='w3-button w3-circle w3-right w3-white' type='submit' name='delete_edu'><i class='fa fa-trash-alt'></i></a>
 							</div>"
+							
 						."</div>"
+						
 						."<h6 class='w3-text-teal' style='width:80%>"
 							."<i class='fa fa-calendar fa-fw w3-margin-right'></i>"
 							.ucfirst($educations['start_date']) . " - "  . ( $educations['end_date_name'] != "Pågående" ? $educations['end_date'] : "<span class='w3-tag w3-teal w3-round'>". $educations['end_date_name'] ."</span>" )
 						."</h6>"
+						
 						."<p>". $educations['education_description']."</p>"
+						
+						."<div class='w3-mobile w3-hide-medium w3-hide-large'>"
+							."<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_edu ."&actionDelete=edu' class='". $objProps->getBtnDeleteSmallScreen() ."' type='submit' name='delete_edu'><i class='fa fa-trash-alt'></i></a>"
+						."</div>"
+						
 						."<hr />"
 					."</div>";
 			}
@@ -168,7 +183,7 @@ class curriculum {
 		return $this -> headerWork;
 	}
 	
-	public function getWorkExperiencesList($db){
+	public function getWorkExperiencesList($db, $objProps){
 		$sqlSelectWorkXP="SELECT id_work_experience, work_time, start_date, DATE_FORMAT(start_date, '%b %Y') start_date_name, end_date, IF(end_date = '9999-12-31', 'Nuvarande', DATE_FORMAT(end_date, '%b %Y')) end_date_name, employer, work_title, work_description FROM t_cv_work_experience we WHERE we.id_cv = :id_cv ORDER BY end_date DESC";
 		$db -> query($sqlSelectWorkXP);
 		$db -> bind(':id_cv', $this -> getCvId());
@@ -264,20 +279,34 @@ class curriculum {
 			else{
 				$list.=
 					"<div class='w3-container'>"
+						
 						."<div class='w3-row'>"
-							."<div class='w3-col s12 m10 l10>"
+						
+							."<div class='w3-col m10 l10 w3-hide-small'>"
 								."<h5 class='w3-opacity'><b>". $work['work_title'] ." / ". $work['employer']."</b> ". $work['work_time']."</h5>"
 							."</div>"
-							."<div class='w3-col s12 m2 l2'>"
-								."<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_workXp ."&actionDelete=work' class='". $HtmlObjProps->getBtnDeleteSmallScreen() ."' type='submit' name='delete_edu'><i class='fa fa-trash-alt'></i></a>"
-								."<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_workXp ."&actionDelete=work' class='". $HtmlObjProps->getBtnDeleteNonSmallScreen() ."' type='submit' name='delete_edu'><i class='fa fa-trash-alt'></i></a>"
+							
+							."<div class='w3-mobile w3-hide-medium w3-hide-large'>"
+								."<h5 class='w3-opacity'><b>". $work['work_title'] ." / ". $work['employer']."</b> ". $work['work_time']."</h5>"
 							."</div>"
+							
+							."<div class='m2 l2 w3-hide-small'>"
+								."<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_workXp ."&actionDelete=work' class='". $objProps->getBtnDeleteNonSmallScreen() ."' type='submit' name='delete_edu'><i class='fa fa-trash-alt'></i></a>"
+							."</div>"
+							
 						."</div>"
+						
 						."<h6 class='w3-text-teal'>"
 							."<i class='fa fa-calendar fa-fw w3-margin-right'></i>"
 							.ucfirst($work['start_date_name']) . " - "  . ( $work['end_date_name'] != "Nuvarande" ? ucfirst($work['end_date_name']) : "<span class='w3-tag w3-teal w3-round'>". $work['end_date_name'] ."</span>" )
 						."</h6>"
+						
 						."<p>". $work['work_description']."</p>"
+						
+						."<div class='w3-mobile w3-hide-medium w3-hide-large'>"
+							."<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_workXp ."&actionDelete=work' class='". $objProps->getBtnDeleteSmallScreen() ."' type='submit' name='delete_edu'><i class='fa fa-trash-alt'></i></a>"
+						."</div>"
+						
 						."<hr />"
 					."</div>";
 			}
