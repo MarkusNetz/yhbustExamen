@@ -1,14 +1,6 @@
 <?php
 $top_level="../";
 require_once $top_level."ini/settings.php";
-include $top_level."class/user.class.php";
-
-// $stmtGetLoginUser = $dbConn -> single();
-
-// foreach($stmtGetLoginUser as $rowUser){
-	// $rowUser['full_name'];	
-// }
-
 
 ?>
 <!DOCTYPE html>
@@ -29,8 +21,8 @@ include $top_level."class/user.class.php";
 		echo $font_roboto;
 		
 		/*	BOOTSTRAP */
-		echo $bootstrap_css;
-		echo $bootstrap_js;
+		// echo $bootstrap_css;
+		// echo $bootstrap_js;
 		
 		/*	jQuery library 	*/
 		echo $jquery; ?>
@@ -43,17 +35,17 @@ include $top_level."class/user.class.php";
 		<div class="w3-container w3-padding-32">
 			<div class="w3-row">
 				<div class="w3-border w3-col l5 w3-mobile w3-white">
-					<form class="w3-container">
+					<form class="w3-container w3-margin-bottom" method="post" action="<?php echo $top_level . $folder_inc . "function.login.php"; ?>">
 						<h4 class=" w3-margin-top">Logga in med användaruppgifter</h4>
 						<div class="w3-section">
-							<input class="w3-input" style="width:100%;" type="text" required="required">
+							<input name="credEntryUser" id="credEntryUser" class="w3-input" style="width:100%;" type="email" required="required" />
 							<label>Användarnamn</label>
 						</div>
 						<div class="w3-section">
-							<input class="w3-input" style="width:100%;" type="password" required="required">
+							<input name="credEntryPhrase" id="credEntryPhrase" class="w3-input" style="width:100%;" type="password" required="required" />
 							<label>Lösenord</label>
 						</div>
-						<button type="button" class="w3-btn btn-info">Logga in</button>
+						<input type="submit" class="w3-button w3-blue w3" name="credLoginSubmit" value="Logga in" />
 					</form>
 				</div>
 				
@@ -61,7 +53,7 @@ include $top_level."class/user.class.php";
 				
 				<div class="w3-border w3-col l6 w3-mobile w3-white">
 					<div class="w3-container w3-white">
-						<h4 class="w3-margin-top w3-margin-bottom">Logga in med hjälp av</h4>
+						<h4 class="w3-margin-top w3-margin-bottom">Tredjepartsinloggning</h4>
 						<div class="w3-padding-top">
 							<div class="g-signin2" data-onsuccess="onSignIn"></div>
 							<p class="w3-mobile">Google</p>

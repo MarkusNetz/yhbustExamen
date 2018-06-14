@@ -1,11 +1,11 @@
-<?
+<?php
 // -----
 // Säker sessionsstart
 // -----
 function sec_session_start()
 {
     $session_name = 'netzarna_session_id';   // Set a custom session name
-    $secure = SECURE; // Denna hämtas från db-config som har en konstant som heter SECURE. Där sätts värdet.
+    $secure = SECURE; // Denna hämtas från db-config (utanför webroot) som har en konstant som heter SECURE. Där sätts värdet.
     
 	// This stops JavaScript being able to access the session id.
     $httponly = true;
@@ -35,17 +35,18 @@ function sec_session_start()
 // ----
 // Inloggningsfunktion
 // ----
-function login($email, $password, $db_conn) {
+function login($email, $password, $pdoDbConn) {
     // Using prepared statements means that SQL injection is not possible.
+	$sqlSelectUser="SELECT uhl.id_user, name_first, name_last, unique_hash, CONCAT(name_first, ' ', name_last) name_full FROM t_user_has_login uhl RIGHT JOIN t_users u USING(id_user) WHERE uhl.login = :user_login";
+	$sqlSelectUser="SELECT uhl.id_user, unique_hash FROM t_user_has_login uhl RIGHT JOIN t_users u USING(id_user) WHERE uhl.login = :user_login AND uhl.passphrase = :user_passphrase";
 	$LoginSQL="SELECT user_id, FROM t_user_has_login WHERE login = ?";
-    if ($LoginStmt = $db_conn->prepare($LoginSQL)){ 
-        $LoginStmt->bind_param('s', $email);  // Bind "$email" to parameter.
-        $LoginStmt->execute();    // Execute the prepared query.
-        $LoginStmt->store_result();
- 
-        // get variables from result.
-        $LoginStmt->bind_result($user_id, $username, $db_password, $eogid, $passtype);
-        $LoginStmt->fetch();
+    if ($LoginStmt = $pdoDbConn->query($sqlSelectUser)){ 
+		$LoginStmt->bind(":user_login", $email);  // Bind "$email" to parameter.
+		$LoginStmt->bind(":user_passphrase", $password);  // Bind "$password" to parameter.
+		$resultLogin=$LoginStmt->single();    // Execute the prepared query and return the first row of result.
+ var_dump($resultLogin);
+		// get variables from result.
+		$LoginStmt->fetch();
 		$passtype=strtolower($passtype);
 		
 		// Kontrollera passtype
@@ -55,7 +56,7 @@ function login($email, $password, $db_conn) {
 			{
 				// If the user exists we check if the account is locked
 				// from too many login attempts 
-				if ( checkbrute( $user_id, $db_conn) == true)
+				if ( checkbrute( $user_id, $pdoDbConn) == true)
 				{
 					// Account is locked 
 					// Send an email to user saying their account is locked
@@ -67,11 +68,11 @@ function login($email, $password, $db_conn) {
 					$clientIP=$_SERVER['REMOTE_ADDR'];
 					$hostname=gethostbyaddr($clientIP);
 
-					$db_conn->query("INSERT INTO FccLogin (uid, logintime,scode,ipaddress,hostname)
+					$pdoDbConn->query("INSERT INTO FccLogin (uid, logintime,scode,ipaddress,hostname)
 													VALUES ('$user_id', NOW(),'$loginMsg','$clientIP','$hostname')");
 
 					// Vi sätter också passtype som blockerad i FccUser.
-					$db_conn->query("UPDATE FccUser SET passtype='blocked' WHERE uid='$user_id'");
+					$pdoDbConn->query("UPDATE FccUser SET passtype='blocked' WHERE uid='$user_id'");
 
 					return false;
 				}
@@ -98,7 +99,7 @@ function login($email, $password, $db_conn) {
 						$clientIP=$_SERVER['REMOTE_ADDR'];
 						$hostname=gethostbyaddr($clientIP);
 
-						$db_conn->query("INSERT INTO FccLogin (uid, logintime,scode,ipaddress,hostname)
+						$pdoDbConn->query("INSERT INTO FccLogin (uid, logintime,scode,ipaddress,hostname)
 											VALUES ('$user_id', NOW(),'$loginMsg','$clientIP','$hostname')");
 						
 						// Lösenordsbyte eventuellt aktuellt.
@@ -117,7 +118,7 @@ function login($email, $password, $db_conn) {
 						$loginMsg = "pwderr";
 						$hostname = gethostbyaddr($clientIP);
 
-						$db_conn->query("INSERT INTO FccLogin (uid, logintime,scode,ipaddress,hostname)
+						$pdoDbConn->query("INSERT INTO FccLogin (uid, logintime,scode,ipaddress,hostname)
 											VALUES ('$user_id', NOW(),'$loginMsg','$clientIP','$hostname')");
 						return false;
 					}
@@ -130,7 +131,7 @@ function login($email, $password, $db_conn) {
 				$clientIP=$_SERVER['REMOTE_ADDR'];
 				$hostname=gethostbyaddr($clientIP);
 				// Spara ner inloggningsförsök med uid = 0 för okänd som obehörig.
-				$db_conn->query("INSERT INTO FccLogin (uid, logintime,scode,ipaddress,hostname) VALUES (0, NOW(),'$loginMsg','$clientIP','$hostname')");
+				$pdoDbConn->query("INSERT INTO FccLogin (uid, logintime,scode,ipaddress,hostname) VALUES (0, NOW(),'$loginMsg','$clientIP','$hostname')");
 				return false;
 			}
 		}

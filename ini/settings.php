@@ -52,7 +52,11 @@ $netz_css="<link rel='stylesheet' href='../css/netz.css'>";
 $font_awesome='<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">';
 $font_roboto="<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>";
 
-// Include files
+/*
+*	 Include files
+*/
+
+// User class
 include($top_level . $folder_class . "user.class.php");
 
 /* 
