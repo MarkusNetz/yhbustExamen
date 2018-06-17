@@ -3,6 +3,7 @@ define("HOST", "cpsrv31.misshosting.com");
 define("USER", "pjdqirfm_markus");
 define("PASSWORD", "i.D!r3kVw0ah");
 define("DATABASE", "pjdqirfm_netz");
+define("SECURE", TRUE);
 
 $dbConn = new Database();
 

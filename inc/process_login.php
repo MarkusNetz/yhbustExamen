@@ -1,20 +1,25 @@
 <?php
 $top_level="../";
 require_once $top_level."ini/settings.php";
-include_once 'function.login.php';
- 
+include_once $top_level . "ini/dbConnect.php";
+include_once $top_level . $folder_inc . "function.login.php";
+include_once $top_level . $folder_class . "login.class.php";
+
 sec_session_start(); // Our custom secure way of starting a PHP session.
- 
+
 if (isset($_POST['credEntryUser'], $_POST['credEntryPhrase'])) {
-    $entryUser = $_POST['email'];
-    $password = $_POST['credEntryUsername']; // The plain password.... Needed to use PHPs hash_verify and so on.
- 
-    if (login($email, $password, $dbConn) == true) {
-        // Login success 
-        header('Location: ../protected_page.php');
-    } else {
+    $entryUser = $_POST['credEntryUser'];
+    $entryPhrase = $_POST['credEntryPhrase']; // The plain password.... Needed to use PHPs hash_verify and so on.
+	echo "Startar login-funktion process. ";
+	$loginProcess = $ClassProcessLogin->Login($entryUser, $entryPhrase, $dbConn);
+    if ( $loginProcess == true ) {
+		// Login success 
+		echo "<h3>Success</h3><p>Du har blivit inloggad.</p>";
+		// header('Location: ../protected_page.php');
+    }else {
         // Login failed 
-        header('Location: ../index.php?error=1');
+		echo "<h3>Failed</h3><p>Det gick inte att logga in med dina uppgifter.</p>";
+        // header('Location: ../index.php?error=1');
     }
 } else {
     // The correct POST variables were not sent to this page. 

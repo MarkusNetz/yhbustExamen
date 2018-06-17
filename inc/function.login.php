@@ -37,12 +37,11 @@ function sec_session_start()
 // ----
 function login($email, $password, $pdoDbConn) {
     // Using prepared statements means that SQL injection is not possible.
-	$sqlSelectUser="SELECT uhl.id_user, name_first, name_last, unique_hash, CONCAT(name_first, ' ', name_last) name_full FROM t_user_has_login uhl RIGHT JOIN t_users u USING(id_user) WHERE uhl.login = :user_login";
-	$sqlSelectUser="SELECT uhl.id_user, unique_hash FROM t_user_has_login uhl RIGHT JOIN t_users u USING(id_user) WHERE uhl.login = :user_login AND uhl.passphrase = :user_passphrase";
+	// $sqlSelectUser="SELECT uhl.id_user, name_first, name_last, unique_hash, CONCAT(name_first, ' ', name_last) name_full FROM t_user_has_login uhl RIGHT JOIN t_users u USING(id_user) WHERE uhl.login = :user_login";
+	$sqlSelectUser="SELECT uhl.id_user, unique_hash FROM t_user_has_login uhl RIGHT JOIN t_users u USING(id_user) WHERE uhl.login = :user_login";
 	$LoginSQL="SELECT user_id, FROM t_user_has_login WHERE login = ?";
     if ($LoginStmt = $pdoDbConn->query($sqlSelectUser)){ 
 		$LoginStmt->bind(":user_login", $email);  // Bind "$email" to parameter.
-		$LoginStmt->bind(":user_passphrase", $password);  // Bind "$password" to parameter.
 		$resultLogin=$LoginStmt->single();    // Execute the prepared query and return the first row of result.
  var_dump($resultLogin);
 		// get variables from result.

@@ -35,7 +35,7 @@ require_once $top_level."ini/settings.php";
 		<div class="w3-container w3-padding-32">
 			<div class="w3-row">
 				<div class="w3-border w3-col l5 w3-mobile w3-white">
-					<form class="w3-container w3-margin-bottom" method="post" action="<?php echo $top_level . $folder_inc . "function.login.php"; ?>">
+					<form class="w3-container w3-margin-bottom" method="post" action="<?php echo $top_level . $folder_inc . "process_login.php"; ?>">
 						<h4 class=" w3-margin-top">Logga in med användaruppgifter</h4>
 						<div class="w3-section">
 							<input name="credEntryUser" id="credEntryUser" class="w3-input" style="width:100%;" type="email" required="required" />
