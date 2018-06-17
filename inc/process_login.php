@@ -5,8 +5,6 @@ include_once $top_level . "ini/dbConnect.php";
 include_once $top_level . $folder_inc . "function.login.php";
 include_once $top_level . $folder_class . "login.class.php";
 
-sec_session_start(); // Our custom secure way of starting a PHP session.
-
 if (isset($_POST['credEntryUser'], $_POST['credEntryPhrase'])) {
     $entryUser = $_POST['credEntryUser'];
     $entryPhrase = $_POST['credEntryPhrase']; // The plain password.... Needed to use PHPs hash_verify and so on.

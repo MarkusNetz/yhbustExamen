@@ -59,6 +59,7 @@ $font_roboto="<link rel='stylesheet' href='https://fonts.googleapis.com/css?fami
 // User class
 include($top_level . $folder_class . "user.class.php");
 
+
 /* 
 *	DATABASE CONNECTION includes
 */
@@ -69,18 +70,5 @@ $sqlMode_MySQL_ver_5_7="ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,N
 $sqlMode_MariaDB_ver_10_2_4="NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO";
 include "dbConnect.php"; // Initializes a db-connection.
 
-
-// Logga in
-$sqlSelectUser="SELECT uhl.id_user, name_first, name_last, unique_hash, CONCAT(name_first, ' ', name_last) name_full FROM t_user_has_login uhl RIGHT JOIN t_users u USING(id_user) WHERE uhl.login = :user_login";
-$param_user_login="markus.netz.89@gmail.com";
-$dbConn->query($sqlSelectUser);
-$dbConn->bind(":user_login", $param_user_login);
-$fetchedUser=$dbConn->single();
-if($dbConn->rowCount() == 1){
-	// $_SESSION['']="";
-	$loggedInUser=new LoggedInUser();
-	$loggedInUser->setDisplayName( $fetchedUser['name_full'] );
-}
-
-//FAKE VARS
-$loggedIn=1;
+include($top_level . $folder_inc . "function.login.php");
+sec_session_start();

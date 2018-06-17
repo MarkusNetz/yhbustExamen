@@ -1,5 +1,5 @@
 <?php
-class Login{
+class SignIn{
 	protected $user_Id;
 	public $displayName;
 	public $displayWorkTitle;
@@ -31,25 +31,30 @@ class Login{
 	}
 	// Languages
 	public function Login( $entryUser, $entryPhrase, $pdoDbConn ){
-		$sqlSelectUser="SELECT uhl.id_user, uhl.passphrase, unique_hash FROM t_user_has_login uhl RIGHT JOIN t_users u USING(id_user) WHERE uhl.login = :user_login";
+		$sqlSelectUser="SELECT uhl.id_user, uhl.passphrase, u.unique_hash, uhl.status_type FROM t_user_has_login uhl RIGHT JOIN t_users u USING(id_user) WHERE uhl.login = :user_login";
 		$pdoDbConn->query( $sqlSelectUser );
 		$pdoDbConn->bind(":user_login", $entryUser);  // Bind "$email" to parameter.
 		$loginRow=$pdoDbConn->single();    // Execute the prepared query and return the first row of result.
 		
 		if( $loginRow == true) {
-			if( $this->CheckBrute($loginRow['id_user'], $pdoDbConn) == true) {
-				// Do not continue with login. The account is currently blocked by too many failed login-attempts.
-				$this -> SaveLoginAttempt( $loginRow['id_user'], "blocked", $pdoDbConn );
-				return false;
-			}
-			
-			if( password_verify($entryPhrase, $loginRow['passphrase']) ) {
-				$this -> SaveLoginAttempt( $loginRow['id_user'], "ok", $pdoDbConn );
-				$user_browser = $_SERVER['HTTP_USER_AGENT'];
-				// XSS protection as we might print this value
-				$user_id = preg_replace("/[^0-9]+/", "", $loginRow['id_user']);
-				$_SESSION['user_id'] = $user_id;
-				$_SESSION['login_string'] = hash('sha512', $loginRow['unique_hash'] . $user_browser);
+			if( $loginRow['status_type'] == "ok" ) {
+				if( $this->CheckBrute($loginRow['id_user'], $pdoDbConn) == true) {
+					// Do not continue with login. The account is currently blocked by too many failed login-attempts.
+					$this -> SaveLoginAttempt( $loginRow['id_user'], "blocked", $pdoDbConn );
+					return false;
+				}
+				
+				if( password_verify($entryPhrase, $loginRow['passphrase']) ) {
+					$this -> SaveLoginAttempt( $loginRow['id_user'], "ok", $pdoDbConn );
+					
+					$user_browser = $_SERVER['HTTP_USER_AGENT'];
+					// XSS protection as we might print this value
+					$user_id = preg_replace("/[^0-9]+/", "", $loginRow['id_user']);
+					$_SESSION['user_id'] = $user_id;
+					$_SESSION['login_string'] = hash('sha512', $loginRow['unique_hash'] . $user_browser);
+					
+					return true;
+				}
 			}
 		}
 		else{}
@@ -83,16 +88,21 @@ class Login{
 	private function SaveLoginAttempt($user_id=null, $login_code=null, $pdoDbConn){
 		$clientIP = $_SERVER['REMOTE_ADDR'];
 		$hostname = gethostbyaddr($clientIP);
-		if(is_null($user_id) {
-			$pdoDbConn->query("INSERT INTO t_logins(id_user, ip, host, id_login_code) VALUES(:param_ip, :param_host, SELECT id_login_code FROM t_login_codes WHERE code = :param_login_code)");
+		if(is_null($user_id)) {
+			$pdoDbConn->query("INSERT INTO t_logins(id_user, ip, host, id_login_code) VALUES(:param_ip, :param_host, (SELECT id_login_code FROM t_login_codes WHERE code = :param_login_code))");
 			$pdoDbConn->bind(":param_id_user", $user_id);
 		}
 		else {
-			$pdoDbConn->query("INSERT INTO t_logins(ip, host, id_login_code) VALUES(:param_ip, :param_host, SELECT id_login_code FROM t_login_codes WHERE code = :param_login_code)");
+			$pdoDbConn->query("INSERT INTO t_logins(ip, host, id_login_code) VALUES(:param_ip, :param_host, (SELECT id_login_code FROM t_login_codes WHERE code = :param_login_code))");
 		}
 		$pdoDbConn->bind(":param_ip", $clientIP);
 		$pdoDbConn->bind(":param_host", $hostname);
 		$pdoDbConn->bind(":param_login_code", $login_code);
+		
+		if($pdoDbConn->execute())
+			return $pdoDbConn->lastInsertId();
+		else
+			return false;
 	}
 }
-$ClassProcessLogin = new Login();
+$ClassProcessLogin = new SignIn();
