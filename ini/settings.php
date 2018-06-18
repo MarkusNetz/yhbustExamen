@@ -74,3 +74,4 @@ include "dbConnect.php"; // Initializes a db-connection.
 // Include these after successfull db-connection is established.
 include($top_level . $folder_inc . "function.login.php");
 sec_session_start(); // Needed to make session-related ( login-related) queries and management on site.
+include $top_level . $folder_class . "LoginCheck.class.php";
