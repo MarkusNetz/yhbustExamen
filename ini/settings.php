@@ -63,6 +63,7 @@ include($top_level . $folder_class . "user.class.php");
 /* 
 *	DATABASE CONNECTION includes
 */
+
 // include "db-config.php"; // From etc-folder.
 include $top_level . $folder_class . $file_class_db;
 // Setup sql-modes and connectivity.
@@ -70,5 +71,6 @@ $sqlMode_MySQL_ver_5_7="ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,N
 $sqlMode_MariaDB_ver_10_2_4="NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO";
 include "dbConnect.php"; // Initializes a db-connection.
 
+// Include these after successfull db-connection is established.
 include($top_level . $folder_inc . "function.login.php");
-sec_session_start();
+sec_session_start(); // Needed to make session-related ( login-related) queries and management on site.

@@ -1,8 +1,6 @@
 <?php
 $top_level="../";
 require_once $top_level."ini/settings.php";
-include_once $top_level . "ini/dbConnect.php";
-include_once $top_level . $folder_inc . "function.login.php";
 include_once $top_level . $folder_class . "login.class.php";
 
 if (isset($_POST['credEntryUser'], $_POST['credEntryPhrase'])) {
@@ -23,3 +21,4 @@ if (isset($_POST['credEntryUser'], $_POST['credEntryPhrase'])) {
     // The correct POST variables were not sent to this page. 
     echo 'Invalid Request';
 }
+echo $_SESSION['user_id'];

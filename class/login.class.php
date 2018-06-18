@@ -11,9 +11,6 @@ class SignIn{
 	// Constructor
 	function __construct(){
 		$this -> setNumberOfAttempts("10");
-		// $this -> setDisplayWorkTitle("Utbildning & kurser");
-		// $this -> setDisplayMail("Färdigheter & intressen");
-		// $this -> setDisplayNumber("Språkkunskaper");
 	}
 	private function setScodeErr($value){
 		$this -> scodeErr = $value;
@@ -69,19 +66,18 @@ class SignIn{
 		$valid_attempts_time = date("Y-m-d H:i:s",($now - (30)));
 
 		$pdoDbConn->query("SELECT COUNT(l.login_time) logins FROM t_logins l JOIN t_login_codes lc ON lc.id_login_code = l.id_login_code WHERE l.id_user = :user_id AND l.login_time > :time_check AND lc.code = :param_scode");
-		{
-			$pdoDbConn->bind(":user_id", $user_id);
-			$pdoDbConn->bind(":time_check", $valid_attempts_time);
-			$pdoDbConn->bind(":param_scode", $this-> getScodeErr());
-			
-			// Execute the prepared query.
-			$nrOfAttempts=$pdoDbConn->single();
-			echo $nrOfAttempts['logins'];
-			if( $nrOfAttempts['logins'] > $this->getNumberOfAttempts() )
-				return true;
-			else{
-				return false;
-			}
+		
+		$pdoDbConn->bind(":user_id", $user_id);
+		$pdoDbConn->bind(":time_check", $valid_attempts_time);
+		$pdoDbConn->bind(":param_scode", $this-> getScodeErr());
+		
+		// Execute the prepared query.
+		$nrOfAttempts=$pdoDbConn->single();
+		
+		if( $nrOfAttempts['logins'] > $this->getNumberOfAttempts() )
+			return true;
+		else{
+			return false;
 		}
 	}
 	

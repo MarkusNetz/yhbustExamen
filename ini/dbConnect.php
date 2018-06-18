@@ -6,6 +6,7 @@ define("DATABASE", "pjdqirfm_netz");
 define("SECURE", TRUE);
 
 $dbConn = new Database();
+include($top_level . $folder_class . "dbObjects.class.php");
 
 // First queries to be run to iniate a good connection.
 $dbConn->query("SET NAMES utf8mb4");
