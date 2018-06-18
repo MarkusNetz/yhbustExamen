@@ -1,7 +1,8 @@
 <?php
 $top_level="../";
 require_once $top_level."ini/settings.php";
-require_once $top_level . $folder_class . "LoginCheck.class.php";
+
+
 if( $LoginCheck->LoginCheck($dbConn) == true )
 {
 	echo "<h2>Inloggad.</h2><p>Du är inloggad</p>";

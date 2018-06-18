@@ -1,6 +1,17 @@
 <?php
 $top_level="../";
 require_once $top_level."ini/settings.php";
+if( $LoginCheck->LoginCheck($dbConn) == true )
+{
+	echo "<h2>Inloggad.</h2><p>Du är inloggad</p>";
+	$loggedInUser = new loggedInUser($dbConn);
+	echo $loggedInUser->getDisplayName();
+}
+else
+{
+	header("location " . $top_level . "login/");
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="sv">
@@ -34,7 +45,7 @@ require_once $top_level."ini/settings.php";
 		<!-- Team Container -->
 		<section class="w3-container w3-center w3-white" id="profilePresentation">
 			<div class="w3-padding-16 w3-row">
-				<h2><?php if($loggedIn && isset($loggedInUser)){ echo $loggedInUser->getDisplayName();} ?></h2>
+				<h2><?php if(isset($loggedInUser)){ echo $loggedInUser->getDisplayName();} ?></h2>
 				<p><span class="w3-bottombar w3-border-teal">Här är din profil</span></p>
 			</div>
 			
