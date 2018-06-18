@@ -1,6 +1,7 @@
 <?php
 $top_level="../";
 require_once $top_level."ini/settings.php";
+require_once $top_level . $folder_class . "LoginCheck.class.php";
 
 ?>
 <!DOCTYPE html>

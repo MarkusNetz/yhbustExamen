@@ -2,7 +2,8 @@
 /*
 ** Logincheck-class functionality.
 */
-function LoginCheck() {
+class LoginCheck
+{
 	private $userBrowser;
 	private $userId;
 	private $loginString;
