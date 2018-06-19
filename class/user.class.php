@@ -11,10 +11,6 @@ class LoggedInUser{
 	// Constructor
 	function __construct($pdoDbConn){
 		$this -> setUserId( $_SESSION['user_id'] );
-		// $this -> setDisplayName("Arbetslivserfarenhet");
-		// $this -> setDisplayWorkTitle("Utbildning & kurser");
-		// $this -> setDisplayMail("Färdigheter & intressen");
-		// $this -> setDisplayNumber("Språkkunskaper");
 		$this -> UserInformation( $pdoDbConn );
 	}
 	
@@ -52,7 +48,7 @@ class LoggedInUser{
 	}
 	
 	protected function UserInformation($pdoDbConn){
-		$sqlGetUserInfo="SELECT CONCAT(name_first, ' ', name_last) fullName, name_first, name_last FROM t_users WHERE id_user = :param_id_user";
+		$sqlGetUserInfo="SELECT CONCAT(name_first, ' ', name_last) fullName, name_first, name_last, registered FROM t_users WHERE id_user = :param_id_user";
 		$pdoDbConn -> query( $sqlGetUserInfo );
 		$pdoDbConn -> bind( ':param_id_user', $this -> getUserId() );
 		$userInfoRow = $pdoDbConn -> single();

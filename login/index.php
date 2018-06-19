@@ -2,21 +2,23 @@
 $top_level="../";
 require_once $top_level."ini/settings.php";
 
-
 if( $LoginCheck->LoginCheck($dbConn) == true )
 {
-	echo "<h2>Inloggad.</h2><p>Du är inloggad</p>";
+	
+	$loggedInUser = new loggedInUser($dbConn);
 }
 else
 {
-	echo "<h2>Inte inloggad</h2><p>Det verkar som att du inte har loggat in.</p>";
+	header("location " . $top_level . "login/");
 }
+
 ?>
 <!DOCTYPE html>
 <html lang='sv'>
 	<head>
 		<title>Logga in</title>
 		<meta name="google-signin-client_id" content="94719343879-eo9fi600ua8k99tbn4omr34f841cbp3b.apps.googleusercontent.com" redirect_uri="" />
+		
 		<?php
 		/*	Metadata */
 		echo $metadata;

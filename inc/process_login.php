@@ -11,14 +11,13 @@ if (isset($_POST['credEntryUser'], $_POST['credEntryPhrase'])) {
     if ( $loginProcess == true ) {
 		// Login success 
 		echo "<h3>Success</h3><p>Du har blivit inloggad.</p>";
-		// header('Location: ../protected_page.php');
+		header("Location: ". $top_level ."profile/");
     }else {
         // Login failed 
 		echo "<h3>Failed</h3><p>Det gick inte att logga in med dina uppgifter.</p>";
-        // header('Location: ../index.php?error=1');
+        header("Location: ". $top_level ."/login?error=1");
     }
 } else {
     // The correct POST variables were not sent to this page. 
-    echo 'Invalid Request';
+    echo 'Felaktigt anrop.';
 }
-echo $_SESSION['user_id'];

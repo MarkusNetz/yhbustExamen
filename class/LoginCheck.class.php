@@ -43,6 +43,7 @@ class LoginCheck
 	public function LoginCheck( $pdoDbConn ){
 		// Check if all session variables are set 
 		if ( isset($_SESSION['user_id'], $_SESSION['login_string']) ){
+			return "<h1>hej</h1>";
 			$this -> setUserId( $_SESSION['user_id'] );
 			$this -> setLoginString( $_SESSION['login_string'] );
 			$this -> setLoginBrowser( $_SERVER['HTTP_USER_AGENT'] );

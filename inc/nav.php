@@ -13,8 +13,20 @@
 			<a href="#" class="w3-bar-item w3-button">Link 3</a>
 			</div>
 		</div>
-		
-		<a href="/login" class="w3-bar-item w3-button w3-mobile w3-hover-none w3-border-none w3-hover-white">Sign in</a>
+		<div class="w3-right">
+		<?php
+			if($loggedInUser == null){
+		?>
+				<a href="/login" class="w3-bar-item w3-button w3-mobile w3-hover-none w3-border-none w3-hover-white">Logga in</a>
+		<?php
+			}
+			else{
+		?>
+				<a href="/logout" class="w3-bar-item w3-button w3-mobile w3-hover-none w3-border-none w3-hover-white">Logga ut</a>
+		<?php
+			}
+		?>
+		</div>
 	</div>
 	
 	<!-- Small screen nav display. -->
@@ -22,7 +34,7 @@
 		<a href="/" class="w3-bar-item w3-button w3-col s4 w3-green"><i class="fa fa-home"></i></a>
 		<a href="/profile" class="w3-bar-item w3-button w3-col s4"><i class="fa fa-user"></i></a>
 		<?php
-		if($loggedIn==0){
+		if($loggedInUser == null){
 		?>
 			<a href="/login" class="w3-bar-item w3-button w3-col s4"><i class="fa fa-sign-in-alt"></i></a>
 		<?php

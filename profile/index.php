@@ -1,22 +1,25 @@
 <?php
 $top_level="../";
 require_once $top_level."ini/settings.php";
-if( $LoginCheck->LoginCheck($dbConn) == true )
+
+if( $loggedInUser != null && !isset($_GET['userId']) )
 {
-	echo "<h2>Inloggad.</h2><p>Du är inloggad</p>";
-	$loggedInUser = new loggedInUser($dbConn);
-	echo $loggedInUser->getDisplayName();
+	// No specific action. The user is logged in and has not requested another user. Continue with showing the logged in users profile.
 }
-else
-{
-	header("location " . $top_level . "login/");
+else{
+	if(isset($_GET['userId'])){
+		$_GETuserId=filter_input(INPUT_GET, "userId", FILTER_VALIDATE_INT);
+	}
+	else{
+		header("location ". $top_level);
+	}
 }
 
 ?>
 <!DOCTYPE html>
 <html lang="sv">
 	<head>
-		<title>Vilka Netzare</title>
+		<title>Min personliga profil - NetZV</title>
 		<script src="https://apis.google.com/js/platform.js" async defer></script>
 
 		<?php
@@ -45,8 +48,7 @@ else
 		<!-- Team Container -->
 		<section class="w3-container w3-center w3-white" id="profilePresentation">
 			<div class="w3-padding-16 w3-row">
-				<h2><?php if(isset($loggedInUser)){ echo $loggedInUser->getDisplayName();} ?></h2>
-				<p><span class="w3-bottombar w3-border-teal">Här är din profil</span></p>
+				<h2><span class="w3-bottombar w3-border-teal"><?php if(isset($loggedInUser)){ echo $loggedInUser->getDisplayName();} ?></span></h2>
 			</div>
 			
 			<div class="w3-padding-16 w3-row">
@@ -67,10 +69,14 @@ else
 		
 		<!-- CV-section -->
 		<section class="w3-container w3-padding-32 w3-center w3-row" id="curriculum">
-			<div class="w3-quarter w3-card w3-amber w3-padding-16" style="min-height:10em;">
-				<h3>IT-CV</h3>
-				<p>Detta CV är för IT-branschen.</p>
-				<a class="w3-button w3-teal w3-hover-indigo" href="../cv/?userID=1&cvID=1">Visa CV</a>
+			<?php
+			if(isset($loggedInUser))
+				 $loggedInUser->MyCurriculumns($dbConn);
+			?>
+			<div class="w3-quarter w3-card w3-khaki w3-padding-16" style="min-height:10em;">
+				<h3>Jane Doe</h3>
+				<p>Support</p>
+				<a class="w3-button w3-teal w3-hover-indigo" href="../cv/?userID=1&cvID=3">Visa CV</a>
 			</div>
 
 			<div class="w3-quarter w3-card w3-deep-orange w3-padding-16" style="min-height:10em;">
@@ -79,10 +85,11 @@ else
 				<a class="w3-button w3-teal w3-hover-indigo" href="../cv/?userID=1&cvID=2">Visa CV</a>
 			</div>
 			
-			<div class="w3-quarter w3-card w3-khaki w3-padding-16" style="min-height:10em;">
-				<h3>Jane Doe</h3>
-				<p>Support</p>
-				<a class="w3-button w3-teal w3-hover-indigo" href="../cv/?userID=1&cvID=3">Visa CV</a>
+			
+			<div class="w3-quarter w3-card w3-amber w3-padding-16" style="min-height:10em;">
+				<h3>IT-CV</h3>
+				<p>Detta CV är för IT-branschen.</p>
+				<a class="w3-button w3-teal w3-hover-indigo" href="../cv/?userID=1&cvID=1">Visa CV</a>
 			</div>
 
 			<div class="w3-quarter w3-card w3-blue-gray w3-padding-16" style="min-height:10em;">
