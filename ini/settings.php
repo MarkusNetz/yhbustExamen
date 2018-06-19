@@ -56,6 +56,7 @@ $font_roboto="<link rel='stylesheet' href='https://fonts.googleapis.com/css?fami
 *	 Include files
 */
 
+include($top_level . $folder_class . "interfaces.php");
 // User class
 include($top_level . $folder_class . "user.class.php");
 

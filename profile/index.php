@@ -71,7 +71,7 @@ else{
 		<section class="w3-container w3-padding-32 w3-center w3-row" id="curriculum">
 			<?php
 			if(isset($loggedInUser))
-				 $loggedInUser->MyCurriculumns($dbConn);
+				 $loggedInUser->MyCurriculums($dbConn);
 			?>
 			<div class="w3-quarter w3-card w3-khaki w3-padding-16" style="min-height:10em;">
 				<h3>Jane Doe</h3>

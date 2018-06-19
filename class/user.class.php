@@ -1,5 +1,6 @@
 <?php
-class LoggedInUser{
+class LoggedInUser implements iMyCurriculums
+{
 	public $displayName;
 	public $displayWorkTitle;
 	public $displayMail;
@@ -57,5 +58,76 @@ class LoggedInUser{
 			$this -> setDisplayMail($userInfoRow['fullName']);
 			$this -> setInfoRegistered($userInfoRow['registered']);
 		}
+	}
+	
+	public function MyCurriculums($pdoDbConn){
+		$pdoDbConn->query("SELECT * FROM t_cv c WHERE c.id_user = :param_id_user");
+		$pdoDbConn->bind(":param_id_user", $this->getUserId());
+	}
+}
+
+
+
+class RequestedProfile implements iMyCurriculums
+{
+	public $displayName;
+	public $displayWorkTitle;
+	public $displayMail;
+	public $displayNumber;
+	protected $infoRegistered;
+	protected $infoLastLogin;
+	protected $userId;
+	
+	// Constructor
+	function __construct($sentUserId, $pdoDbConn){
+		$this -> setUserId( $sentUserId );
+		$this -> UserInformation( $pdoDbConn );
+	}
+	
+	// Languages
+	public function setUserId( $value ){
+		$this -> userId = $value;
+	}
+	public function getUserId(){
+		return $this -> userId;
+	}
+	
+	public function setDisplayName($name_user){
+		$this -> displayName = $name_user;
+	}
+	public function getDisplayName(){
+		return $this -> displayName;
+	}
+	public function setDisplayWorkTitle($value){
+		$this -> displayWorkTitle = $value;
+	}
+	public function getDisplayWorkTitle(){
+		return $this -> displayWorkTitle;
+	}
+	public function setDisplayMail($value){
+		$this -> displayMail = $value;
+	}
+	public function getDisplayMail(){
+		return $this -> displayMail;
+	}
+	protected function setInfoRegistered($value){
+		$this -> infoRegistered=$value;
+	}
+	protected function getInfoRegistered(){
+		return $this -> infoRegistered;
+	}
+	
+	protected function UserInformation($pdoDbConn){
+		$sqlGetUserInfo="SELECT CONCAT(name_first, ' ', name_last) fullName, name_first, name_last, registered FROM t_users WHERE id_user = :param_id_user";
+		$pdoDbConn -> query( $sqlGetUserInfo );
+		$pdoDbConn -> bind( ':param_id_user', $this -> getUserId() );
+		$userInfoRow = $pdoDbConn -> single();
+		if($userInfoRow == true){
+			$this -> setDisplayName($userInfoRow['fullName']);
+			$this -> setDisplayMail($userInfoRow['fullName']);
+			$this -> setInfoRegistered($userInfoRow['registered']);
+		}
+	}
+	public function MyCurriculums($pdoDbConn){
 	}
 }
