@@ -84,7 +84,7 @@ else
 			}
 			else{
 			?>
-				<!--section class="w3-center">
+				<section class="w3-center">
 					<form>
 						<h2>Skapa nytt konto</h2>
 						<div class="">
@@ -96,7 +96,7 @@ else
 							<label>Lösenord</label>
 						</div>
 					</form>
-				</section-->
+				</section>
 			<?php
 			}
 			?>
