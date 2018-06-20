@@ -84,19 +84,60 @@ else
 			}
 			else{
 			?>
-				<section class="w3-center">
-					<form>
+				<div class="w3-content">
+					<div class="w3-panel w3-green w3-center">
 						<h2>Skapa nytt konto</h2>
-						<div class="">
-							<input name="credEntryUser" id="credEntryUser" class="w3-input" style="width:100%;" type="email" required="required" />
-							<label>Din e-postadress</label>
+					</div>
+					<form class="w3-container" method="post" action="../inc/process_registration.php">
+						<div class="w3-row-padding">
+							<div class="w3-third">
+								<input name="accFirstName" id="accFirstName" class="w3-input w3-border-green" style="width:100%;" type="text" required="required" />
+								<label for="accFirstName">Förnamn</label>
+							</div>
+							<div class="w3-third">
+								<input name="accLastName" id="accLastName" class="w3-input w3-border-green" style="width:100%;" type="text" required="required" />
+								<label for="accLastName">Efternamn</label>
+							</div>
+							<div class="w3-third">
+								<input name="accLastName" id="accLastName" class="w3-input w3-border-green" style="width:100%;" type="date" required="required" placeholder="" />
+								<label for="accLastName">Födelsedatum</label>
+							</div>
 						</div>
-						<div class="">
-							<input name="credEntryPhrase" id="credEntryPhrase" class="w3-input" style="width:100%;" type="password" required="required" />
-							<label>Lösenord</label>
+						<div class="w3-row-padding">							
+							<div class="w3-third">
+								<input name="accEmail" id="accEmail" class="w3-input w3-border-green" style="width:100%;" type="email" required="required" />
+								<label for="accEmail">Din e-postadress</label>
+							</div>
+							<div class="w3-third">
+								<input name="accPassOne" id="accPassOne" class="w3-input w3-border-green" style="width:100%;" type="password" required="required" />
+								<label for="accPassOne">Önskat lösenord</label>
+							</div>
+							<div class="w3-third">
+								<input name="accPassTwo" id="accPassTwo" class="w3-input w3-border-green" style="width:100%;" type="password" required="required" />
+								<label for="accPassOne">Bekräfta lösenord</label>
+							</div>
+						</div>
+						
+						<div class="w3-row-padding">							
+							<div class="w3-third">
+								<input name="accEmail" id="accEmail" class="w3-input w3-border-green" style="width:100%;" type="email" required="required" />
+								<label for="accEmail">Din e-postadress</label>
+							</div>
+							<div class="w3-third">
+								<input name="accPassOne" id="accPassOne" class="w3-input w3-border-green" style="width:100%;" type="password" required="required" />
+								<label for="accPassOne">Önskat lösenord</label>
+							</div>
+							<div class="w3-third">
+								<input name="accPassTwo" id="accPassTwo" class="w3-input w3-border-green" style="width:100%;" type="password" required="required" />
+								<label for="accPassOne">Bekräfta lösenord</label>
+							</div>
+						</div>
+						
+						<div class="w3-margin-top">
+							<input type="submit" class="w3-button w3-large w3-gray w3-border w3-border-deep-blue w3-round w3-hover-blue" name="submitNewAcc" value="Registrera" />
 						</div>
 					</form>
-				</section>
+				</div>
 			<?php
 			}
 			?>
