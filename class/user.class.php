@@ -8,11 +8,13 @@ class LoggedInUser implements iMyCurriculums
 	protected $infoRegistered;
 	protected $infoLastLogin;
 	protected $userId;
+	protected $listOfCvs;
 	
 	// Constructor
-	function __construct($pdoDbConn){
+	function __construct( $pdoDbConn ){
 		$this -> setUserId( $_SESSION['user_id'] );
 		$this -> UserInformation( $pdoDbConn );
+		$this -> MyCurriculums( $pdoDbConn );
 	}
 	
 	// Languages
@@ -48,6 +50,13 @@ class LoggedInUser implements iMyCurriculums
 		return $this -> infoRegistered;
 	}
 	
+	protected function setListOfCvs($value){
+		$this -> listOfCvs=$value;
+	}
+	public function getListOfCvs(){
+		return $this -> listOfCvs;
+	}
+	
 	protected function UserInformation($pdoDbConn){
 		$sqlGetUserInfo="SELECT CONCAT(name_first, ' ', name_last) fullName, name_first, name_last, registered FROM t_users WHERE id_user = :param_id_user";
 		$pdoDbConn -> query( $sqlGetUserInfo );
@@ -60,9 +69,28 @@ class LoggedInUser implements iMyCurriculums
 		}
 	}
 	
-	public function MyCurriculums($pdoDbConn){
-		$pdoDbConn->query("SELECT * FROM t_cv c WHERE c.id_user = :param_id_user");
+	public function MyCurriculums( $pdoDbConn ){
+		$cvList=null;
+		$sqlGetCvRows="SELECT * FROM t_user_has_cv c WHERE c.id_user = :param_id_user";
+		// var_dump($sqlGetCvRows);
+		$pdoDbConn->query($sqlGetCvRows);
 		$pdoDbConn->bind(":param_id_user", $this->getUserId());
+		$resultCvRows=$pdoDbConn->resultSet();
+		$r=1;
+		$colorArr=array(1=>"khaki", 2=>"deep-orange", 3=>"amber", 4=>"blue-gray");
+		foreach($resultCvRows as $cvRow){
+			if($r==5)
+				$r=1;
+			$cvList.=
+				"<div class='w3-quarter w3-card w3-".$colorArr[$r]." w3-padding-16' style='min-height:10em;'>"
+					."<h3>". $cvRow['name'] ."</h3>"
+					."<p>". $cvRow['description'] ."</p>"
+					."<a class='w3-button w3-white w3-hover-blue' href='../cv/?userID=1&cvID=4'>Visa CV</a>"
+				."</div>";
+			$r++;
+		}
+		
+		$this->setListOfCvs( $cvList );
 	}
 }
 
@@ -129,5 +157,7 @@ class RequestedProfile implements iMyCurriculums
 		}
 	}
 	public function MyCurriculums($pdoDbConn){
+		$pdoDbConn->query("SELECT * FROM t_cv c WHERE c.id_user = :param_id_user");
+		$pdoDbConn->bind(":param_id_user", $this->getUserId());
 	}
 }

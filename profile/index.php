@@ -71,32 +71,13 @@ else{
 		<section class="w3-container w3-padding-32 w3-center w3-row" id="curriculum">
 			<?php
 			if(isset($loggedInUser))
-				 $loggedInUser->MyCurriculums($dbConn);
+				echo $loggedInUser->getListOfCvs();
 			?>
-			<div class="w3-quarter w3-card w3-khaki w3-padding-16" style="min-height:10em;">
-				<h3>Jane Doe</h3>
-				<p>Support</p>
-				<a class="w3-button w3-teal w3-hover-indigo" href="../cv/?userID=1&cvID=3">Visa CV</a>
-			</div>
-
-			<div class="w3-quarter w3-card w3-deep-orange w3-padding-16" style="min-height:10em;">
-				<h3>John Doe</h3>
-				<p>Boss man</p>
-				<a class="w3-button w3-teal w3-hover-indigo" href="../cv/?userID=1&cvID=2">Visa CV</a>
-			</div>
-			
-			
-			<div class="w3-quarter w3-card w3-amber w3-padding-16" style="min-height:10em;">
-				<h3>IT-CV</h3>
-				<p>Detta CV är för IT-branschen.</p>
-				<a class="w3-button w3-teal w3-hover-indigo" href="../cv/?userID=1&cvID=1">Visa CV</a>
-			</div>
-
-			<div class="w3-quarter w3-card w3-blue-gray w3-padding-16" style="min-height:10em;">
-				<h3>Meritförteckning</h3>
-				<p>Min fullständiga meritförteckning</p>
-				<a class="w3-button w3-white w3-hover-blue" href="../cv/?userID=1&cvID=4">Visa CV</a>
-			</div>
+			<a href="../cv/?userID=1&cvID=new">
+				<div class="w3-quarter w3-card w3-border-big w3-white w3-padding-16 w3-hover-green w3-display-container" style="min-height:11.25em; border:3px dashed black">
+				<span class="w3-button w3-white w3-yellow w3-display-middle">Skapa nytt CV</span>
+				</div>
+			</a>
 		</section>
 
 		<!-- Footer -->

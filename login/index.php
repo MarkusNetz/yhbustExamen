@@ -43,9 +43,12 @@ else
 		<?php include $top_level . $folder_inc . $file_nav; ?>
 		
 		<!-- Contact Container -->
-		<div class="w3-container w3-padding-32">
-			<div class="w3-row">
-				<div class="w3-border w3-col l5 w3-mobile w3-white">
+		<div class="w3-container w3-white">
+			<div class="w3-padding-32">
+			<?php
+			if(!isset($_GET['createAccount'])){
+			?>
+				<div class="w3-col l5 w3-mobile w3-white">
 					<form class="w3-container w3-margin-bottom" method="post" action="<?php echo $top_level . $folder_inc . "process_login.php"; ?>">
 						<h4 class=" w3-margin-top">Logga in med användaruppgifter</h4>
 						<div class="w3-section">
@@ -56,13 +59,14 @@ else
 							<input name="credEntryPhrase" id="credEntryPhrase" class="w3-input" style="width:100%;" type="password" required="required" />
 							<label>Lösenord</label>
 						</div>
-						<input type="submit" class="w3-button w3-blue w3" name="credLoginSubmit" value="Logga in" />
+						<input class="w3-half w3-button w3-blue w3-hover-indigo w3-border w3-border-brown w3-hover-border-black" type="submit" name="credLoginSubmit" value="Logga in" />
+						<a class="w3-half w3-button w3-green w3-hover-lime w3-border w3-border-brown w3-hover-border-black" name="credLoginCreate" href="./?createAccount=new&type=onPremise">Skapa användare</a>
 					</form>
 				</div>
 				
 				<div class="w3-col l1 w3-small-hide">&nbsp;</div>
 				
-				<div class="w3-border w3-col l6 w3-mobile w3-white">
+				<div class="w3-col l6 w3-mobile w3-white">
 					<div class="w3-container w3-white">
 						<h4 class="w3-margin-top w3-margin-bottom">Tredjepartsinloggning</h4>
 						<div class="w3-padding-top">
@@ -73,15 +77,34 @@ else
 						<div class="w3-padding-top">
 							<div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false" data-onlogin="checkLoginState();"></div>
 							<p class="w3-mobile">facebook</p>
-							<hr />
 						</div>
 					</div>
 				</div>
+			<?php
+			}
+			else{
+			?>
+				<section class="w3-center">
+					<form>
+						<h2>Skapa nytt konto</h2>
+						<div class="">
+							<input name="credEntryUser" id="credEntryUser" class="w3-input" style="width:100%;" type="email" required="required" />
+							<label>Din e-postadress</label>
+						</div>
+						<div class="">
+							<input name="credEntryPhrase" id="credEntryPhrase" class="w3-input" style="width:100%;" type="password" required="required" />
+							<label>Lösenord</label>
+						</div>
+					</form>
+				</section>
+			<?php
+			}
+			?>
 			</div>
 		</div>
 
 		<!-- Footer -->
-		<footer class="w3-container w3-padding-32 w3-theme-d1 w3-center">
+		<!--footer class="w3-container w3-padding-32 w3-theme-d1 w3-center">
 			<h4>Follow Us</h4>
 			<a class="w3-button w3-large w3-teal" href="javascript:void(0)" title="Facebook"><i class="fa fa-facebook"></i></a>
 			<a class="w3-button w3-large w3-teal" href="javascript:void(0)" title="Twitter"><i class="fa fa-twitter"></i></a>
@@ -95,8 +118,8 @@ else
 				<a class="w3-button w3-theme" href="#myPage"><span class="w3-xlarge">
 				<i class="fa fa-chevron-circle-up"></i></span></a>
 			</div>
-		</footer>
+		</footer-->
 		
-		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		<!--script src="https://apis.google.com/js/platform.js" async defer></script-->
 	</body>
 </html>
