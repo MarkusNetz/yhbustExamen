@@ -92,17 +92,18 @@ else
 							</div>
 						</div>
 						
-						<div class="w3-row-padding w3-margin-top">
-							<div class="w3-quarter w3-text-dark-gray w3-leftbar w3-pale-blue w3-border-blue">
-								<p>Minsta krav på lösenordet:</p>
-									<ul>
-										<li>4 tecken,</li>
-										<li>1 liten- eller,</li>
-										<li>1 stor bokstav, och</li>
-										<li>ett av @#$%&</li>
-									</ul>
+						<div class="w3-row-padding w3-margin-bottom">
+							<div class="w3-quarter w3-text-dark-gray w3-leftbar w3-pale-blue w3-border-blue w3-margin-bottom">
+								<p>Lösenordskrav:</p>
+								<ul>
+									<li>1 liten bokstav</li>
+									<li>1 stor bokstav</li>
+									<li>1 siffra</li>
+									<li>1 av @ # $ % & </li>
+								</ul>
 							</div>
-							<div class="w3-half w3-padding-top">
+							
+							<div class="w3-half w3-padding-top w3-margin-bottom">
 								<input name="accPassOne" id="accPassOne" class="w3-leftbar w3-input w3-pale-green w3-border-green" type="password" required="required" placeholder="Minst fyra tecken långt" />
 								<label for="accPassOne" class="w3-opacity">Önskat lösenord</label><br /><br />
 							

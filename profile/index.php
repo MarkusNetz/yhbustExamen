@@ -73,7 +73,7 @@ else{
 			if(isset($loggedInUser))
 				echo $loggedInUser->getListOfCvs();
 			?>
-			<a href="../cv/?userID=1&cvID=new">
+			<a href="../cv/?userID=<?php echo $loggedInUser->getUserId();?>&newCv=yes">
 				<div class="w3-quarter w3-card w3-border-big w3-white w3-padding-16 w3-hover-green w3-display-container" style="min-height:11.25em; border:3px dashed black">
 				<span class="w3-button w3-white w3-yellow w3-display-middle">Skapa nytt CV</span>
 				</div>

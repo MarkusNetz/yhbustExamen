@@ -23,7 +23,7 @@
 			}
 			else{
 		?>
-				<a href="/logout" class="w3-bar-item w3-button w3-mobile w3-hover-none w3-border-none w3-hover-white">Logga ut</a>
+				<a href="/logout" class="w3-bar-item w3-button w3-mobile w3-hover-none w3-border-none w3-hover-white w3-margin-8 w3-margin-right w3-round w3-white w3-small"><i class="fa fa-sign-out-alt"></i> Logga ut</a>
 		<?php
 			}
 		?>
