@@ -45,9 +45,6 @@ else
 		<!-- Contact Container -->
 		<div class="w3-container w3-white">
 			<div class="w3-padding-32">
-			<?php
-			if(!isset($_GET['createAccount'])){
-			?>
 				<div class="w3-col l5 w3-mobile w3-white">
 					<form class="w3-container w3-margin-bottom" method="post" action="<?php echo $top_level . $folder_inc . "process_login.php"; ?>">
 						<h4 class=" w3-margin-top">Logga in med användaruppgifter</h4>
@@ -60,7 +57,7 @@ else
 							<label>Lösenord</label>
 						</div>
 						<input class="w3-half w3-button w3-blue w3-hover-indigo w3-border w3-border-brown w3-hover-border-black" type="submit" name="credLoginSubmit" value="Logga in" />
-						<a class="w3-half w3-button w3-green w3-hover-lime w3-border w3-border-brown w3-hover-border-black" name="credLoginCreate" href="./?createAccount=new&type=onPremise">Skapa användare</a>
+						<a class="w3-half w3-button w3-green w3-hover-lime w3-border w3-border-brown w3-hover-border-black" name="credLoginCreate" href="<?php echo $top_level . "registerAccount/";?>">Skapa användare</a>
 					</form>
 				</div>
 				
@@ -80,67 +77,6 @@ else
 						</div>
 					</div>
 				</div>
-			<?php
-			}
-			else{
-			?>
-				<div class="w3-content">
-					<div class="w3-panel w3-green w3-center">
-						<h2>Skapa nytt konto</h2>
-					</div>
-					<form class="w3-container" method="post" action="../inc/process_registration.php">
-						<div class="w3-row-padding">
-							<div class="w3-third">
-								<input name="accFirstName" id="accFirstName" class="w3-input w3-border-green" style="width:100%;" type="text" required="required" />
-								<label for="accFirstName">Förnamn</label>
-							</div>
-							<div class="w3-third">
-								<input name="accLastName" id="accLastName" class="w3-input w3-border-green" style="width:100%;" type="text" required="required" />
-								<label for="accLastName">Efternamn</label>
-							</div>
-							<div class="w3-third">
-								<input name="accLastName" id="accLastName" class="w3-input w3-border-green" style="width:100%;" type="date" required="required" placeholder="" />
-								<label for="accLastName">Födelsedatum</label>
-							</div>
-						</div>
-						<div class="w3-row-padding">							
-							<div class="w3-third">
-								<input name="accEmail" id="accEmail" class="w3-input w3-border-green" style="width:100%;" type="email" required="required" />
-								<label for="accEmail">Din e-postadress</label>
-							</div>
-							<div class="w3-third">
-								<input name="accPassOne" id="accPassOne" class="w3-input w3-border-green" style="width:100%;" type="password" required="required" />
-								<label for="accPassOne">Önskat lösenord</label>
-							</div>
-							<div class="w3-third">
-								<input name="accPassTwo" id="accPassTwo" class="w3-input w3-border-green" style="width:100%;" type="password" required="required" />
-								<label for="accPassOne">Bekräfta lösenord</label>
-							</div>
-						</div>
-						
-						<div class="w3-row-padding">							
-							<div class="w3-third">
-								<input name="accEmail" id="accEmail" class="w3-input w3-border-green" style="width:100%;" type="email" required="required" />
-								<label for="accEmail">Din e-postadress</label>
-							</div>
-							<div class="w3-third">
-								<input name="accPassOne" id="accPassOne" class="w3-input w3-border-green" style="width:100%;" type="password" required="required" />
-								<label for="accPassOne">Önskat lösenord</label>
-							</div>
-							<div class="w3-third">
-								<input name="accPassTwo" id="accPassTwo" class="w3-input w3-border-green" style="width:100%;" type="password" required="required" />
-								<label for="accPassOne">Bekräfta lösenord</label>
-							</div>
-						</div>
-						
-						<div class="w3-margin-top">
-							<input type="submit" class="w3-button w3-large w3-gray w3-border w3-border-deep-blue w3-round w3-hover-blue" name="submitNewAcc" value="Registrera" />
-						</div>
-					</form>
-				</div>
-			<?php
-			}
-			?>
 			</div>
 		</div>
 

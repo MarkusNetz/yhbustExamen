@@ -58,13 +58,13 @@ class LoggedInUser implements iMyCurriculums
 	}
 	
 	protected function UserInformation($pdoDbConn){
-		$sqlGetUserInfo="SELECT CONCAT(name_first, ' ', name_last) fullName, name_first, name_last, registered FROM t_users WHERE id_user = :param_id_user";
+		$sqlGetUserInfo="SELECT name_first, name_last, registered FROM t_users WHERE id_user = :param_id_user";
 		$pdoDbConn -> query( $sqlGetUserInfo );
 		$pdoDbConn -> bind( ':param_id_user', $this -> getUserId() );
 		$userInfoRow = $pdoDbConn -> single();
 		if($userInfoRow == true){
-			$this -> setDisplayName($userInfoRow['fullName']);
-			$this -> setDisplayMail($userInfoRow['fullName']);
+			$this -> setDisplayName( $userInfoRow['name_first'] ." ". $userInfoRow['name_last'] );
+			// $this -> setDisplayMail( $userInfoRow['registered'] );
 			$this -> setInfoRegistered($userInfoRow['registered']);
 		}
 	}

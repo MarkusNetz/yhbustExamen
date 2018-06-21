@@ -51,54 +51,93 @@ else
 					<form class="w3-container" method="post" action="../inc/process_registration.php">
 						<div class="w3-row-padding">
 							<div class="w3-third">
-								<input name="accFirstName" id="accFirstName" class="w3-input w3-border-green" style="width:100%;" type="text" required="required" />
+								<input name="accFirstName" id="accFirstName" class="w3-leftbar w3-input w3-pale-green w3-border-green" style="width:100%;" type="text" required="required" />
 								<label for="accFirstName" class="w3-opacity">Förnamn</label>
 							</div>
 							<div class="w3-third">
-								<input name="accLastName" id="accLastName" class="w3-input w3-border-green" style="width:100%;" type="text" required="required" />
+								<input name="accLastName" id="accLastName" class="w3-leftbar w3-input w3-pale-green w3-border-green" style="width:100%;" type="text" required="required" />
 								<label for="accLastName" class="w3-opacity">Efternamn</label>
 							</div>
 							<div class="w3-third">
-								<input name="accDateOfBirth" id="accDateOfBirth" class="w3-input w3-border-green" style="width:100%;" type="date" required="required" placeholder="" />
+								<input name="accDateOfBirth" id="accDateOfBirth" class="w3-leftbar w3-input w3-pale-green w3-border-green" style="width:100%;" type="date" required="required" placeholder="" />
 								<label for="accDateOfBirth" class="w3-opacity">Födelsedatum</label>
 							</div>
 						</div>
-						<div class="w3-row-padding">							
+						
+						<div class="w3-row-padding w3-margin-top">							
 							<div class="w3-third">
-								<select class="w3-select w3-medium" name="accContactType" id="accContactType">
-									<option disabled selected>Ange kontakt</option>
-									<option value="1">Mobilnummer</option>
-									<option value="2">Hemadress</option>
-									<option value="3">Test</option>
+								<select class="w3-leftbar w3-pale-green w3-select w3-medium w3-border-green" name="accContactType" id="accContactType">
+									<option value="" disabled>Ange kontakt</option>
+									<option value="1" selected>E-postadress</option>
 								</select>
-								<label>&nbsp;</label>
+								<label class="w3-opacity" for="accContactEmail">&nbsp;</label>
 							</div>
 							<div class="w3-twothird">
-								<input name="accContactInfo" id="accContactInfo" class="w3-input w3-border-green" style="width:100%;" type="text" required="required" />
+								<input name="accEmail" id="accEmail" class="w3-leftbar w3-input w3-pale-green w3-border-green" type="email" required="required" />
+								<label class="w3-opacity" for="accEmail">&nbsp;</label>
 							</div>
 						</div>
 						
-						<div class="w3-row-padding">							
+						<div class="w3-row-padding w3-margin-top">							
 							<div class="w3-third">
-								<input name="accEmail" id="accEmail" class="w3-input w3-border-green" style="width:100%;" type="email" required="required" />
-								<label for="accEmail" class="w3-opacity">Din e-postadress</label>
+								<select class="w3-leftbar w3-pale-green w3-select w3-medium w3-border-green" name="accContactType" id="accContactType">
+									<option value="" disabled>Ange kontakt</option>
+									<option value="2" selected>Mobilnummer</option>
+								</select>
+								<label class="w3-opacity" for="accContactType">Kontaktväg</label>
 							</div>
-							<div class="w3-third">
-								<input name="accPassOne" id="accPassOne" class="w3-input w3-border-green" style="width:100%;" type="password" required="required" />
-								<label for="accPassOne" class="w3-opacity">Önskat lösenord</label>
-							</div>
-							<div class="w3-third">
-								<input name="accPassTwo" id="accPassTwo" class="w3-input w3-border-green" style="width:100%;" type="password" required="required" />
-								<label for="accPassOne" class="w3-opacity">Bekräfta lösenord</label>
+							<div class="w3-twothird">
+								<input name="accContactInfo" id="accContactInfo" class="w3-leftbar w3-input w3-pale-green w3-border-green" style="width:100%;" type="text" required="required" />
+								<label class="w3-opacity" for="accContactInfo">Din information</label>
 							</div>
 						</div>
 						
-						<div class="w3-margin-top">
+						<div class="w3-row-padding w3-margin-top">
+							<div class="w3-third  w3-text-dark-gray w3-leftbar w3-pale-blue w3-border-blue">
+								<p>
+									Lösenordet ska bestå av minst:
+									<ul>
+										<li>4 tecken,</li>
+										<li>1 liten- eller,</li>
+										<li>1 stor bokstav, och</li>
+										<li>ett av @#$%&</li>
+									</ul>
+								</p>
+							</div>
+							<div class="w3-third">
+								<input name="accPassOne" id="accPassOne" class="w3-leftbar w3-input w3-pale-green w3-border-green" style="width:100%;" type="password" required="required" placeholder="Minst fyra tecken långt" />
+								<label for="accPassOne" class="w3-opacity w3-tooltip">Önskat lösenord<span class="w3-text"> (<em>4 tecken, gemener, versaler, @#$%&, siffra</em>)</span></label>
+							</div>
+							<div class="w3-third">
+								<input name="accPassTwo" id="accPassTwo" class="w3-leftbar w3-input w3-pale-green w3-border-green w3-amber" type="password" required="required" placeholder="Samma som föregående" />
+								<label for="accPassOne" class="w3-opacity w3-label">Bekräfta lösenord</label>
+							</div>
+						</div>
+						
+						<div class="w3-row-padding w3-margin-top">
 							<input type="submit" class="w3-button w3-large w3-deep-purple w3-border w3-border-black w3-round w3-hover-black" name="submitNewAcc" value="Registrera" />
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
+		<script>
+		$(document).ready(function(){
+			
+			$('#accPassOne, #accPassTwo').on('keyup', function (e) {
+				var code = e.keyCode || e.which;
+				if(code != 9){
+					var pattern = /^.*(?=.{4,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/;
+					if ( ( $("#accPassOne").val() == $("#accPassTwo").val()) && (pattern.test( $("#accPassOne").val() ) == true) )
+					{	
+						$('#accPassOne, #accPassTwo').html('Matching').removeClass('w3-border w3-border-red').addClass('w3-border w3-border-green');
+					}
+					else{
+						$('#accPassOne, #accPassTwo').html('Not Matching').removeClass('w3-border w3-border-green').addClass('w3-border w3-border-red');
+					}
+				}
+			});
+		});
+		</script>
 	</body>
 </html>
