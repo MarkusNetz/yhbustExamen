@@ -9,8 +9,6 @@ require_once $top_level . "ini/" . "settings.php";
 // include $top_level . $folder_class . "class_lib.php";
 include $top_level . $folder_class . $file_class_cv;
 
-// include $top_level . $folder_inc . "function.wtf.php";
-
 $myCurriculum=new curriculum();
 
 

@@ -1,7 +1,6 @@
 <?php
 $top_level="";
 require_once $top_level . "ini/" . "settings.php";
-include $top_level . $folder_inc . "function.wtf.php";
 
 ?>
 <!DOCTYPE html>
