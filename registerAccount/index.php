@@ -84,38 +84,36 @@ else
 									<option value="" disabled>Ange kontakt</option>
 									<option value="2" selected>Mobilnummer</option>
 								</select>
-								<label class="w3-opacity" for="accContactType">Kontaktväg</label>
+								<label class="w3-opacity" for="accContactType">&nbsp;</label>
 							</div>
 							<div class="w3-twothird">
-								<input name="accContactInfo" id="accContactInfo" class="w3-leftbar w3-input w3-pale-green w3-border-green" style="width:100%;" type="text" required="required" />
-								<label class="w3-opacity" for="accContactInfo">Din information</label>
+								<input name="accContactInfo" id="accContactInfo" class="w3-leftbar w3-input w3-pale-green w3-border-green" type="text" required="required" />
+								<label class="w3-opacity" for="accContactInfo">&nbsp;</label>
 							</div>
 						</div>
 						
 						<div class="w3-row-padding w3-margin-top">
-							<div class="w3-third  w3-text-dark-gray w3-leftbar w3-pale-blue w3-border-blue">
-								<p>
-									Lösenordet ska bestå av minst:
+							<div class="w3-quarter w3-text-dark-gray w3-leftbar w3-pale-blue w3-border-blue">
+								<p>Minsta krav på lösenordet:</p>
 									<ul>
 										<li>4 tecken,</li>
 										<li>1 liten- eller,</li>
 										<li>1 stor bokstav, och</li>
 										<li>ett av @#$%&</li>
 									</ul>
-								</p>
 							</div>
-							<div class="w3-third">
-								<input name="accPassOne" id="accPassOne" class="w3-leftbar w3-input w3-pale-green w3-border-green" style="width:100%;" type="password" required="required" placeholder="Minst fyra tecken långt" />
-								<label for="accPassOne" class="w3-opacity w3-tooltip">Önskat lösenord<span class="w3-text"> (<em>4 tecken, gemener, versaler, @#$%&, siffra</em>)</span></label>
-							</div>
-							<div class="w3-third">
+							<div class="w3-half w3-padding-top">
+								<input name="accPassOne" id="accPassOne" class="w3-leftbar w3-input w3-pale-green w3-border-green" type="password" required="required" placeholder="Minst fyra tecken långt" />
+								<label for="accPassOne" class="w3-opacity">Önskat lösenord</label><br /><br />
+							
 								<input name="accPassTwo" id="accPassTwo" class="w3-leftbar w3-input w3-pale-green w3-border-green w3-amber" type="password" required="required" placeholder="Samma som föregående" />
 								<label for="accPassOne" class="w3-opacity w3-label">Bekräfta lösenord</label>
+								
 							</div>
-						</div>
-						
-						<div class="w3-row-padding w3-margin-top">
-							<input type="submit" class="w3-button w3-large w3-deep-purple w3-border w3-border-black w3-round w3-hover-black" name="submitNewAcc" value="Registrera" />
+							
+							<div class="w3-quarter">
+								<input type="submit" class="w3-button w3-large w3-deep-purple w3-border w3-border-black w3-round w3-hover-black" name="submitNewAcc" value="Registrera" />
+							</div>
 						</div>
 					</form>
 				</div>
