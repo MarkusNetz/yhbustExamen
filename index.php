@@ -1,6 +1,7 @@
 <?php
-$top_level="";
-require_once $top_level . "ini/" . "settings.php";
+$top_level="/";
+$subdomain="/netzv/";
+require_once $subdomain . "ini/" . "settings.php";
 
 ?>
 <!DOCTYPE html>
@@ -34,6 +35,7 @@ require_once $top_level . "ini/" . "settings.php";
 		<section class="w3-container w3-center w3-white" id="team">
 			<div class="w3-padding-32">
 				<h2>Välkommen till Netzarna.</h2>
+				<p>Just nu används sidan för att bygga upp mitt examensarbete för min kurs i Backendutvecklare med C# på Lernia Yrkeshögskola.</p>
 				<p>Just nu används sidan för att bygga upp mitt examensarbete för min kurs i Backendutvecklare med C# på Lernia Yrkeshögskola.</p>
 			</div>
 		</section>
