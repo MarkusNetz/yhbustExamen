@@ -1,12 +1,12 @@
 <?php
-$top_level="/";
-require_once $top_level . "ini/" . "settings.php";
+$top_level="../";
+require_once($top_level . "ini/" . "settings.php");
 
 ?>
 <!DOCTYPE html>
 <html lang='sv'>
 	<head>
-		<title>Netzarna</title>
+		<title>NetZV - Spontanansök spontanare.</title>
 		<?php
 		/*	Metadata */
 		echo $metadata;
@@ -28,14 +28,13 @@ require_once $top_level . "ini/" . "settings.php";
 	</head>
 	<body class="w3-theme-l5" id="myPage">
 		<!--script src="/js/fb-sdk.js"></script-->
-		<?php include $top_level . $folder_inc . $file_main_dom_nav; ?>
+		<?php include $subdomain_level . $folder_inc . $file_sub_dom_nav; ?>
 
 		<!-- Team Container -->
 		<section class="w3-container w3-center w3-white" id="team">
 			<div class="w3-padding-32">
-				<h2>Välkommen till Netzarna.</h2>
-				<p>Just nu används sidan för att bygga upp mitt examensarbete för min kurs i Backendutvecklare med C# på Lernia Yrkeshögskola.</p>
-				<p>Just nu används sidan för att bygga upp mitt examensarbete för min kurs i Backendutvecklare med C# på Lernia Yrkeshögskola.</p>
+				<h2>NetZV</h2>
+				<p>Vill hjälpa dig spontansöka mer spontant med mobilitet.</p>
 			</div>
 		</section>
 
