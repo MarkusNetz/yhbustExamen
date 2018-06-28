@@ -11,8 +11,10 @@ ini_set("display_errors", 1);
 // Paths and names.
 // $top_level is set at start of every page.
 $subdomain_level="";
-if(stripos($_SERVER['REQUEST_URI'],"/netzv/") !== false )
+if(stripos($_SERVER['REQUEST_URI'],"/netzv/") !== false ){
+	$sub_link="/netzv/";
 	$subdomain_level=$top_level."netzv/";
+}
 include $top_level. "ini/setup_names_paths.php";
 
 // Metadata
@@ -44,12 +46,11 @@ $sqlMode_MariaDB_ver_10_2_4="NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION,STRICT_T
 
 // include "db-config.php"; // From etc-folder.
 include $top_level . $folder_ini . $file_dbConnect; // Initializes a db-connection.
-$dbConn->query("SET SESSION sql_mode='". $sqlMode_MariaDB_ver_10_2_4 ."'");
-// $dbConn->query("SET SESSION sql_mode='". $sqlMode_MySQL_ver_5_7 ."'");
-$dbConn->execute();
 
 // Include these after successfull db-connection is established.
-include($subdomain_level . $folder_inc . "function.login.php");
-sec_session_start(); // Needed to make session-related ( login-related) queries and management on site.
-include $subdomain_level . $folder_class . "LoginCheck.class.php";
-include $subdomain_level . $folder_inc . "function.setupLoggedIn.php";
+if(!empty($subdomain_level)){
+	include $subdomain_level . $folder_inc . "function.login.php";
+	sec_session_start(); // Needed to make session-related ( login-related) queries and management on site.
+	include $subdomain_level . $folder_class . "LoginCheck.class.php";
+	include $subdomain_level . $folder_inc . "function.setupLoggedIn.php";
+}
