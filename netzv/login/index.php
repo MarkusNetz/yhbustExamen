@@ -1,5 +1,5 @@
 <?php
-$top_level="../";
+$top_level="../../";
 require_once $top_level."ini/settings.php";
 
 if( $LoginCheck->LoginCheck($dbConn) == true )
@@ -40,7 +40,7 @@ else
 	</head>
 	<body id="myPage" class="w3-theme-l5">
 		<script src="/js/fb-sdk.js"></script>
-		<?php include $top_level . $folder_inc . $file_nav; ?>
+		<?php include $subdomain_level . $folder_inc . $file_sub_dom_nav; ?>
 		
 		<!-- Contact Container -->
 		<div class="w3-container w3-white">

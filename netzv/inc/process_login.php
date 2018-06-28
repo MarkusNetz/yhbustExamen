@@ -1,5 +1,5 @@
 <?php
-$top_level="../";
+$top_level="../../";
 require_once $top_level."ini/settings.php";
 include_once $top_level . $folder_class . "login.class.php";
 

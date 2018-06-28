@@ -18,7 +18,7 @@
 			if($loggedInUser == null){
 		?>
 				<a href="<?php echo $sub_link; ?>login/" class="w3-bar-item w3-button w3-round w3-white w3-small w3-margin-8 w3-mobile w3-hover-none w3-border-none w3-hover-white w3-margin-right"><i class="fa fa-sign-in-alt"></i> Logga in</a>
-				<a href="<?php echo $sub_link; ?>registerAccount/" class="w3-bar-item w3-button w3-round w3-white w3-small w3-margin-8 w3-mobile w3-hover-none w3-border-none w3-hover-white w3-margin-right"><i class="fa fa-user-plus"></i> Registrera konto</a>
+				<a href="<?php echo $sub_link; ?>register/" class="w3-bar-item w3-button w3-round w3-white w3-small w3-margin-8 w3-mobile w3-hover-none w3-border-none w3-hover-white w3-margin-right"><i class="fa fa-user-plus"></i> Registrera konto</a>
 		<?php
 			}
 			else{

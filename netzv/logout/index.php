@@ -1,5 +1,5 @@
 <?php
-$top_level="../";
+$top_level="../../";
 require_once( $top_level . "ini/" . "settings.php" );
 
 // execute logout function.
@@ -24,5 +24,5 @@ function logout(){
 	// Destroy session
 	session_destroy();
 
-	header("Location: ../index.php");
+	header("Location: ".$subdomain_level);
 }
