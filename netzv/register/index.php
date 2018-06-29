@@ -2,16 +2,15 @@
 $top_level="../../";
 require_once $top_level."ini/settings.php";
 
-if( $LoginCheck->LoginCheck($dbConn) == true )
-{
-	
-	$loggedInUser = new loggedInUser($dbConn);
+// Ifall man blivit redirected hit med någon parameter från en annan sida.
+$noAccInfo=null;
+if(isset($_GET['show'])){
+	if($_GET['show'] == "noAccInfo")
+		$noAccInfo="<div class='w3-panel w3-blue w3-round'><p>För att kunna skapa ett CV på NetZV måste du först ha ett aktivt användarkonto.</p></div>";
+	elseif($_GET['show'] == "???????"){
+		// $varToSetWhenThisHappens="info goes here";
+	}
 }
-else
-{
-	header("location " . $subdomain_level . "login/");
-}
-
 ?>
 <!DOCTYPE html>
 <html lang='sv'>
@@ -43,12 +42,19 @@ else
 		
 		<!-- Contact Container -->
 		<div class="w3-container w3-white">
+			
 			<div class="w3-padding-32">
 				<div class="w3-content">
+					<?php
+					
+					if(!empty($noAccInfo))
+						echo $noAccInfo;
+					?>
+					
 					<div class="w3-panel w3-green w3-center">
 						<h2>Skapa nytt konto</h2>
 					</div>
-					<form class="w3-container" method="post" action="../inc/process_registration.php">
+					<form class="w3-container pass2validate" method="post" action="../inc/process_registration.php">
 						<div class="w3-row-padding">
 							<div class="w3-third">
 								<input name="accFirstName" id="accFirstName" class="w3-leftbar w3-input w3-pale-green w3-border-green" type="text" required="required" />
@@ -124,6 +130,7 @@ else
 		<script>
 		$(document).ready(function(){
 			
+			// This functions reacts to keypup-events on password-fields that need to be validated.
 			$('#accPassOne, #accPassTwo').on('keyup', function (e) {
 				var code = e.keyCode || e.which;
 				if(code != 9){

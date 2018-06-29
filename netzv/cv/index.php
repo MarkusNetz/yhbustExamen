@@ -26,7 +26,7 @@ else{
 	header("location: ". $sub_link ."profile/");
 }
 
-include($subdomain_level . $folder_class ."elements.class.php");
+include $subdomain_level . $folder_class ."elements.class.php";
 $HtmlObjProps = new HtmlObjectProperties();
 
 // CV | Delete items in CV
@@ -34,7 +34,7 @@ if(isset($_GET['action']) && $_GET['action'] == "delete" && isset($_GET['actionI
 	$_GETactionID=filter_input(INPUT_GET, "actionID", FILTER_VALIDATE_INT);
 	$sqlDelete="";
 	// En specifierad typ måste finnas för önskad delete.
-	if(isset($_GET['actionDelete'])) {
+	if( isset($_GET['actionDelete']) ) {
 		if($_GET['actionDelete']=="edu"){
 			$sqlDelete="DELETE FROM t_cv_educations WHERE id_education = :id_action_get AND id_cv = :id_cv_get";
 		}

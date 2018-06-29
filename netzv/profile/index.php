@@ -1,5 +1,5 @@
 <?php
-$top_level="../";
+$top_level="../../";
 require_once $top_level."ini/settings.php";
 
 if( $loggedInUser != null && !isset($_GET['userId']) )
@@ -73,9 +73,10 @@ else{
 			if(isset($loggedInUser))
 				echo $loggedInUser->getListOfCvs();
 			?>
-			<a href="../cv/?userID=<?php echo $loggedInUser->getUserId();?>&newCv=yes">
-				<div class="w3-quarter w3-card w3-border-big w3-white w3-padding-16 w3-hover-green w3-display-container" style="min-height:11.25em; border:3px dashed black">
-				<span class="w3-button w3-white w3-yellow w3-display-middle">Skapa nytt CV</span>
+			
+			<a href="<?php echo $sub_link;?><?php echo (isset($loggedInUser) ? "cv/?userID=".$loggedInUser->getUserId()."&newCv=yes" : "register/?show=noAccInfo"); ?>">
+				<div class="w3-quarter w3-card w3-border-big w3-white w3-padding-16 w3-hover-pale-green w3-display-container" style="min-height:11.25em; border:3px dashed black">
+					<span class="w3-button w3-white w3-yellow w3-display-middle w3-hover-white w3-round-xxlarge">Skapa nytt CV</span>
 				</div>
 			</a>
 		</section>
