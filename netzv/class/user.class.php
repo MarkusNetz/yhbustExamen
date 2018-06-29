@@ -71,22 +71,21 @@ class LoggedInUser implements iMyCurriculums
 	
 	// Use this method to list the blocks of clickable CVs in Profile-page.
 	public function MyCurriculums( $pdoDbConn ){
+		$colorArr=array(1=>"khaki", 2=>"deep-orange", 3=>"amber", 4=>"blue-gray");
+		$r=1;
 		$cvList=null;
 		$sqlGetCvRows="SELECT * FROM t_user_has_cv c WHERE c.id_user = :param_id_user";
-		// var_dump($sqlGetCvRows);
 		$pdoDbConn->query($sqlGetCvRows);
 		$pdoDbConn->bind(":param_id_user", $this->getUserId());
 		$resultCvRows=$pdoDbConn->resultSet();
-		$r=1;
-		$colorArr=array(1=>"khaki", 2=>"deep-orange", 3=>"amber", 4=>"blue-gray");
 		foreach($resultCvRows as $cvRow){
-			if($r==5)
+			if($r==count($colorArr))
 				$r=1;
 			$cvList.=
 				"<div class='w3-quarter w3-card w3-".$colorArr[$r]." w3-padding-16' style='min-height:10em;'>"
 					."<h3>". $cvRow['name'] ."</h3>"
 					."<p>". $cvRow['description'] ."</p>"
-					."<a class='w3-button w3-white w3-hover-blue' href='../cv/?userID=1&cvID=4'>Visa CV</a>"
+					."<a class='w3-button w3-white w3-hover-blue' href='../cv/?userID=". $this->getUserId() ."&cvID=".$cvRow['id_cv']."'>Visa CV</a>"
 				."</div>";
 			$r++;
 		}
