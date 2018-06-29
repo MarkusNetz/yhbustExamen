@@ -9,7 +9,7 @@ if( $LoginCheck->LoginCheck($dbConn) == true )
 }
 else
 {
-	header("location " . $top_level . "login/");
+	header("location " . $subdomain_level . "login/");
 }
 
 ?>

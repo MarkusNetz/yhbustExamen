@@ -1,5 +1,5 @@
 <?php
-$top_level="../";
+$top_level="../../";
 require_once $top_level . "ini/" . "settings.php";
 $varJQueryModal="";
 if( isset($_GET['userID']) && (isset($_GET['cvID']) || isset($_GET['newCv']) )){
@@ -23,10 +23,10 @@ if( isset($_GET['userID']) && (isset($_GET['cvID']) || isset($_GET['newCv']) )){
 	}
 }
 else{
-	header("location: ../profile/");
+	header("location: ". $sub_link ."profile/");
 }
 
-include($top_level.$folder_class."elements.class.php");
+include($subdomain_level . $folder_class ."elements.class.php");
 $HtmlObjProps = new HtmlObjectProperties();
 
 // CV | Delete items in CV
@@ -207,7 +207,7 @@ if( isset($_POST['submitting'])){
 	}
 }
 
-include $top_level . $folder_class . $file_class_cv;
+include $subdomain_level . $folder_class . $file_class_cv;
 $myCurriculum=new curriculum();
 
 ?>
@@ -235,8 +235,8 @@ $myCurriculum=new curriculum();
 		echo $jquery; ?>
 	</head>
 	<body class="w3-light-grey" id="cvPresentation">
-		<script src="/js/fb-sdk.js"></script>
-		<?php // include $path_inc ."/". $file_nav; ?>
+		<script src="<?php echo $subdomain_level;?>js/fb-sdk.js"></script>
+		<?php // include $subdomain_level . $path_inc ."/". $file_sub_dom_nav; ?>
 		
 		<?php
 		if(isset($_GET['newCv']) && !empty($varJQueryModal))
