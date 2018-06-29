@@ -69,6 +69,7 @@ class LoggedInUser implements iMyCurriculums
 		}
 	}
 	
+	// Use this method to list the blocks of clickable CVs in Profile-page.
 	public function MyCurriculums( $pdoDbConn ){
 		$cvList=null;
 		$sqlGetCvRows="SELECT * FROM t_user_has_cv c WHERE c.id_user = :param_id_user";

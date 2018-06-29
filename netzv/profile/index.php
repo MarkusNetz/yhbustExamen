@@ -52,16 +52,12 @@ else{
 			</div>
 			
 			<div class="w3-padding-16 w3-row">
-				<div class="w3-third">
-					<h1>Min historia <i class="fa fa-"></i></h1>
+				<div class="w3-half">
+					<h1>Karriärsmål <i class="fa fa-"></i></h1>
 					<p>Lorem ipsum ....</p>
 				</div>
-				<div class="w3-third">
-					<h1>Mina karriärsmål <i class="fa fa-"></i></h1>
-					<p>Lorem ipsum ....</p>
-				</div>
-				<div class="w3-third">
-					<h1>Min framtidsvision <i class="fa fa-"></i></h1>
+				<div class="w3-half">
+					<h1>Framtidsvision <i class="fa fa-"></i></h1>
 					<p>Lorem ipsum ....</p>
 				</div>
 			</div>
