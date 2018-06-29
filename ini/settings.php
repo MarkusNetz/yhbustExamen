@@ -22,7 +22,7 @@ $metadata=
 	"<meta charset='UTF-8'>"
 	."<meta name='viewport' content='width=device-width, initial-scale=1'>";
 // initial setup from top_level ini about css files like bootstrap, w3.css and variable-names for those includes.
-include $top_level. "ini/setup_css.php";
+include "setup_css.php";
 
 /*
 *	 Include files specific for this domain

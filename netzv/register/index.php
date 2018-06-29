@@ -39,7 +39,7 @@ else
 		echo $jquery; ?>
 	</head>
 	<body id="myPage" class="w3-theme-l5">
-		<?php include $top_level . $folder_inc . $file_sub_dom_nav; ?>
+		<?php include $subdomain_level . $folder_inc . $file_sub_dom_nav; ?>
 		
 		<!-- Contact Container -->
 		<div class="w3-container w3-white">
@@ -51,15 +51,15 @@ else
 					<form class="w3-container" method="post" action="../inc/process_registration.php">
 						<div class="w3-row-padding">
 							<div class="w3-third">
-								<input name="accFirstName" id="accFirstName" class="w3-leftbar w3-input w3-pale-green w3-border-green" style="width:100%;" type="text" required="required" />
+								<input name="accFirstName" id="accFirstName" class="w3-leftbar w3-input w3-pale-green w3-border-green" type="text" required="required" />
 								<label for="accFirstName" class="w3-opacity">Förnamn</label>
 							</div>
 							<div class="w3-third">
-								<input name="accLastName" id="accLastName" class="w3-leftbar w3-input w3-pale-green w3-border-green" style="width:100%;" type="text" required="required" />
+								<input name="accLastName" id="accLastName" class="w3-leftbar w3-input w3-pale-green w3-border-green" type="text" required="required" />
 								<label for="accLastName" class="w3-opacity">Efternamn</label>
 							</div>
 							<div class="w3-third">
-								<input name="accDateOfBirth" id="accDateOfBirth" class="w3-leftbar w3-input w3-pale-green w3-border-green" style="width:100%;" type="date" required="required" placeholder="" />
+								<input name="accDateOfBirth" id="accDateOfBirth" class="w3-leftbar w3-input w3-pale-green w3-border-green" type="date" required="required" placeholder="" />
 								<label for="accDateOfBirth" class="w3-opacity">Födelsedatum</label>
 							</div>
 						</div>
@@ -120,6 +120,7 @@ else
 				</div>
 			</div>
 		</div>
+		
 		<script>
 		$(document).ready(function(){
 			

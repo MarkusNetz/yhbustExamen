@@ -43,7 +43,7 @@ else{
 	</head>
 	<body class="w3-theme-l5" id="profilePage">
 		<script src="/js/fb-sdk.js"></script>
-		<?php include $top_level . $folder_inc . $file_nav; ?>
+		<?php include $subdomain_level . $folder_inc . $file_sub_dom_nav; ?>
 		
 		<!-- Team Container -->
 		<section class="w3-container w3-center w3-white" id="profilePresentation">
