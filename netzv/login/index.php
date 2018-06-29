@@ -52,12 +52,12 @@ else
 					
 					<form class="w3-container" method="post" action="<?php echo $subdomain_level . $folder_inc . "process_login.php"; ?>">
 						<div class="w3-section">
-							<input name="credEntryUser" id="credEntryUser" class="w3-input" style="width:100%;" type="email" required="required" />
+							<input name="credEntryUser" id="credEntryUser" class="w3-input" type="email" required="required" />
 							<label>Användarnamn</label>
 						</div>
 						
 						<div class="w3-section">
-							<input name="credEntryPhrase" id="credEntryPhrase" class="w3-input" style="width:100%;" type="password" required="required" />
+							<input name="credEntryPhrase" id="credEntryPhrase" class="w3-input" type="password" required="required" />
 							<label>Lösenord</label>
 						</div>
 						

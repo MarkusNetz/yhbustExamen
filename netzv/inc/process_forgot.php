@@ -1,24 +1,19 @@
 <?php
 $top_level="../../";
 require_once $top_level."ini/settings.php";
-include_once 'function.login.php';
 
-if(isset($_POST['submitNewAcc'])){
+if(isset($_POST['submitResetPass'])){
+	$save_accEmail=$_POST['resetEmail'];
+	// $save_accPassOne=$_POST['accPassOne'];
+	// $save_accPassTwo=$_POST['accPassTwo'];
+	// if($save_accPassOne === $save_accPassTwo)
+		// $setPassPhrase = password_hash($save_accPassOne, PASSWORD_DEFAULT);
+	// else{
+		// header("location: /registerAccount/?errCreate=Couldn't-create-account-due-to-password-mismatch");
+		// return false;
+	// }
 	
-	$save_accFirstName=$_POST['accFirstName'];
-	$save_accLastName=$_POST['accLastName'];
-	$save_accDateOfBirth=$_POST['accDateOfBirth'];
-	$save_accContactType=$_POST['accContactType'];
-	$save_accContactInfo=$_POST['accContactInfo'];
-	$save_accEmail=$_POST['accEmail'];
-	$save_accPassOne=$_POST['accPassOne'];
-	$save_accPassTwo=$_POST['accPassTwo'];
-	if($save_accPassOne === $save_accPassTwo)
-		$setPassPhrase = password_hash($save_accPassOne, PASSWORD_DEFAULT);
-	else{
-		header("location: ". $sub_link ."register/?errCreate=Couldn't-create-account-due-to-password-mismatch");
-		return false;
-	}
+	/*
 	$dbConn->beginTransaction();
 	$dbConn->query("INSERT INTO t_users(name_first, name_last, personal_number, unique_hash) VALUES(:param_accFirstName, :param_accLastName, :param_dateOfBirth, :param_unique_hash)");
 	$dbConn->bind(":param_accFirstName",$save_accFirstName);
@@ -42,6 +37,7 @@ if(isset($_POST['submitNewAcc'])){
 	$dbConn->bind(":param_accPassPhrase",$setPassPhrase);
 	
 	$dbConn->endTransaction();
+	*/
 	
-	header("location: ../profile/?event=newAccount&redirected=FromRegistrationForm&autostartCV=yes");
+	// header("location: ../profile/?event=newAccount&redirected=FromRegistrationForm&autostartCV=yes");
 }

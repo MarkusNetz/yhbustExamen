@@ -1,7 +1,7 @@
 <?php
 $top_level="../../";
 require_once $top_level."ini/settings.php";
-include_once $top_level . $folder_class . "login.class.php";
+include_once $subdomain_level . $folder_class . "login.class.php";
 
 if (isset($_POST['credEntryUser'], $_POST['credEntryPhrase'])) {
     $entryUser = $_POST['credEntryUser'];
@@ -10,12 +10,12 @@ if (isset($_POST['credEntryUser'], $_POST['credEntryPhrase'])) {
 	$loginProcess = $ClassProcessLogin->Login($entryUser, $entryPhrase, $dbConn);
     if ( $loginProcess == true ) {
 		// Login success 
-		echo "<h3>Success</h3><p>Du har blivit inloggad.</p>";
-		header("Location: ". $top_level ."profile/");
+		// echo "<h3>Success</h3><p>Du har blivit inloggad.</p>";
+		header("Location: ". $subdomain_level ."profile/");
     }else {
         // Login failed 
-		echo "<h3>Failed</h3><p>Det gick inte att logga in med dina uppgifter.</p>";
-        header("Location: ". $top_level ."/login?error=1");
+		// echo "<h3>Failed</h3><p>Det gick inte att logga in med dina uppgifter.</p>";
+        header("Location: ". $subdomain_level ."/login/?error=1");
     }
 } else {
     // The correct POST variables were not sent to this page. 
