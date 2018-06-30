@@ -35,7 +35,7 @@ require_once $top_level . "ini/" . "settings.php";
 			<div class="w3-padding-32">
 				<h2>Välkommen till Netzarna.</h2>
 				<p>Just nu används sidan för att bygga upp mitt examensarbete för min kurs i Backendutvecklare med C# på Lernia Yrkeshögskola.</p>
-				<p>Just nu används sidan för att bygga upp mitt examensarbete för min kurs i Backendutvecklare med C# på Lernia Yrkeshögskola.</p>
+				<p>Detta arbete resulterar i den mobila cv-tjänsten <a href="/netzv/">NetZV</a></p>
 			</div>
 		</section>
 

@@ -2,6 +2,13 @@
 $top_level="../";
 require_once($top_level . "ini/" . "settings.php");
 
+$infoMessage=null;
+if(isset($_GET['reason'])){
+	if( $_GET['reason'] == "WrongProfileRequested"){
+		$infoMessage="<div class='w3-panel w3-blue w3-round'><p>Du blev skickad till denna sida istället för att den profil du ville se inte finns.</p></div>";
+	}
+}
+
 ?>
 <!DOCTYPE html>
 <html lang='sv'>
@@ -34,8 +41,12 @@ require_once($top_level . "ini/" . "settings.php");
 		<section class="w3-container w3-center w3-white" id="team">
 			<div class="w3-padding-32">
 				<h2>NetZV</h2>
-				<p>Vill hjälpa dig spontansöka mer spontant med mobilitet.</p>
+				<p>Spontansök dina jobb mer spontant med mobilitet!</p>
 			</div>
+			<?php					
+			if(!empty($infoMessage))
+				echo $infoMessage;
+			?>
 		</section>
 
 		<!-- Work Row -->

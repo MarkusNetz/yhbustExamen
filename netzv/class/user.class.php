@@ -9,6 +9,8 @@ class LoggedInUser implements iMyCurriculums
 	protected $infoLastLogin;
 	protected $userId;
 	protected $listOfCvs;
+	protected $careerText;
+	protected $professionalText;
 	
 	// Constructor
 	function __construct( $pdoDbConn ){
@@ -57,15 +59,32 @@ class LoggedInUser implements iMyCurriculums
 		return $this -> listOfCvs;
 	}
 	
+	protected function setProfileCareer($value){
+		$this -> careerText=$value;
+	}
+	public function getProfileCareer(){
+		return $this -> careerText;
+	}
+	protected function setProfileProfessional($value){
+		$this -> professionalText=$value;
+	}
+	public function getProfileProfessional(){
+		return $this -> professionalText;
+	}
+	
 	protected function UserInformation($pdoDbConn){
-		$sqlGetUserInfo="SELECT name_first, name_last, registered FROM t_users WHERE id_user = :param_id_user";
+		$sqlGetUserInfo="SELECT name_first, name_last, registered, presentation, career_text, professional_text FROM t_users JOIN t_user_profiles up USING(id_user) WHERE id_user = :param_id_user";
 		$pdoDbConn -> query( $sqlGetUserInfo );
 		$pdoDbConn -> bind( ':param_id_user', $this -> getUserId() );
 		$userInfoRow = $pdoDbConn -> single();
-		if($userInfoRow == true){
-			$this -> setDisplayName( $userInfoRow['name_first'] ." ". $userInfoRow['name_last'] );
-			// $this -> setDisplayMail( $userInfoRow['registered'] );
+		if($pdoDbConn->rowCount() == 1){
+			$this -> setDisplayName($userInfoRow['name_first']." ".$userInfoRow['name_last']);
 			$this -> setInfoRegistered($userInfoRow['registered']);
+			$this -> setProfileCareer($userInfoRow['career_text']);
+			$this -> setProfileProfessional($userInfoRow['professional_text']);
+		}
+		else{
+			// Wrong number of profiles returned.
 		}
 	}
 	
@@ -102,14 +121,19 @@ class RequestedProfile implements iMyCurriculums
 	public $displayWorkTitle;
 	public $displayMail;
 	public $displayNumber;
+	public $wrongProfile="false";
 	protected $infoRegistered;
 	protected $infoLastLogin;
 	protected $userId;
+	protected $listOfCvs;
+	protected $careerText;
+	protected $professionalText;
 	
 	// Constructor
 	function __construct($sentUserId, $pdoDbConn){
 		$this -> setUserId( $sentUserId );
 		$this -> UserInformation( $pdoDbConn );
+		$this -> MyCurriculums( $pdoDbConn );
 	}
 	
 	// Languages
@@ -145,19 +169,65 @@ class RequestedProfile implements iMyCurriculums
 		return $this -> infoRegistered;
 	}
 	
+	protected function setListOfCvs($value){
+		$this -> listOfCvs=$value;
+	}
+	public function getListOfCvs(){
+		return $this -> listOfCvs;
+	}
+	
+	protected function setProfileCareer($value){
+		$this -> careerText=$value;
+	}
+	public function getProfileCareer(){
+		return $this -> careerText;
+	}
+	protected function setProfileProfessional($value){
+		$this -> professionalText=$value;
+	}
+	public function getProfileProfessional(){
+		return $this -> professionalText;
+	}
+	
 	protected function UserInformation($pdoDbConn){
-		$sqlGetUserInfo="SELECT CONCAT(name_first, ' ', name_last) fullName, name_first, name_last, registered FROM t_users WHERE id_user = :param_id_user";
+		$sqlGetUserInfo="SELECT name_first, name_last, registered, presentation, career_text, professional_text FROM t_users JOIN t_user_profiles up USING(id_user) WHERE id_user = :param_id_user";
 		$pdoDbConn -> query( $sqlGetUserInfo );
 		$pdoDbConn -> bind( ':param_id_user', $this -> getUserId() );
 		$userInfoRow = $pdoDbConn -> single();
-		if($userInfoRow == true){
-			$this -> setDisplayName($userInfoRow['fullName']);
-			$this -> setDisplayMail($userInfoRow['fullName']);
+		if($pdoDbConn->rowCount() == 1){
+			$this -> setDisplayName($userInfoRow['name_first']." ".$userInfoRow['name_last']);
 			$this -> setInfoRegistered($userInfoRow['registered']);
+			$this -> setProfileCareer($userInfoRow['career_text']);
+			$this -> setProfileProfessional($userInfoRow['professional_text']);
+		}
+		else{
+			// Wrong number of profiles returned.
+			$this->wrongProfile="true";
 		}
 	}
-	public function MyCurriculums($pdoDbConn){
-		$pdoDbConn->query("SELECT * FROM t_cv c WHERE c.id_user = :param_id_user");
+	
+	// Use this method to list the blocks of clickable CVs in Profile-page.
+	public function MyCurriculums( $pdoDbConn ){
+		$colorArr=array(1=>"khaki", 2=>"deep-orange", 3=>"amber", 4=>"blue-gray");
+		$r=1;
+		$cvList=null;
+		$sqlGetCvRows="SELECT * FROM t_user_has_cv c WHERE c.id_user = :param_id_user";
+		$pdoDbConn->query($sqlGetCvRows);
 		$pdoDbConn->bind(":param_id_user", $this->getUserId());
+		$resultCvRows=$pdoDbConn->resultSet();
+		foreach($resultCvRows as $cvRow){
+			if($r==count($colorArr))
+				$r=1;
+			$cvList.=
+				"<div class='w3-quarter w3-card w3-".$colorArr[$r]." w3-padding-16' style='min-height:10em;'>"
+					."<h3>". $cvRow['name'] ."</h3>"
+					."<p>". $cvRow['description'] ."</p>"
+					."<a class='w3-button w3-white w3-hover-blue' href='../cv/?userID=". $this->getUserId() ."&cvID=".$cvRow['id_cv']."'>Visa CV</a>"
+				."</div>";
+			$r++;
+		}
+		
+		$this->setListOfCvs( $cvList );
 	}
+	
 }

@@ -3,7 +3,8 @@ $top_level="../../";
 require_once( $top_level . "ini/" . "settings.php" );
 
 // execute logout function.
-logout();
+if(logout() == true)
+	header("location: ". $sub_link);
 
 function logout(){
 	echo "<p>Påbörjar utloggning.</p>";
@@ -23,6 +24,5 @@ function logout(){
 
 	// Destroy session
 	session_destroy();
-
-	header("Location: ".$subdomain_level);
+	return true;
 }
