@@ -7,6 +7,7 @@ class LoggedInUser implements iMyCurriculums
 	public $displayNumber;
 	public $firstName;
 	public $lastName;
+	public $nrOfCreatedCvs;
 	
 	protected $infoRegistered;
 	protected $infoLastLogin;
@@ -75,6 +76,9 @@ class LoggedInUser implements iMyCurriculums
 		return $this -> professionalText;
 	}
 	
+	public function PayingUser(){
+		return false;
+	}
 	protected function UserInformation($pdoDbConn){
 		$sqlGetUserInfo="SELECT name_first, name_last, registered, presentation, career_text, professional_text FROM t_users JOIN t_user_profiles up USING(id_user) WHERE id_user = :param_id_user";
 		$pdoDbConn -> query( $sqlGetUserInfo );
@@ -102,6 +106,7 @@ class LoggedInUser implements iMyCurriculums
 		$pdoDbConn->query($sqlGetCvRows);
 		$pdoDbConn->bind(":param_id_user", $this->getUserId());
 		$resultCvRows=$pdoDbConn->resultSet();
+		$i=0;
 		foreach($resultCvRows as $cvRow){
 			if($r==count($colorArr))
 				$r=1;
@@ -112,8 +117,9 @@ class LoggedInUser implements iMyCurriculums
 					."<a class='w3-button w3-white w3-hover-blue' href='../cv/?userID=". $this->getUserId() ."&cvID=".$cvRow['id_cv']."'>Visa CV</a>"
 				."</div>";
 			$r++;
+			$i++;
 		}
-		
+		$this->nrOfCreatedCvs=$i;
 		$this->setListOfCvs( $cvList );
 	}
 }
