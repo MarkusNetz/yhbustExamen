@@ -15,7 +15,7 @@ if (isset($_POST['credEntryUser'], $_POST['credEntryPhrase'])) {
     }else {
         // Login failed 
 		// echo "<h3>Failed</h3><p>Det gick inte att logga in med dina uppgifter.</p>";
-        header("Location: ". $subdomain_level ."/login/?error=1");
+        header("Location: ". $subdomain_level ."login/?error=1");
     }
 } else {
     // The correct POST variables were not sent to this page. 

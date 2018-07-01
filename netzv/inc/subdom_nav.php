@@ -8,12 +8,13 @@
 		<div class="w3-dropdown-hover">
 			<button class="w3-button">Dropdown</button>
 			<div class="w3-dropdown-content w3-bar-block w3-card-4">
-			<a href="#" class="w3-bar-item w3-button">Link 1</a>
-			<a href="#" class="w3-bar-item w3-button">Link 2</a>
-			<a href="#" class="w3-bar-item w3-button">Link 3</a>
+				<a href="#" class="w3-bar-item w3-button">Link 1</a>
+				<a href="#" class="w3-bar-item w3-button">Link 2</a>
+				<a href="#" class="w3-bar-item w3-button">Link 3</a>
 			</div>
 		</div>
-		<div class="w3-right">
+		
+		<div class="w3-right w3-margin-right">
 		<?php
 			if($loggedInUser == null){
 		?>
@@ -22,8 +23,15 @@
 		<?php
 			}
 			else{
-		?>
-				<a href="<?php echo $sub_link; ?>logout/" class="w3-bar-item w3-button w3-mobile w3-hover-none w3-border-none w3-hover-white w3-margin-8 w3-margin-right w3-round w3-white w3-small"><i class="fa fa-sign-out-alt"></i> Logga ut</a>
+				?>	
+				<div class="w3-dropdown-hover">
+					<button class="w3-button"><?php echo $loggedInUser->firstName;?></button>
+					<div class="w3-dropdown-content w3-bar-block w3-card-4" style="right:0;">
+						<a href="<?php echo $sub_link . "myAccount/";?>" class="w3-bar-item w3-button">Redigera konto</a>
+						<hr class="padding:0;margin:0;" />
+						<a href="<?php echo $sub_link;?>logout/>" class="w3-bar-item w3-button">Logga ut</a>
+					</div>
+				</div>
 		<?php
 			}
 		?>

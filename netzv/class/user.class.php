@@ -5,6 +5,9 @@ class LoggedInUser implements iMyCurriculums
 	public $displayWorkTitle;
 	public $displayMail;
 	public $displayNumber;
+	public $firstName;
+	public $lastName;
+	
 	protected $infoRegistered;
 	protected $infoLastLogin;
 	protected $userId;
@@ -79,6 +82,8 @@ class LoggedInUser implements iMyCurriculums
 		$userInfoRow = $pdoDbConn -> single();
 		if($pdoDbConn->rowCount() == 1){
 			$this -> setDisplayName($userInfoRow['name_first']." ".$userInfoRow['name_last']);
+			$this -> firstName = $userInfoRow['name_first'];
+			$this -> lastName = $userInfoRow['name_last'];
 			$this -> setInfoRegistered($userInfoRow['registered']);
 			$this -> setProfileCareer($userInfoRow['career_text']);
 			$this -> setProfileProfessional($userInfoRow['professional_text']);

@@ -50,7 +50,7 @@ else
 						<h2 class="w3-margin-top">Logga in till NetZV</h2>
 					</div>
 					
-					<form class="w3-container" method="post" action="<?php echo $subdomain_level . $folder_inc . "process_login.php"; ?>">
+					<form class="w3-container" method="post" action="<?php echo $sub_link . $folder_inc . "process_login.php"; ?>">
 						<div class="w3-section">
 							<input name="credEntryUser" id="credEntryUser" class="w3-input" type="email" required="required" />
 							<label>Användarnamn</label>

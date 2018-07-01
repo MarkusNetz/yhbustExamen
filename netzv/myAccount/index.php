@@ -3,28 +3,19 @@ $top_level="../../";
 require_once $top_level."ini/settings.php";
 
 $ExternalUserProfile="";
-if( $loggedInUser != null && !isset($_GET['requestProfile']) || ($loggedInUser != null && isset($_GET['requestProfile']) && $loggedInUser->getUserId == $_GET['requestProfile']) )
+if( $loggedInUser != null )
 {
-	
 	// No specific action. The user is logged in and has not requested another user. Continue with showing the logged in users profile.
 }
 else{
-	if(isset($_GET['requestProfile']) ){
-		$_GETrequestProfile=filter_input(INPUT_GET, "requestProfile", FILTER_VALIDATE_INT);
-		$ExternalUserProfile = new RequestedProfile($_GETrequestProfile, $dbConn);
-		if($ExternalUserProfile->wrongProfile == "true")
-			header("location: ". $sub_link ."?reason=WrongProfileRequested");
-	}
-	else{
-		header("location: ". $sub_link);
-	}
+	header("location: ". $sub_link);
 }
 
 ?>
 <!DOCTYPE html>
 <html lang="sv">
 	<head>
-		<title><?php echo ( isset($loggedInUser) ? $loggedInUser->getDisplayName() : (isset($ExternalUserProfile) ? $ExternalUserProfile->getDisplayName() : "" ) 	); ?> - NetZV</title>
+		<title>Hantera mitt konto - NetZV</title>
 		<script src="https://apis.google.com/js/platform.js" async defer></script>
 
 		<?php
@@ -46,7 +37,7 @@ else{
 		/*	jQuery library 	*/
 		echo $jquery; ?>
 	</head>
-	<body class="w3-theme-l5" id="profilePage">
+	<body class="w3-theme-l5" id="accountsPage">
 		<script src="<?php echo $sub_link;?>js/fb-sdk.js"></script>
 		<?php include $subdomain_level . $folder_inc . $file_sub_dom_nav; ?>
 		
@@ -58,7 +49,7 @@ else{
 			
 			<div class="w3-padding-16 w3-row">
 				<div class="w3-half">
-					<h1>Yrkesvision<i class="fa fa-"></i></h1>
+					<h1>Kontoinställningar<i class="fa fa-"></i></h1>
 					<p>
 					<?php
 					echo ( isset($loggedInUser) ? $loggedInUser->getProfileProfessional() : (isset($_GETrequestProfile) ? $ExternalUserProfile->getProfileProfessional() : ""));
@@ -66,7 +57,7 @@ else{
 					</p>
 				</div>
 				<div class="w3-half">
-					<h1>Karriärmål<i class="fa fa-"></i></h1>
+					<h1>Personlig info<i class="fa fa-"></i></h1>
 					<p>
 					<?php
 					echo ( isset($loggedInUser) ? $loggedInUser->getProfileCareer() : (isset($_GETrequestProfile) ? $ExternalUserProfile->getProfileCareer() : ""));
@@ -96,20 +87,8 @@ else{
 		</section>
 
 		<!-- Footer -->
-		<footer class="w3-container w3-padding-32 w3-theme-d1 w3-center">
-			<h4>Follow Us</h4>
-			<a class="w3-button w3-large w3-teal" href="javascript:void(0)" title="Facebook"><i class="fa fa-facebook"></i></a>
-			<a class="w3-button w3-large w3-teal" href="javascript:void(0)" title="Twitter"><i class="fa fa-twitter"></i></a>
-			<a class="w3-button w3-large w3-teal" href="javascript:void(0)" title="Google +"><i class="fa fa-google-plus"></i></a>
-			<a class="w3-button w3-large w3-teal" href="javascript:void(0)" title="Google +"><i class="fa fa-instagram"></i></a>
-			<a class="w3-button w3-large w3-teal w3-hide-small" href="javascript:void(0)" title="Linkedin"><i class="fa fa-linkedin"></i></a>
-			<p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-
-			<div style="position:relative;bottom:100px;z-index:1;" class="w3-tooltip w3-right">
-				<span class="w3-text w3-padding w3-teal w3-hide-small">Go To Top</span>   
-				<a class="w3-button w3-theme" href="#myPage"><span class="w3-xlarge">
-				<i class="fa fa-chevron-circle-up"></i></span></a>
-			</div>
-		</footer>
+		<!--footer class="w3-container w3-padding-32 w3-theme-d1 w3-center">
+			
+		</footer-->
 	</body>
 </html>
