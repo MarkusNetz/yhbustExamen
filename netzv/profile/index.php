@@ -96,6 +96,15 @@ else{
 			}
 			?>
 		</section>
+		
+		<section class="w3-container w3-padding-32">
+			<h2>Färdigheter</h2>
+			<div class="">
+				<span class="w3-button w3-round-xxlarge w3-teal">Oracle <i class="fa fa-times-circle"></i></span>
+				<span class="w3-button w3-round-xxlarge w3-teal">MySQL <i class="fa fa-times-circle"></i></span>
+				<span class="w3-button w3-round-xxlarge w3-teal">MySQL <i class="fa fa-times-circle"></i></span>
+			</div>
+		</section>
 
 		<!-- Footer -->
 		<!--

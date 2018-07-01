@@ -122,6 +122,10 @@ class LoggedInUser implements iMyCurriculums
 		$this->nrOfCreatedCvs=$i;
 		$this->setListOfCvs( $cvList );
 	}
+	
+	public function MyProfileSkills($pdoDbConn){
+		"SELECT * FROM t_user_has_skills WHERE id_user = :param_id_user";
+	}
 }
 
 
