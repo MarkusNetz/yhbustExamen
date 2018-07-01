@@ -25,11 +25,10 @@
 			else{
 				?>	
 				<div class="w3-dropdown-hover">
-					<button class="w3-button"><?php echo $loggedInUser->firstName;?></button>
-					<div class="w3-dropdown-content w3-bar-block w3-card-4" style="right:0;">
-						<a href="<?php echo $sub_link . "myAccount/";?>" class="w3-bar-item w3-button">Redigera konto</a>
-						<hr class="padding:0;margin:0;" />
-						<a href="<?php echo $sub_link;?>logout/>" class="w3-bar-item w3-button">Logga ut</a>
+					<button class="w3-button w3-white"><i class="fa fa-user-circle"></i> <?php echo $loggedInUser->firstName;?></button>
+					<div class="w3-dropdown-content w3-bar-block w3-card-4 w3-margin-right" style="right:0;">
+						<a href="<?php echo $sub_link . "myAccount/";?>" class="w3-bar-item w3-button"><i class="fa fa-user-cog"></i> Redigera konto</a>
+						<a href="<?php echo $sub_link;?>logout/>" class="w3-bar-item w3-button"><i class="fa fa-sign-out-alt"></i> Logga ut</a>
 					</div>
 				</div>
 		<?php
@@ -51,6 +50,7 @@
 		}
 		else{
 		?>
+			<a href="<?php echo $sub_link; ?>myAccount" class="w3-bar-item w3-button w3-col s3"><i class="fa fa-user-cog"></i></a>
 			<a href="<?php echo $sub_link; ?>logout" class="w3-bar-item w3-button w3-col s3"><i class="fa fa-sign-out-alt"></i></a>
 		<?php
 		}

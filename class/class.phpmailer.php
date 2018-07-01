@@ -1,18 +1,19 @@
 <?php
 $mail = new PHPMailer\PHPMailer\PHPMailer(true);
-$mail = new PHPMailer;
-$mail->setFrom('from@example.com', 'Your Name');
+$mail->setFrom('trombler@gmail.com', 'Trombler');
 $mail->addAddress('markus.netz.89@gmail.com', 'My Friend');
 $mail->Subject  = 'First PHPMailer Message';
 $mail->Body     = 'Hi! This is my first e-mail sent through PHPMailer.';
 
 
+$mail->IsSMTP();
 $mail->Host = "smtp.gmail.com"; // Hämtas från psl-config.
 // Default setting for $mail->SMTPAuth is false, so I only change the value for when it is set to true in the psl-config.php file from etc-folder.
 // if( !empty(PHPMailerSMTPAuth) &&  PHPMailerSMTPAuth == true ){
-	$mail->SMTPAuth = PHPMailerSMTPAuth; // Hämtas från psl-config.
+	// $mail->SMTPAuth = PHPMailerSMTPAuth; // Hämtas från psl-config.
+	$mail->SMTPAuth = true; // Hämtas från psl-config.
 	// $mail->Username = PHPMailerSMTPUserName; // Hämtas från psl-config.
-	$mail->Username = trombler@gmail.com; // Hämtas från psl-config.
+	$mail->Username = "trombler@gmail.com"; // Hämtas från psl-config.
 	// $mail->Password = PHPMailerSMTPPass; // Hämtas från psl-config.php.
 	$mail->Password = 'RZ3DpkldVVUQLO$&nME4uDU5&Mwyd'; // Hämtas från psl-config.php.
 // }
