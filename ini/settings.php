@@ -24,6 +24,15 @@ $metadata=
 // initial setup from top_level ini about css files like bootstrap, w3.css and variable-names for those includes.
 include "setup_css.php";
 
+/* PHPMailer */
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+$PHPMailerDir="PHPMailer/";
+require "./".$PHPMailerDir.'vendor/autoload.php'; // composer autoloader, not implemented. RECOMMENDED WAY.
+// require $top_level.$PHPMailerDir . 'src/PHPMailer.php';
+// require $top_level.$PHPMailerDir . 'src/SMTP.php';
+// require $top_level.$PHPMailerDir . 'src/Exception.php';
+
 /*
 *	 Include files specific for this domain
 */
