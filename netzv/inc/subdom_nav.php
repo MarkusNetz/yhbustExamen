@@ -2,17 +2,8 @@
 <div class="w3-top">
 	<!-- Medium and Large screen nav display. -->
 	<div class="w3-bar w3-blue-gray w3-hide-small">
-		<a href="/" class="w3-bar-item w3-button w3-mobile w3-hover-none w3-border-none w3-hover-white">Home</a>
-		<a href="<?php echo $sub_link; ?>profile/" class="w3-bar-item w3-button w3-mobile w3-hover-none w3-border-none w3-hover-white">Min profil</a>
-		
-		<div class="w3-dropdown-hover">
-			<button class="w3-button">Dropdown</button>
-			<div class="w3-dropdown-content w3-bar-block w3-card-4">
-				<a href="#" class="w3-bar-item w3-button">Link 1</a>
-				<a href="#" class="w3-bar-item w3-button">Link 2</a>
-				<a href="#" class="w3-bar-item w3-button">Link 3</a>
-			</div>
-		</div>
+		<a href="/" class="w3-bar-item w3-button w3-mobile w3-hover-none w3-border-none w3-hover-white">Startsida</a>
+		<a href="<?php echo $sub_link; ?>profile/" class="w3-bar-item w3-button w3-mobile w3-hover-none w3-border-none w3-hover-white">Profil och CV</a>
 		
 		<div class="w3-right w3-margin-right">
 		<?php
