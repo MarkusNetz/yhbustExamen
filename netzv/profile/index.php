@@ -77,7 +77,7 @@ else{
 		</section>
 		
 		<!-- CV-section -->
-		<section class="w3-container w3-padding-32 w3-center w3-row" id="curriculum">
+		<section class="w3-container w3-padding-32 w3-center" id="curriculum">
 			<?php
 			// Lists the CV of logged in user or of requested profile user.
 			echo (isset($loggedInUser) ? $loggedInUser->getListOfCvs() : (isset($_GETrequestProfile) ? $ExternalUserProfile->getListOfCvs() : "") );
@@ -97,32 +97,74 @@ else{
 			?>
 		</section>
 		
-		<section class="w3-container w3-padding-32">
-			<h2>Färdigheter</h2>
-			<div class="">
-				<span class="w3-button w3-round-xxlarge w3-teal">Oracle <i class="fa fa-times-circle"></i></span>
-				<span class="w3-button w3-round-xxlarge w3-teal">MySQL <i class="fa fa-times-circle"></i></span>
-				<span class="w3-button w3-round-xxlarge w3-teal">MySQL <i class="fa fa-times-circle"></i></span>
+		<?php
+		$datalist="<datalist id='skills_list'>";
+		$dbConn->query("SELECT skill_name, id_skill FROM t_skills");
+		$skillsResult=$dbConn->resultSet();
+		foreach($skillsResult as $skillsRow){
+			$datalist.= "<option class='addSkillToList' data-skill_list_id='". $skillsRow['id_skill'] ."' value='". $skillsRow['skill_name']."' />";
+		}
+		$datalist.="</datalist>";
+		?>
+		<section class="w3-container w3-padding-32 w3-white">
+			<h2 class="w3-show-inline-block">Färdigheter</h2> <div class="w3-show-inline-block">
+			<input type="text" name="addUserSkill" id="addUserSkill" value="" placeholder="Lägg till färdighet" class="w3-input w3-round-xlarge w3-border w3-border-black w3-padding-small" list="skills_list" /></div>
+			<?php echo $datalist;?>
+			<div class="skillsList">
+				<?php echo $loggedInUser->MyProfileSkills($dbConn);?>
 			</div>
 		</section>
 
-		<!-- Footer -->
-		<!--
-		<footer class="w3-container w3-padding-32 w3-theme-d1 w3-center">
-			<h4>Follow Us</h4>
-			<a class="w3-button w3-large w3-teal" href="javascript:void(0)" title="Facebook"><i class="fa fa-facebook"></i></a>
-			<a class="w3-button w3-large w3-teal" href="javascript:void(0)" title="Twitter"><i class="fa fa-twitter"></i></a>
-			<a class="w3-button w3-large w3-teal" href="javascript:void(0)" title="Google +"><i class="fa fa-google-plus"></i></a>
-			<a class="w3-button w3-large w3-teal" href="javascript:void(0)" title="Google +"><i class="fa fa-instagram"></i></a>
-			<a class="w3-button w3-large w3-teal w3-hide-small" href="javascript:void(0)" title="Linkedin"><i class="fa fa-linkedin"></i></a>
-			<p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-
-			<div style="position:relative;bottom:100px;z-index:1;" class="w3-tooltip w3-right">
-				<span class="w3-text w3-padding w3-teal w3-hide-small">Go To Top</span>   
-				<a class="w3-button w3-theme" href="#myPage"><span class="w3-xlarge">
-				<i class="fa fa-chevron-circle-up"></i></span></a>
-			</div>
-		</footer>
-		-->
+		<script>
+		$(document).ready(function(){
+			$(".skillsList").on("click","a.removeSkill",function(event){
+				event.preventDefault();
+				
+				$.post("/netzv/js/post_calls.php",
+				{
+					event: "removeUserSkill",
+					skillID: $(this).attr("data-skillId")
+				},
+				function(data, status){
+					if(status == "success")
+					{
+						$(".skillsList").html(data );
+					}
+				});
+			});
+			
+			$("#addUserSkill").on("input",function(){
+				var enteredVal=$(this).val();
+				
+				if( $("#skills_list option").filter(function(){
+					return this.value === enteredVal;
+				}).length){
+					var skillExistsFromTemplate=true;
+					// alert("Clicked a new skill to add." + enteredVal + ". It exists in datalist.");
+					// This if now only matches the existing items. If no items are matched, the entry should be added to table and then be able to be reused by other users :)
+					// The users will contribute to the total backlog of items possible to add as skills.
+					
+				}
+				else
+					var skillExistsFromTemplate=false;
+				
+				$.post("/netzv/js/post_calls.php", 
+				{
+					event: "addUserSkill",
+					skillName: enteredVal,
+					skillTemplate: $skillExistsFromTemplate
+				},
+				function(data, status){
+					if(status == "success")
+					{
+						$(".skillsList").html(data);
+					}
+				});
+			
+			});
+			
+			
+		});
+		</script>
 	</body>
 </html>
