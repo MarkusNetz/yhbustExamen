@@ -107,8 +107,12 @@ else{
 		$datalist.="</datalist>";
 		?>
 		<section class="w3-container w3-padding-32 w3-white">
-			<h2 class="w3-show-inline-block">Färdigheter</h2> <div class="w3-show-inline-block">
-			<input type="text" name="addUserSkill" id="addUserSkill" value="" placeholder="Lägg till färdighet" class="w3-input w3-round-xlarge w3-border w3-border-black w3-padding-small" list="skills_list" /></div>
+			<h2 class="w3-show-inline-block">Färdigheter</h2>
+			
+			<div class="w3-round w3-show-inline-block">
+				<input type="text" name="addUserSkill" id="addUserSkill" value="" placeholder="Lägg till färdighet" class="w3-border-0 w3-border-bottom w3-leftbar w3-border-green w3-padding-small" list="skills_list" />
+				<i id="addSkillBtn" class="w3-button w3-green w3-hover-light-green fa fa-plus w3-padding-medium"></i>
+			</div>
 			<?php echo $datalist;?>
 			<div class="skillsList">
 				<?php echo $loggedInUser->MyProfileSkills($dbConn);?>
@@ -133,8 +137,8 @@ else{
 				});
 			});
 			
-			$("#addUserSkill").on("input",function(){
-				var enteredVal=$(this).val();
+			$("#addSkillBtn").on("click",function(){
+				var enteredVal=$("#addUserSkill").val();
 				
 				if( $("#skills_list option").filter(function(){
 					return this.value === enteredVal;
@@ -152,11 +156,12 @@ else{
 				{
 					event: "addUserSkill",
 					skillName: enteredVal,
-					skillTemplate: $skillExistsFromTemplate
+					skillTemplate: skillExistsFromTemplate
 				},
 				function(data, status){
 					if(status == "success")
 					{
+						$("#addUserSkill").val("");
 						$(".skillsList").html(data);
 					}
 				});

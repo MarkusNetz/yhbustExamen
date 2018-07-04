@@ -15,21 +15,26 @@ if(isset($_POST['event']) && $_POST['event'] == "removeUserSkill"){
 }
 if(isset($_POST['event']) && $_POST['event'] == "addUserSkill"){
 	$_POSTskillName=filter_input(INPUT_POST,'skillName', FILTER_SANITIZE_STRING);
-	$dbConn->beginTransaction();
+	// $dbConn->beginTransaction();
+	
 	if($_POST['skillTemplate']==false){
-		$dbConn->query("INSERT INTO t_skills (skill_name) VALUES(:param_skill_name)");
-		$dbConn->bind(":param_skill_name", $_POSTskillName);
+		if(AddNonExistentSkill($dbConn,$skill2Add, $loggedInUser->getUserId()) == false)
+			echo "kunde inte spara ner ny skill i databasen";
 	}
-	$dbConn->query("INSERT INTO t_user_has_skills (id_skill, id_user) VALUES( (SELECT id_skill from t_skills WHERE skill_name = :param_skill_name), :param_id_user);");
+	
+	$dbConn->query("INSERT INTO t_user_has_skills (id_skill, id_user) VALUES( (SELECT id_skill from t_skills WHERE skill_name = :param_skill_name), :param_id_user)");
 	$dbConn->bind(":param_skill_name", $_POSTskillName);
 	$dbConn->bind(":param_id_user", $loggedInUser->getUserId());
+	
 	if($dbConn->execute() == true){
-		$dbConn->endTransaction();
+		// $dbConn->endTransaction();
 		
 		echo BuildSkills($dbConn, $loggedInUser->getUserId());
 	}
-	else
+	else{
+		// $dbConn->cancelTransaction();
 		return false;
+	}
 }
 
 function BuildSkills($dbConn, $user){
@@ -41,4 +46,15 @@ function BuildSkills($dbConn, $user){
 		$buildSkillSet.="<span class='skill_". $userSkillRow['id_user_skill']." w3-padding-small w3-round-xxlarge w3-teal w3-margin-right' title='". $userSkillRow['skill_description'] ."'>". $userSkillRow['skill_name'] ." <a href='#' data-skillId='". $userSkillRow['id_user_skill'] ."' style='text-decoration:none;' class='w3-show-inline-block removeSkill fa fa-times-circle'></a></span>";
 	}
 	return $buildSkillSet;
+}
+
+function AddNonExistentSkill($dbConn,$skill2Add, $user){
+	echo "Försöker spara ny färdighet.";
+	$dbConn->query("INSERT INTO t_skills (skill_name, user_reporter) VALUES(:param_skill_name, :param_id_user_reporter)");
+	$dbConn->bind(":param_skill_name", $skill2Add);
+	$dbConn->bind(":param_id_user_reporter", $user);
+	if($dbConn->execute() == true)
+		return true;
+	else
+		return false;
 }
