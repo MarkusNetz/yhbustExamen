@@ -2,7 +2,7 @@
 $top_level="../../";
 require_once $top_level."ini/settings.php";
 
-if(isset($_POST['submitResetPass'])){
+if( isset($_POST['submitResetPass']) ){
 	$save_accEmail=$_POST['resetEmail'];
 	// $save_accPassOne=$_POST['accPassOne'];
 	// $save_accPassTwo=$_POST['accPassTwo'];

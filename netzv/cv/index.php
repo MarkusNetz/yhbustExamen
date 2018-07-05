@@ -208,7 +208,8 @@ if( isset($_POST['submitting'])){
 }
 
 include $subdomain_level . $folder_class . $file_class_cv;
-$myCurriculum=new curriculum();
+$myCurriculum=new curriculum($_GETuserID,$_GETcvID, $dbConn);
+
 
 ?>
 <!DOCTYPE html>
@@ -288,15 +289,15 @@ $myCurriculum=new curriculum();
 						<div class="w3-display-container">
 							<img src="../images/netz/markus-netz-1.jpg" style="width:100%" alt="Avatar" />
 							<div class="w3-display-bottommiddle w3-container w3-text-white w3-black w3-opacity w3-twothird w3-center">
-								<h2 class="Toggle-CV-Business w3-xlarge"><a href="./card.php">Markus Netz</a></h2>
+								<h2 class="Toggle-CV-Business w3-xlarge"><a href="./card.php"> <?php echo $myCurriculum->getDisplayNameBanner(); ?></a></h2>
 							</div>
 						</div>
 						
 						<div class="w3-container">
-							<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i> Databasadministratör</p>
-							<p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i> Stockholm, Sverige</p>
-							<p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i> markus.netz.89@gmail.com</p>
-							<p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i> 073 - 362 90 96</p>
+							<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i> <?php echo $myCurriculum->getDisplayWorkTitleBanner(); ?></p>
+							<p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i> <?php echo $myCurriculum->getDisplayLocationBanner(); ?></p>
+							<p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i> <?php echo $myCurriculum->getDisplayMailBanner(); ?></p>
+							<p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i> <?php echo $myCurriculum->getDisplayPhoneBanner(); ?></p>
 							<hr>
 
 							<p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i><?php echo $myCurriculum->getHeaderSkills();?></b> <a href=''><i class='fa fa-pencil'></i></a></p>
@@ -331,24 +332,26 @@ $myCurriculum=new curriculum();
 							</h2>
 						</div>
 						
-						<div class="w3-mobile w3-quarter w3-padding-top w3-margin-top w3-col m12">
-			<?php	if( (isset($_GET['add']) && $_GET['add'] == "work") || (isset($_GET['edit']) && $_GET['edit'] == "work") ){ ?>
-							<a href="./?userID=<?php echo $_GETuserID;?>&cvID=<?php echo $_GETcvID;?>" class="w3-button w3-col s6 m6 l2 w3-round w3-red">
-								<i class="fa fa-ban"> Avbryt</i>
-							</a>
-							<button type="submit" name="submitting" class="w3-button w3-col s6 m6 l2 w3-round w3-light-green" value="formWork">
-								<i class="fa fa-save"> Spara</i>
-							</button>
-			<?php	}
-					else{	?>
-							<a href="./?userID=<?php echo $_GETuserID;?>&cvID=<?php echo $_GETcvID;?>&edit=work#formWork" class="w3-button w3-col s6 m6 l2 w3-round w3-amber">
-								<i class="fa fa-pencil-alt"> Ändra</i>
-							</a>
-							<a href="./?userID=<?php echo $_GETuserID;?>&cvID=<?php echo $_GETcvID;?>&add=work#formWork" class="w3-button w3-col s6 m6 l2 w3-round w3-light-green">
-								<i class="fa fa-plus"> Lägg till</i>
-							</a>
-			<?php	}	?>
-						</div>
+				<?php	if(isset($loggedInUser) && $_GETuserID == $loggedInUser->getUserId()){ ?>
+							<div class="w3-mobile w3-quarter w3-padding-top w3-margin-top w3-col m12">
+					<?php	if( (isset($_GET['add']) && $_GET['add'] == "work") || (isset($_GET['edit']) && $_GET['edit'] == "work") ){ ?>
+									<a href="./?userID=<?php echo $_GETuserID;?>&cvID=<?php echo $_GETcvID;?>" class="w3-button w3-col s6 m6 l2 w3-round w3-red">
+										<i class="fa fa-ban"> Avbryt</i>
+									</a>
+									<button type="submit" name="submitting" class="w3-button w3-col s6 m6 l2 w3-round w3-light-green" value="formWork">
+										<i class="fa fa-save"> Spara</i>
+									</button>
+					<?php	}
+							else{	?>
+									<a href="./?userID=<?php echo $_GETuserID;?>&cvID=<?php echo $_GETcvID;?>&edit=work#formWork" class="w3-button w3-col s6 m6 l2 w3-round w3-amber">
+										<i class="fa fa-pencil-alt"> Ändra</i>
+									</a>
+									<a href="./?userID=<?php echo $_GETuserID;?>&cvID=<?php echo $_GETcvID;?>&add=work#formWork" class="w3-button w3-col s6 m6 l2 w3-round w3-light-green">
+										<i class="fa fa-plus"> Lägg till</i>
+									</a>
+					<?php	}	?>
+							</div>
+				<?php	}	?>
 					</div>
 					<?php
 					echo $myCurriculum->getWorkExperiencesList($dbConn,$HtmlObjProps);
@@ -367,7 +370,7 @@ $myCurriculum=new curriculum();
 							</h2>
 						</div>
 						
-			<?php	if(1==1){ ?>
+			<?php	if(isset($loggedInUser) && $_GETuserID == $loggedInUser->getUserId()){ ?>
 						<div class="w3-mobile w3-quarter w3-padding-top w3-margin-top w3-col m12">
 			<?php	if( (isset($_GET['add']) && $_GET['add'] == "edu") || (isset($_GET['edit']) && $_GET['edit'] == "edu") ){ ?>
 							<a href="./?userID=<?php echo $_GETuserID;?>&cvID=<?php echo $_GETcvID;?>" class="w3-button w3-col s6 m6 l2 w3-round w3-red">

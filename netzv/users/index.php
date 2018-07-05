@@ -1,5 +1,5 @@
 <?php
-$top_level="/";
+$top_level="../";
 require_once $top_level . "ini/" . "settings.php";
 
 ?>
@@ -33,8 +33,9 @@ require_once $top_level . "ini/" . "settings.php";
 		<!-- Team Container -->
 		<section class="w3-container w3-center w3-white" id="team">
 			<div class="w3-padding-32">
-				<h2>Sida under uppbyggnad</h2>
-				<p>Här kommer du senare kunna söka efter profiler för att visa dem.</p>
+				<h2>Välkommen till Netzarna.</h2>
+				<p>Just nu används sidan för att bygga upp mitt examensarbete för min kurs i Backendutvecklare med C# på Lernia Yrkeshögskola.</p>
+				<p>Detta arbete resulterar i den mobila cv-tjänsten <a href="<?php echo $top_level . $sub_link;?>">NetZV</a></p>
 			</div>
 		</section>
 		

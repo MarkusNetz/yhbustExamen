@@ -51,38 +51,39 @@ else{
 		<?php include $subdomain_level . $folder_inc . $file_sub_dom_nav; ?>
 		
 		<!-- Team Container -->
-		<section class="w3-container w3-center w3-white" id="profilePresentation">
-			<div class="w3-padding-16 w3-row">
-				<h2><span class="w3-bottombar w3-border-teal"><?php echo ( isset($loggedInUser) ? $loggedInUser->getDisplayName() : (isset($ExternalUserProfile) ? $ExternalUserProfile->getDisplayName() : "" ) ); ?></span></h2>
-			</div>
+		<section class="w3-container w3-center w3-white" id="profilePresentation">			
+			<h2 class="w3-mobile"><span class="w3-bottombar w3-border-teal"><?php echo ( isset($loggedInUser) ? $loggedInUser->getDisplayName() : (isset($ExternalUserProfile) ? $ExternalUserProfile->getDisplayName() : "" ) ); ?></span></h2>
 			
-			<div class="w3-padding-16 w3-row">
+			<div class="w3-padding-bottom w3-row">
 				<div class="w3-half">
-					<h1>Yrkesvision<i class="fa fa-"></i></h1>
+					<h1><i class="fa fa-eye"></i> Yrkesvision</h1>
+					<p><i>Vad jag vill utföra eller bidra med inom ett ansvarsområde</i></p>
 					<p>
-					<?php
-					echo ( isset($loggedInUser) ? $loggedInUser->getProfileProfessional() : (isset($_GETrequestProfile) ? $ExternalUserProfile->getProfileProfessional() : ""));
-					?>
+						<?php
+						echo ( isset($loggedInUser) ? $loggedInUser->getProfileProfessional() : (isset($_GETrequestProfile) ? $ExternalUserProfile->getProfileProfessional() : ""));
+						?>
 					</p>
 				</div>
+				
 				<div class="w3-half">
-					<h1>Karriärmål<i class="fa fa-"></i></h1>
+					<h1> <i class="fa fa-road"></i> Karriärmål</h1>
+					<p><i>Vad jag långsiktigt vill uppnå i min karriär</i></p>
 					<p>
-					<?php
-					echo ( isset($loggedInUser) ? $loggedInUser->getProfileCareer() : (isset($_GETrequestProfile) ? $ExternalUserProfile->getProfileCareer() : ""));
-					?>
+						<?php
+						echo ( isset($loggedInUser) ? $loggedInUser->getProfileCareer() : (isset($_GETrequestProfile) ? $ExternalUserProfile->getProfileCareer() : ""));
+						?>
 					</p>
 				</div>
 			</div>
 		</section>
 		
 		<!-- CV-section -->
-		<section class="w3-container w3-padding-32 w3-center" id="curriculum">
+		<section class="w3-container w3-row-padding w3-center w3-margin-top w3-margin-bottom" id="curriculum">
 			<?php
 			// Lists the CV of logged in user or of requested profile user.
 			echo (isset($loggedInUser) ? $loggedInUser->getListOfCvs() : (isset($_GETrequestProfile) ? $ExternalUserProfile->getListOfCvs() : "") );
 			
-			// Only show the create new cv-button if logged in.
+			// Only show the create new cv-button if logged in and if the user is a non-paying user it is only allowed to create a maximum of 2 cvs.
 			if( isset($loggedInUser)){
 				if( $loggedInUser -> nrOfCreatedCvs < 2 || ($loggedInUser -> nrOfCreatedCvs >= 2 && $loggedInUser->PayingUser() == true)){
 			?>

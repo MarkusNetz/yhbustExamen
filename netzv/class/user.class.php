@@ -108,8 +108,9 @@ class LoggedInUser implements iMyCurriculums
 		$resultCvRows=$pdoDbConn->resultSet();
 		$i=0;
 		foreach($resultCvRows as $cvRow){
-			if($r==count($colorArr))
+			if($r==count($colorArr)){
 				$r=1;
+			}
 			$cvList.=
 				"<div class='w3-quarter w3-card w3-".$colorArr[$r]." w3-padding-16' style='min-height:10em;'>"
 					."<h3>". $cvRow['name'] ."</h3>"

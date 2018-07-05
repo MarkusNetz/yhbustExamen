@@ -5,15 +5,87 @@ class curriculum {
 	public $headerSkills;
 	public $headerLanguages;
 	protected $cvID;
+	protected $cvUserID;
 	protected $sqlSelectSkills;
+	protected $displayNameBanner;
+	protected $displayLocationBanner;
+	protected $displayMailBanner;
+	protected $displayPhoneBanner;
+	protected $displayWorkTitleBanner;
 	
 	// Constructor
-	function __construct(){
+	function __construct($userIdRequest, $cvIdRequest, $pdoDbConn){
 		$this -> setHeaderWork("Arbetslivserfarenhet");
 		$this -> setHeaderEducation("Utbildning & kurser");
 		$this -> setHeaderSkills("Färdigheter & intressen");
 		$this -> setHeaderLanguages("Språkkunskaper");
-		$this -> setCvId( filter_input( INPUT_GET, "cvID" ) );
+		$this -> setCvUserID( $userIdRequest );
+		$this -> setCvId( $cvIdRequest );
+		$this -> cvUserInfo($pdoDbConn);
+	}
+	
+	public function cvUserInfo( $pdoDbConn ){
+		$sqlGetCvUserInfo=
+			"SELECT u.name_first, u.name_last, uhci.contact privatePhone, uhci2.contact mail, we.work_title, at.type, locs.name street, uha.street_number, uha.street_letter, locc.city
+FROM t_users u
+	JOIN t_user_has_cv uhc ON u.id_user = uhc.id_user
+	JOIN t_user_has_address uha ON u.id_user = uha.id_user
+    JOIN t_address_types at ON at.id_address_type = uha.id_address_type
+    JOIN t_loc_streets locs ON locs.id_street = uha.id_street
+    JOIN t_cv_work_experience we ON we.id_cv = uhc.id_cv
+    JOIN t_user_has_contact_info uhci ON uhci.id_user = u.id_user
+    JOIN t_contact_types ct ON ct.id_contact_type = uhci.id_contact_type
+    JOIN t_loc_cities locc ON locc.id_city = uha.id_city
+    JOIN t_user_has_contact_info uhci2 ON uhci2.id_user = u.id_user
+    JOIN t_contact_types ct2 ON ct2.id_contact_type = uhci2.id_contact_type
+WHERE u.id_user = :param_id_user
+	AND at.type = 'home'
+    AND ct.name = 'Mobilnummer'
+    AND ct2.name = 'mail'
+GROUP BY u.id_user;";
+		$pdoDbConn->query($sqlGetCvUserInfo);
+		$pdoDbConn->bind(":param_id_user", $this->getCvUserID());
+		$cvUserPresentation=$pdoDbConn->single();
+		$this->setDisplayNameBanner($cvUserPresentation['name_first'] ." ". $cvUserPresentation['name_last']); 
+		$this->setDisplayWorkTitleBanner($cvUserPresentation['work_title']); 
+		$this->setDisplayPhoneBanner($cvUserPresentation['privatePhone']); 
+		$this->setDisplayLocationBanner($cvUserPresentation['street'] ." ". $cvUserPresentation['street_number'] .(!empty($cvUserPresentation['street_letter']) ? " " . $cvUserPresentation['street_letter'] : "") .", ". $cvUserPresentation['city']); 
+		$this->setDisplayMailBanner($cvUserPresentation['mail']); 
+	}
+	
+	public function setDisplayWorkTitleBanner( $value ){
+		$this -> displayWorkTitleBanner = $value;
+	}
+	public function getDisplayWorkTitleBanner(){
+		return $this -> displayWorkTitleBanner;
+	}
+	
+	public function setDisplayPhoneBanner( $value ){
+		$this -> displayPhoneBanner = $value;
+	}
+	public function getDisplayPhoneBanner(){
+		return $this -> displayPhoneBanner;
+	}
+	
+	
+	public function setDisplayLocationBanner( $value ){
+		$this -> displayLocationBanner = $value;
+	}
+	public function getDisplayLocationBanner(){
+		return $this -> displayLocationBanner;
+	}
+	
+	public function setDisplayMailBanner( $value ){
+		$this -> displayMailBanner = $value;
+	}
+	public function getDisplayMailBanner(){
+		return $this -> displayMailBanner;
+	}
+	public function setDisplayNameBanner( $value ){
+		$this -> displayNameBanner = $value;
+	}
+	public function getDisplayNameBanner(){
+		return $this -> displayNameBanner;
 	}
 	
 	public function setCvId( $newCvId ){
@@ -21,6 +93,13 @@ class curriculum {
 	}
 	public function getCvId(){
 		return $this -> cvID;
+	}
+	
+	public function setCvUserID( $value ){
+		$this -> cvUserID = $value;
+	}
+	public function getCvUserID(){
+		return $this -> cvUserID;
 	}
 	
 	// Languages
