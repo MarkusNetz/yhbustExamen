@@ -36,7 +36,7 @@ if(!empty($subdomain_level))
 if(!empty($subdomain_level))
 	include $subdomain_level . $folder_class . "user.class.php";
 if(!empty($subdomain_level))
-	include $subdomain_level . $folder_ini . "set_href_names.php";
+	include $subdomain_level . "ini/" . "set_href_names.php";
 
 
 /* 
