@@ -107,14 +107,15 @@ else{
 		$datalist.="</datalist>";
 		?>
 		<section class="w3-container w3-padding-32 w3-white">
-			<h2 class="w3-show-inline-block">Färdigheter</h2>
+			<h2 class="w3-show-inline-block" style="width:15%">Färdigheter</h2>
 			
-			<div class="w3-round w3-show-inline-block">
-				<input type="text" name="addUserSkill" id="addUserSkill" value="" placeholder="Lägg till färdighet" class="w3-border-0 w3-border-bottom w3-leftbar w3-border-green w3-padding-small" list="skills_list" />
+			<div class="w3-round w3-show-inline-block" style="width:75%">
+				<input style="width:75%" type="text" name="addUserSkill" id="addUserSkill" value="" placeholder="Lägg till färdighet" class="w3-border-0 w3-border-bottom w3-leftbar w3-border-green w3-padding-small" list="skills_list" />
 				<i id="addSkillBtn" class="w3-button w3-green w3-hover-light-green fa fa-plus w3-padding-medium"></i>
 			</div>
 			<?php echo $datalist;?>
-			<div class="skillsList">
+			
+			<div class="skillsList w3-margin-top w3-container">
 				<?php echo $loggedInUser->MyProfileSkills($dbConn);?>
 			</div>
 		</section>
@@ -161,8 +162,11 @@ else{
 				function(data, status){
 					if(status == "success")
 					{
+						alert(data)
+						splitData=data.split("%%");
 						$("#addUserSkill").val("");
-						$(".skillsList").html(data);
+						$(".skillsList").html(splitData[0]);
+						$("#skills_list").html(splitData[1]);
 					}
 				});
 			
