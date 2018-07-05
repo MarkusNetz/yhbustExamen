@@ -1,5 +1,5 @@
 <?php
-$top_level="/";
+$top_level="./";
 require_once $top_level . "ini/" . "settings.php";
 
 ?>
