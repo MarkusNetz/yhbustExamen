@@ -13,7 +13,7 @@
 			</div>
 		</div>
 		<div class="w3-right">
-			<a href="/netzv/" class="w3-bar-item w3-button w3-mobile w3-hover-none w3-border-none w3-hover-white w3-margin-8 w3-margin-right w3-round w3-white w3-small"><i class="fa fa-clipboard"></i> Till tjänsten NetZV</a>
+			<a href="/netzv/" class="w3-bar-item w3-button w3-hover-none w3-border-none w3-hover-white w3-margin-8 w3-margin-right w3-round w3-white w3-small"><i class="fa fa-clipboard"></i> Till tjänsten NetZV</a>
 		</div>
 	</div>
 	
@@ -34,6 +34,7 @@
 		<?php
 		}
 		?>
+		<a href="/netzv/" class="w3-bar-item w3-button w3-col s3 w3-hover-none w3-border-none w3-hover-white w3-margin-8 w3-margin-right w3-round w3-white w3-small"><i class="fa fa-clipboard"></i> Till tjänsten NetZV</a>
 	</div>
 </div>
 <div class="w3-block" style="margin-top:2.5em;">&nbsp;</div>
