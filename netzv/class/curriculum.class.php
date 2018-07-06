@@ -53,8 +53,14 @@ class curriculum {
 		$this->setDisplayPhoneBanner($cvUserPresentation['privatePhone']); 
 		$this->setDisplayLocationBanner($cvUserPresentation['street'] ." ". $cvUserPresentation['street_number'] .(!empty($cvUserPresentation['street_letter']) ? " " . $cvUserPresentation['street_letter'] : "") .", ". $cvUserPresentation['city']); 
 		$this->setDisplayMailBanner($cvUserPresentation['mail']); 
-		$this->setDisplayAvatarDirectory($cvUserPresentation['avatar_directory']); 
-		$this->setDisplayAvatarFile($cvUserPresentation['avatar_file_name']); 
+		
+		$pdboDbConn->query("SELECT avatar_directory, avatar_file_name FROM t_user_has_cv WHERE id_cv = :param_id_cv AND id_user = :param_id_user");
+		$pdboDbConn->bind(":param_id_cv",$this->getCvID());
+		$pdboDbConn->bind(":param_id_user",$this->getCvUserID());
+		$cvSpecificInfo=$pdboDbConn->single();
+		
+		$this->setDisplayAvatarDirectory($cvSpecificInfo['avatar_directory']);
+		$this->setDisplayAvatarFile($cvSpecificInfo['avatar_file_name']); 
 	}
 	
 	public function setDisplayAvatarFile( $value ){
