@@ -287,7 +287,7 @@ $myCurriculum=new curriculum($_GETuserID,$_GETcvID, $dbConn);
 			
 					<div class="w3-white w3-text-grey w3-card-4">
 						<div class="w3-display-container">
-							<img src="../images/netz/markus-netz-1.jpg" style="width:100%" alt="Avatar" />
+							<img src="<?php echo $myCurriculum->getDisplayAvatarDirectory().$myCurriculum->getDisplayAvatarFile();?>" style="width:100%" alt="Avatar" />
 							<div class="w3-display-bottommiddle w3-container w3-text-white w3-black w3-opacity w3-twothird w3-center">
 								<h2 class="Toggle-CV-Business w3-xlarge"><a href="./card.php"> <?php echo $myCurriculum->getDisplayNameBanner(); ?></a></h2>
 							</div>

@@ -1,5 +1,5 @@
 <?php
-$top_level="../";
+$top_level="../../";
 require_once $top_level . "ini/" . "settings.php";
 // if(!filter_has_var(INPUT_GET,'userID') && !filter_has_var(INPUT_GET,'cvID')){
 	// header("location: ../profile/");

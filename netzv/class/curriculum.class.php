@@ -12,6 +12,8 @@ class curriculum {
 	protected $displayMailBanner;
 	protected $displayPhoneBanner;
 	protected $displayWorkTitleBanner;
+	protected $displayAvatarDirectory;
+	protected $displayAvatarFile;
 	
 	// Constructor
 	function __construct($userIdRequest, $cvIdRequest, $pdoDbConn){
@@ -26,23 +28,23 @@ class curriculum {
 	
 	public function cvUserInfo( $pdoDbConn ){
 		$sqlGetCvUserInfo=
-			"SELECT u.name_first, u.name_last, uhci.contact privatePhone, uhci2.contact mail, we.work_title, at.type, locs.name street, uha.street_number, uha.street_letter, locc.city
-FROM t_users u
-	JOIN t_user_has_cv uhc ON u.id_user = uhc.id_user
-	JOIN t_user_has_address uha ON u.id_user = uha.id_user
-    JOIN t_address_types at ON at.id_address_type = uha.id_address_type
-    JOIN t_loc_streets locs ON locs.id_street = uha.id_street
-    JOIN t_cv_work_experience we ON we.id_cv = uhc.id_cv
-    JOIN t_user_has_contact_info uhci ON uhci.id_user = u.id_user
-    JOIN t_contact_types ct ON ct.id_contact_type = uhci.id_contact_type
-    JOIN t_loc_cities locc ON locc.id_city = uha.id_city
-    JOIN t_user_has_contact_info uhci2 ON uhci2.id_user = u.id_user
-    JOIN t_contact_types ct2 ON ct2.id_contact_type = uhci2.id_contact_type
-WHERE u.id_user = :param_id_user
-	AND at.type = 'home'
-    AND ct.name = 'Mobilnummer'
-    AND ct2.name = 'mail'
-GROUP BY u.id_user;";
+			"SELECT uhc.avatar_file_name, uhc.avatar_directory, u.name_first, u.name_last, uhci.contact privatePhone, uhci2.contact mail, we.work_title, at.type, locs.name street, uha.street_number, uha.street_letter, locc.city
+			FROM t_users u
+				JOIN t_user_has_cv uhc ON u.id_user = uhc.id_user
+				JOIN t_user_has_address uha ON u.id_user = uha.id_user
+				JOIN t_address_types at ON at.id_address_type = uha.id_address_type
+				JOIN t_loc_streets locs ON locs.id_street = uha.id_street
+				JOIN t_cv_work_experience we ON we.id_cv = uhc.id_cv
+				JOIN t_user_has_contact_info uhci ON uhci.id_user = u.id_user
+				JOIN t_contact_types ct ON ct.id_contact_type = uhci.id_contact_type
+				JOIN t_loc_cities locc ON locc.id_city = uha.id_city
+				JOIN t_user_has_contact_info uhci2 ON uhci2.id_user = u.id_user
+				JOIN t_contact_types ct2 ON ct2.id_contact_type = uhci2.id_contact_type
+			WHERE u.id_user = :param_id_user
+				AND at.type = 'home'
+				AND ct.name = 'Mobilnummer'
+				AND ct2.name = 'mail'
+			GROUP BY u.id_user;";
 		$pdoDbConn->query($sqlGetCvUserInfo);
 		$pdoDbConn->bind(":param_id_user", $this->getCvUserID());
 		$cvUserPresentation=$pdoDbConn->single();
@@ -51,6 +53,21 @@ GROUP BY u.id_user;";
 		$this->setDisplayPhoneBanner($cvUserPresentation['privatePhone']); 
 		$this->setDisplayLocationBanner($cvUserPresentation['street'] ." ". $cvUserPresentation['street_number'] .(!empty($cvUserPresentation['street_letter']) ? " " . $cvUserPresentation['street_letter'] : "") .", ". $cvUserPresentation['city']); 
 		$this->setDisplayMailBanner($cvUserPresentation['mail']); 
+		$this->setDisplayAvatarDirectory($cvUserPresentation['avatar_directory']); 
+		$this->setDisplayAvatarFile($cvUserPresentation['avatar_file_name']); 
+	}
+	
+	public function setDisplayAvatarFile( $value ){
+		$this -> displayAvatarFile = $value;
+	}
+	public function getDisplayAvatarFile(){
+		return $this -> displayAvatarFile;
+	}
+	public function setDisplayAvatarDirectory( $value ){
+		$this -> displayAvatarDirectory = $value;
+	}
+	public function getDisplayAvatarDirectory(){
+		return $this -> displayAvatarDirectory;
 	}
 	
 	public function setDisplayWorkTitleBanner( $value ){
