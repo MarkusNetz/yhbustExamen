@@ -112,7 +112,7 @@ class LoggedInUser implements iMyCurriculums
 				$r=1;
 			}
 			$cvList.=
-				"<div class='w3-quarter w3-card w3-".$colorArr[$r]." w3-padding-16' style='min-height:10em;'>"
+				"<div class='w3-col s12 m4 l3 w3-card w3-".$colorArr[$r]." w3-padding-16' style='min-height:10em;'>"
 					."<h3>". $cvRow['name'] ."</h3>"
 					."<p>". $cvRow['description'] ."</p>"
 					."<a class='w3-button w3-white w3-hover-blue' href='../cv/?userID=". $this->getUserId() ."&cvID=".$cvRow['id_cv']."'>Visa CV</a>"
@@ -125,15 +125,15 @@ class LoggedInUser implements iMyCurriculums
 	}
 	
 	public function MyProfileSkills($pdoDbConn){
-		$pdoDbConn->query("SELECT id_user_skill,skill_name, skill_description from t_users JOIN t_user_has_skills USING (id_user) JOIN t_skills USING (id_skill) WHERE id_user = :param_id_user");
-		$pdoDbConn->bind(":param_id_user", $this->getUserId());
-		$skillResultSet=$pdoDbConn->resultSet();
-		$skillsList=null;
-		foreach($skillResultSet as $skillRow){
-			$skillsList.="<span class='skill_". $skillRow['id_user_skill']." w3-padding-small w3-round-xxlarge w3-teal w3-margin-right' title='". $skillRow['skill_description'] ."'>". $skillRow['skill_name'] ." <a href='#' data-skillId='". $skillRow['id_user_skill'] ."' style='text-decoration:none;' class='w3-show-inline-block removeSkill fa fa-times-circle'></a></span>";
-		}
+		// $pdoDbConn->query("SELECT id_user_skill,skill_name, skill_description from t_users JOIN t_user_has_skills USING (id_user) JOIN t_skills USING (id_skill) WHERE id_user = :param_id_user");
+		// $pdoDbConn->bind(":param_id_user", $this->getUserId());
+		// $skillResultSet=$pdoDbConn->resultSet();
+		// $skillsList=null;
+		// foreach($skillResultSet as $skillRow){
+			// $skillsList.="<span class='skill_". $skillRow['id_user_skill']." w3-padding-small w3-round-xxlarge w3-teal w3-margin-right' title='". $skillRow['skill_description'] ."'>". $skillRow['skill_name'] ." <a href='#' data-skillId='". $skillRow['id_user_skill'] ."' style='text-decoration:none;' class='w3-show-inline-block removeSkill fa fa-times-circle'></a></span>";
+		// }
 		
-		return $skillsList;
+		// return $skillsList;
 	}
 }
 

@@ -1,5 +1,6 @@
 <?php
 $top_level="../../";
+include $top_level."netzv/inc/function.list_builds.php";
 require_once $top_level."ini/settings.php";
 
 $ExternalUserProfile="";
@@ -88,7 +89,7 @@ else{
 				if( $loggedInUser -> nrOfCreatedCvs < 2 || ($loggedInUser -> nrOfCreatedCvs >= 2 && $loggedInUser->PayingUser() == true)){
 			?>
 				<a href="<?php echo $sub_link;?><?php echo (isset($loggedInUser) ? "cv/?userID=".$loggedInUser->getUserId()."&newCv=yes" : "register/?show=noAccInfo"); ?>">
-					<div class="w3-quarter w3-card w3-border-big w3-white w3-padding-16 w3-hover-pale-green w3-display-container" style="min-height:11.25em; border:3px dashed black">
+					<div class="w3-col s12 m4 l3 w3-card w3-border-big w3-white w3-padding-16 w3-hover-pale-green w3-display-container" style="min-height:11.25em; border:3px dashed black">
 						<span class="w3-button w3-white w3-yellow w3-display-middle w3-hover-white w3-round-xxlarge">Skapa nytt CV</span>
 					</div>
 				</a>
@@ -99,27 +100,28 @@ else{
 		</section>
 		
 		<?php
-		$datalist="<datalist id='skills_list'>";
-		$dbConn->query("SELECT skill_name, id_skill FROM t_skills");
-		$skillsResult=$dbConn->resultSet();
-		foreach($skillsResult as $skillsRow){
-			$datalist.= "<option class='addSkillToList' data-skill_list_id='". $skillsRow['id_skill'] ."' value='". $skillsRow['skill_name']."' />";
-		}
-		$datalist.="</datalist>";
+		$loadIniProfileSkills=BuildSkills($dbConn, ( isset($loggedInUser) ? $loggedInUser->getUserId() : (isset($_GETrequestProfile) ? $ExternalUserProfile->getUserId() : "")));
+		$skillsResult=explode("%%",$loadIniProfileSkills);
+		$datalistAllSkills="<datalist id='skills_list'>". $skillsResult[1] . "</datalist>";
+		$showUserAddedSkills=$skillsResult[0];
 		?>
-		<section class="w3-container w3-padding-32 w3-white">
-			<h2 class="w3-show-inline-block" style="width:15%">Färdigheter</h2>
-			
-			<div class="w3-round w3-show-inline-block" style="width:75%">
-				<input style="width:75%" type="text" name="addUserSkill" id="addUserSkill" value="" placeholder="Lägg till färdighet" class="w3-border-0 w3-border-bottom w3-leftbar w3-border-green w3-padding-small" list="skills_list" />
-				<i id="addSkillBtn" class="w3-button w3-green w3-hover-light-green fa fa-plus w3-padding-medium"></i>
+		<div id="skillContainer" class="w3-white">
+			<section class="w3-container w3-section">
+				<h2 class="w3-show-inline-block w3-col s12 m5 l3">Färdigheter</h2>
+				
+				<div class="w3-round w3-show-inline-block w3-row w3-col s12 m7 l5">
+					<p>
+						<input type="text" name="addUserSkill" id="addUserSkill" value="" placeholder="Lägg till färdighet" class="w3-col s10 m10 l10 w3-border-0 w3-border-bottom w3-leftbar w3-border-green w3-padding-small" list="skills_list" />
+						<i id="addSkillBtn" class="w3-col s1 m1 l1 w3-button w3-green w3-hover-light-green fa fa-plus w3-padding-medium"></i>
+					</p>
+				</div>
+				<?php echo $datalistAllSkills;?>
+				
+			</section>
+			<div class="skillsList">
+				<?php echo $showUserAddedSkills; ?>
 			</div>
-			<?php echo $datalist;?>
-			
-			<div class="skillsList w3-margin-top w3-container">
-				<?php echo $loggedInUser->MyProfileSkills($dbConn);?>
-			</div>
-		</section>
+		</div>
 
 		<script>
 		$(document).ready(function(){

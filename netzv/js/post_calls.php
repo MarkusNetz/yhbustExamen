@@ -50,17 +50,7 @@ if(isset($_POST['event']) && $_POST['event'] == "addUserSkill"){
 	}
 }
 
-function BuildSkills($dbConn, $user){
-	$dbConn->query("SELECT s.skill_name, s.skill_description, us.id_user_skill FROM t_user_has_skills us JOIN t_skills s ON us.id_skill = s.id_skill WHERE id_user = :param_id_user");
-	$dbConn->bind(":param_id_user", $user);
-	$resultUserSkills=$dbConn->resultSet();
-	$buildSkillSet=$buildSkillOptions=null;
-	foreach($resultUserSkills as $userSkillRow){
-		$buildSkillSet.="<span class='skill_". $userSkillRow['id_user_skill']." w3-padding-small w3-round-xxlarge w3-teal w3-margin-right' title='". $userSkillRow['skill_description'] ."'>". $userSkillRow['skill_name'] ." <a href='#' data-skillId='". $userSkillRow['id_user_skill'] ."' style='text-decoration:none;' class='w3-show-inline-block removeSkill fa fa-times-circle'></a></span>";
-		$buildSkillOptions.="<option class='addSkillToList' data-skill_list_id='". $userSkillRow['id_user_skill'] ."' value='". $userSkillRow['skill_name'] ."' />";
-	}
-	return $buildSkillSet."%%".$buildSkillOptions;
-}
+include $sub_link.$folder_inc."function.list_builds.php";
 
 function AddNonExistentSkill($pdoDbConn,$skill2Add, $userReporterId){
 	$pdoDbConn->query("INSERT INTO t_skills (skill_name, user_reporter) VALUES(:param_skill_name, :param_id_user_reporter)");
