@@ -287,10 +287,13 @@ $myCurriculum=new curriculum($_GETuserID,$_GETcvID, $dbConn);
 			
 					<div class="w3-white w3-text-grey w3-card-4">
 						<div class="w3-display-container">
-							<img src="<?php echo $myCurriculum->getDisplayAvatarDirectory().$myCurriculum->getDisplayAvatarFile();?>" style="width:100%" alt="Avatar" />
+						
+							<img src="<?php echo ( isset($myCurriculum) && !empty($myCurriculum->getDisplayAvatarDirectory()) && !empty($myCurriculum->getDisplayAvatarFile()) ? $myCurriculum->getDisplayAvatarDirectory().$myCurriculum->getDisplayAvatarFile() : "/netzv/images/cv/noImage.jpg");?>" style="width:100%" alt=" " />
+							
 							<div class="w3-display-bottommiddle w3-container w3-text-white w3-black w3-opacity w3-twothird w3-center">
 								<h2 class="Toggle-CV-Business w3-xlarge"><a href="./card.php"> <?php echo $myCurriculum->getDisplayNameBanner(); ?></a></h2>
 							</div>
+						
 						</div>
 						
 						<div class="w3-container">

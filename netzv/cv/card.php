@@ -9,7 +9,7 @@ require_once $top_level . "ini/" . "settings.php";
 // include $top_level . $folder_class . "class_lib.php";
 include $top_level . $folder_class . $file_class_cv;
 
-$myCurriculum=new curriculum();
+$myCurriculum=new curriculum($_GETuserID,$_GETcvID, $dbConn);
 
 
 ?>
