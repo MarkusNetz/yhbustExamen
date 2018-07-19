@@ -4,8 +4,8 @@ class curriculum {
 	public $headerEducation;
 	public $headerSkills;
 	public $headerLanguages;
-	protected $cvID;
-	protected $cvUserID;
+	protected $cvID; // The provided id of cv from the GET-header in the URL.
+	protected $cvUserID; // The provided id of user of that owns the cv from the GET-header in the URL.
 	protected $sqlSelectSkills;
 	protected $displayNameBanner;
 	protected $displayLocationBanner;
@@ -14,9 +14,10 @@ class curriculum {
 	protected $displayWorkTitleBanner;
 	protected $displayAvatarDirectory;
 	protected $displayAvatarFile;
+	protected $cvOwnerLoggedIn;
 	
 	// Constructor
-	function __construct($userIdRequest, $cvIdRequest, $pdoDbConn){
+	function __construct($userIdRequest, $cvIdRequest, $pdoDbConn,$ownerOfCvLoggedIn){
 		$this -> setHeaderWork("Arbetslivserfarenhet");
 		$this -> setHeaderEducation("Utbildning & kurser");
 		$this -> setHeaderSkills("Färdigheter & intressen");
@@ -24,8 +25,15 @@ class curriculum {
 		$this -> setCvUserID( $userIdRequest );
 		$this -> setCvId( $cvIdRequest );
 		$this -> cvUserInfo($pdoDbConn);
+		$this -> setCvOwnerLoggedIn($ownerOfCvLoggedIn); // true/1 = logged in, false/0 = not logged in.
 	}
 	
+	protected function setCvOwnerLoggedIn($value){
+		$this->cvOwnerLoggedIn=$value;
+	}
+	protected function getCvOwnerLoggedIn(){
+		return $this->cvOwnerLoggedIn;
+	}
 	public function cvUserInfo( $pdoDbConn ){
 		$sqlGetCvUserInfo=
 			"SELECT uhc.avatar_file_name, uhc.avatar_directory, u.name_first, u.name_last, uhci.contact privatePhone, uhci2.contact mail, we.work_title, at.type, locs.name street, uha.street_number, uha.street_letter, locc.city
@@ -232,7 +240,7 @@ class curriculum {
 						
 						."<div class='w3-row'>"
 							
-							."<div class='m10 l10 w3-hide-small'>"
+							."<div class='w3-col m10 l10 w3-hide-small'>"
 								."<h5 class='w3-opacity'><b>". $educations['education_title']." / ". $educations['school']."</b></h5>"
 							."</div>"
 							
@@ -240,9 +248,9 @@ class curriculum {
 								."<h5 class='w3-opacity'><b>". $educations['education_title']." / ". $educations['school']."</b></h5>"
 							."</div>"
 							
-							."<div class='m2 l2 w3-hide-small'>"
-								."<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_edu ."&actionDelete=edu' class='w3-button w3-circle w3-right w3-white' type='submit' name='delete_edu'><i class='fa fa-trash-alt'></i></a>
-							</div>"
+							."<div class='m2 l2 w3-hide-small w3-show-block-inline'>"
+								. (isset($this->cvOwnerLoggedIn) && $this->getCvOwnerLoggedIn() == 1 ? "<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_edu ."&actionDelete=edu' class='w3-button w3-circle w3-right w3-white' type='submit' name='delete_edu'><i class='fa fa-trash-alt'></i></a>" : "" )
+							."</div>"
 							
 						."</div>"
 						
@@ -254,7 +262,7 @@ class curriculum {
 						."<p>". $educations['education_description']."</p>"
 						
 						."<div class='w3-mobile w3-hide-medium w3-hide-large'>"
-							."<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_edu ."&actionDelete=edu' class='". $objProps->getBtnDeleteSmallScreen() ."' type='submit' name='delete_edu'><i class='fa fa-trash-alt'></i></a>"
+							. (isset($this->cvOwnerLoggedIn) && $this->getCvOwnerLoggedIn() == 1 ? "<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_edu ."&actionDelete=edu' class='w3-border-none". $objProps->getBtnDeleteSmallScreen() ."' type='submit' name='delete_edu'><i class='fa fa-trash-alt'></i></a>" : "" )
 						."</div>"
 						
 						."<hr />"
@@ -393,7 +401,7 @@ class curriculum {
 							."</div>"
 							
 							."<div class='m2 l2 w3-hide-small'>"
-								."<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_workXp ."&actionDelete=work' class='". $objProps->getBtnDeleteNonSmallScreen() ."' type='submit' name='delete_edu'><i class='fa fa-trash-alt'></i></a>"
+								. (isset($this->cvOwnerLoggedIn) && $this->getCvOwnerLoggedIn() == 1 ? "<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_workXp ."&actionDelete=work' class='". $objProps->getBtnDeleteNonSmallScreen() ."' type='submit' name='delete_edu'><i class='fa fa-trash-alt'></i></a>" : "")
 							."</div>"
 							
 						."</div>"
@@ -406,7 +414,7 @@ class curriculum {
 						."<p>". $work['work_description']."</p>"
 						
 						."<div class='w3-mobile w3-hide-medium w3-hide-large'>"
-							."<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_workXp ."&actionDelete=work' class='". $objProps->getBtnDeleteSmallScreen() ."' type='submit' name='delete_edu'><i class='fa fa-trash-alt'></i></a>"
+							. (isset($this->cvOwnerLoggedIn) && $this->getCvOwnerLoggedIn() == 1 ? "<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_workXp ."&actionDelete=work' class='". $objProps->getBtnDeleteSmallScreen() ."' type='submit' name='delete_edu'><i class='fa fa-trash-alt'></i></a>" : "")
 						."</div>"
 						
 						."<hr />"

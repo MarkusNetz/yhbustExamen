@@ -208,7 +208,7 @@ if( isset($_POST['submitting'])){
 }
 
 include $subdomain_level . $folder_class . $file_class_cv;
-$myCurriculum=new curriculum($_GETuserID,$_GETcvID, $dbConn);
+$myCurriculum=new curriculum($_GETuserID,$_GETcvID, $dbConn, (isset($loggedInUser) && $_GETuserID == $loggedInUser->getUserId() ? "1" : "0") );
 
 
 ?>
@@ -288,7 +288,7 @@ $myCurriculum=new curriculum($_GETuserID,$_GETcvID, $dbConn);
 					<div class="w3-white w3-text-grey w3-card-4">
 						<div class="w3-display-container">
 						
-							<img src="<?php echo ( isset($myCurriculum) && !empty($myCurriculum->getDisplayAvatarDirectory()) && !empty($myCurriculum->getDisplayAvatarFile()) ? $myCurriculum->getDisplayAvatarDirectory().$myCurriculum->getDisplayAvatarFile() : "/netzv/images/cv/noImage.jpg");?>" style="width:100%" alt=" " />
+							<img src="<?php echo ( isset($myCurriculum) && !empty($myCurriculum->getDisplayAvatarDirectory()) && !empty( $myCurriculum->getDisplayAvatarFile() ) ? $myCurriculum->getDisplayAvatarDirectory().$myCurriculum->getDisplayAvatarFile() : "/netzv/images/cv/noImage.jpg");?>" style="width:100%" alt=" " />
 							
 							<div class="w3-display-bottommiddle w3-container w3-text-white w3-black w3-opacity w3-twothird w3-center">
 								<h2 class="Toggle-CV-Business w3-xlarge"><a href="./card.php"> <?php echo $myCurriculum->getDisplayNameBanner(); ?></a></h2>
@@ -407,16 +407,9 @@ $myCurriculum=new curriculum($_GETuserID,$_GETcvID, $dbConn);
 		<!-- End Page Container -->
 		</div>
 
-		<footer class="w3-container w3-teal w3-center w3-margin-top">
-			<p>Find me on social media.</p>
-			<i class="fa fa-facebook-official w3-hover-opacity"></i>
-			<i class="fa fa-instagram w3-hover-opacity"></i>
-			<i class="fa fa-snapchat w3-hover-opacity"></i>
-			<i class="fa fa-pinterest-p w3-hover-opacity"></i>
-			<i class="fa fa-twitter w3-hover-opacity"></i>
-			<i class="fa fa-linkedin w3-hover-opacity"></i>
-			
-		</footer>
+		<footer>
+			<a class="w3-container w3-teal w3-center w3-margin-top w3-button w3-col s12 m12 l12" href="<?php echo "../".$_href_profile . (isset($loggedInUser) && $_GETuserID == $loggedInUser->getUserId() ? "" : "?requestProfile=".$_GETuserID ); ?>">Tillbaka till profilsidan.</a>
+		</footer>-
 		<script>
 			$(document).ready(function(){
 				
