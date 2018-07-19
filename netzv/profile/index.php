@@ -109,13 +109,17 @@ else{
 			<section class="w3-container w3-section">
 				<h2 class="w3-show-inline-block w3-col s12 m5 l3">Färdigheter</h2>
 				
-				<div class="w3-round w3-show-inline-block w3-row w3-col s12 m7 l5">
-					<p>
-						<input type="text" name="addUserSkill" id="addUserSkill" value="" placeholder="Lägg till färdighet" class="w3-col s10 m10 l10 w3-border-0 w3-border-bottom w3-leftbar w3-border-green w3-padding-small" list="skills_list" />
-						<i id="addSkillBtn" class="w3-col s1 m1 l1 w3-button w3-green w3-hover-light-green fa fa-plus w3-padding-medium"></i>
-					</p>
-				</div>
-				<?php echo $datalistAllSkills;?>
+			<?php if(isset($loggedInUser) && !isset($_GETrequestProfile)){ ?>
+					<div class="w3-round w3-show-inline-block w3-row w3-col s12 m7 l5">
+						<p>
+							<input type="text" name="addUserSkill" id="addUserSkill" value="" placeholder="Lägg till färdighet" class="w3-col s10 m10 l10 w3-border-0 w3-border-bottom w3-leftbar w3-border-green w3-padding-small" list="skills_list" />
+							<i id="addSkillBtn" class="w3-col s1 m1 l1 w3-button w3-green w3-hover-light-green fa fa-plus w3-padding-medium"></i>
+						</p>
+					</div>
+			<?php
+					echo $datalistAllSkills;
+				}
+			?>
 				
 			</section>
 			<div class="skillsList">
