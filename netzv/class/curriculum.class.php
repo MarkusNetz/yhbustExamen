@@ -5,6 +5,7 @@ class curriculum {
 	public $headerSkills;
 	public $headerLanguages;
 	protected $cvID; // The provided id of cv from the GET-header in the URL.
+	protected $displayCvName; // The provided name of cv.
 	protected $cvUserID; // The provided id of user of that owns the cv from the GET-header in the URL.
 	protected $sqlSelectSkills;
 	protected $displayNameBanner;
@@ -36,39 +37,36 @@ class curriculum {
 	}
 	public function cvUserInfo( $pdoDbConn ){
 		$sqlGetCvUserInfo=
-			"SELECT uhc.avatar_file_name, uhc.avatar_directory, u.name_first, u.name_last, uhci.contact privatePhone, uhci2.contact mail, we.work_title, at.type, locs.name street, uha.street_number, uha.street_letter, locc.city
+			"SELECT uhc.name cv_name, uhc.avatar_file_name, uhc.avatar_directory, u.name_first, u.name_last, uhci.contact privatePhone, uhci2.contact mail, we.work_title, at.type, locs.name street, uha.street_number, uha.street_letter, locc.city
 			FROM t_users u
 				JOIN t_user_has_cv uhc ON u.id_user = uhc.id_user
-				JOIN t_user_has_address uha ON u.id_user = uha.id_user
-				JOIN t_address_types at ON at.id_address_type = uha.id_address_type
-				JOIN t_loc_streets locs ON locs.id_street = uha.id_street
-				JOIN t_cv_work_experience we ON we.id_cv = uhc.id_cv
-				JOIN t_user_has_contact_info uhci ON uhci.id_user = u.id_user
-				JOIN t_contact_types ct ON ct.id_contact_type = uhci.id_contact_type
-				JOIN t_loc_cities locc ON locc.id_city = uha.id_city
-				JOIN t_user_has_contact_info uhci2 ON uhci2.id_user = u.id_user
-				JOIN t_contact_types ct2 ON ct2.id_contact_type = uhci2.id_contact_type
+				LEFT JOIN t_user_has_address uha ON u.id_user = uha.id_user
+				LEFT JOIN t_address_types at ON at.id_address_type = uha.id_address_type
+				LEFT JOIN t_loc_streets locs ON locs.id_street = uha.id_street
+				LEFT JOIN t_cv_work_experience we ON we.id_cv = uhc.id_cv
+				LEFT JOIN t_user_has_contact_info uhci ON uhci.id_user = u.id_user
+				LEFT JOIN t_contact_types ct ON ct.id_contact_type = uhci.id_contact_type
+				LEFT JOIN t_loc_cities locc ON locc.id_city = uha.id_city
+				LEFT JOIN t_user_has_contact_info uhci2 ON uhci2.id_user = u.id_user
+				LEFT JOIN t_contact_types ct2 ON ct2.id_contact_type = uhci2.id_contact_type
 			WHERE u.id_user = :param_id_user
 				AND at.type = 'home'
 				AND ct.name = 'Mobilnummer'
 				AND ct2.name = 'mail'
-			GROUP BY u.id_user;";
+                AND uhc.id_cv = :param_id_cv
+			GROUP BY u.id_user";
 		$pdoDbConn->query($sqlGetCvUserInfo);
 		$pdoDbConn->bind(":param_id_user", $this->getCvUserID());
+		$pdoDbConn->bind(":param_id_cv", $this->getCvID());
 		$cvUserPresentation=$pdoDbConn->single();
 		$this->setDisplayNameBanner($cvUserPresentation['name_first'] ." ". $cvUserPresentation['name_last']); 
+		$this->setDisplayCvName($cvUserPresentation['cv_name']); 
 		$this->setDisplayWorkTitleBanner($cvUserPresentation['work_title']); 
 		$this->setDisplayPhoneBanner($cvUserPresentation['privatePhone']); 
 		$this->setDisplayLocationBanner($cvUserPresentation['street'] ." ". $cvUserPresentation['street_number'] .(!empty($cvUserPresentation['street_letter']) ? " " . $cvUserPresentation['street_letter'] : "") .", ". $cvUserPresentation['city']); 
-		$this->setDisplayMailBanner($cvUserPresentation['mail']); 
-		
-		$pdoDbConn->query("SELECT avatar_directory, avatar_file_name FROM t_user_has_cv WHERE id_cv = :param_id_cv AND id_user = :param_id_user");
-		$pdoDbConn->bind(":param_id_cv",$this->getCvID());
-		$pdoDbConn->bind(":param_id_user",$this->getCvUserID());
-		$cvSpecificInfo=$pdoDbConn->single();
-		
-		$this->setDisplayAvatarDirectory($cvSpecificInfo['avatar_directory']);
-		$this->setDisplayAvatarFile($cvSpecificInfo['avatar_file_name']); 
+		$this->setDisplayMailBanner($cvUserPresentation['mail']);
+		$this->setDisplayAvatarDirectory($cvUserPresentation['avatar_directory']);
+		$this->setDisplayAvatarFile($cvUserPresentation['avatar_file_name']); 
 	}
 	
 	public function setDisplayAvatarFile( $value ){
@@ -118,6 +116,12 @@ class curriculum {
 	public function getDisplayNameBanner(){
 		return $this -> displayNameBanner;
 	}
+	public function setDisplayCvName( $value ){
+		$this -> displayCvName = $value;
+	}
+	public function getDisplayCvName(){
+		return $this -> displayCvName;
+	}
 	
 	public function setCvId( $newCvId ){
 		$this -> cvID = $newCvId;
@@ -157,52 +161,26 @@ class curriculum {
 		return $this -> headerEducation;
 	}
 	public function getEducationsList($db, $objProps){
-		$sqlSelectEducations="SELECT edu_time, id_education, start_date, DATE_FORMAT(start_date, '%b %Y') start_date_name, end_date, IF(end_date = '9999-12-31', 'Pågående', IF(end_date >= CURDATE(), 'Pågående', DATE_FORMAT(end_date,'%b %Y') ) ) end_date_name, school, education_title, education_description FROM t_cv_educations edu WHERE edu.id_cv = :id_cv ORDER BY start_date DESC, end_date DESC";
+		$sqlSelectEducations = "SELECT edu_time, id_education, start_date, DATE_FORMAT(start_date, '%b %Y') start_date_name, end_date, IF(end_date = '9999-12-31', 'Pågående', IF(end_date >= CURDATE(), 'Pågående', DATE_FORMAT(end_date,'%b %Y') ) ) end_date_name, school, education_title, education_description FROM t_cv_educations edu WHERE edu.id_cv = :id_cv ORDER BY start_date DESC, end_date DESC";
 		
-		$db -> query($sqlSelectEducations);
+		$db -> query( $sqlSelectEducations );
 		$db -> bind(':id_cv', $this -> getCvId());
 		$rowsEducations = $db -> resultSet();
 		$list="";
 		$listAddEmptyInput="";
-		if(isset($_GET['add']) && $_GET['add']=="edu"){
-			$listAddEmptyInput.=
-					"<div class='w3-container w3-card w3-pale-yellow w3-margin-bottom w3-margin-top w3-padding-bottom'>"
-						."<input type='hidden' value='addEdu' name='submitType' />"
-						."<div class='w3-row w3-margin-bottom w3-margin-top'>"
-							."<input class='w3-input w3-border w3-mobile w3-third' type='text' name='edu_title' id='edu_title' placeholder='Utbildning, inriktning' required='required' />"
-							."<input class='w3-input w3-border w3-mobile w3-third' type='text' name='edu_school' id='edu_school' placeholder='Utbildare, skola' required='required' />"
-							."<input class='w3-input w3-border w3-mobile w3-third' type='text' name='edu_time' id='edu_time' placeholder='Helfart, distans halvfart etc.' />"
-						."</div>"
-						
-						."<div class='w3-row'>"
-							."<div class='w3-third'>"
-								."<label class='w3-hide-medium w3-hide-large' for='start_date'>Start</label>"
-								. "<input class='w3-border w3-mobile' type='date' name='start_date' id='start_date' required='required' />"
-								."<label class='w3-hide-small fa fa-calendar fa-fw w3-margin-right' for='start_date'></label>"
-							."</div>"
-							
-							."<div class='w3-third'>"
-								."<label class='w3-hide-medium w3-hide-large' for='end_date'>Slut</label>"
-								."<input class='w3-border w3-mobile' type='date' name='end_date' id='end_date' />"
-								."<label class='w3-hide-small fa fa-calendar fa-fw w3-margin-right' for='end_date'></label>"
-							."</div>"
-						."</div>"
-						
-						."<div class='w3-mobile w3-margin-bottom w3-margin-top'>"
-							."<textarea placeholder='Din beskrivning av utbildningen och dess innehåll av kurser och moment.' required='required' class='w3-input w3-border' name='education_description' id='education_description' style='resize:none;'></textarea>"
-						."</div>"
-					."</div>";
-		}
+		// if(isset($_GET['add']) && $_GET['add']=="edu"){
+			// $listAddEmptyInput = include( $GLOBALS['sub_top_level'] . $GLOBALS['folder_inc'] . "modal.edu_form.php" );
+		// }
 		$i=0;
 		foreach($rowsEducations as $educations){
 			$i++;
-			$id_edu=$educations['id_education'];
+			$id_edu = $educations['id_education'];
 			// lista alla rader i redigeringsläge för utbildningar.
 			if(isset($_GET['edit']) && $_GET['edit']=="edu"){
 				$disable_end_date=$end_date_value="";
 				$end_date_value=$educations['end_date'];
 				if( $end_date_value == "9999-12-31"){
-					$end_date_value="";
+					$end_date_value = "";
 				}
 				
 				$list.=
@@ -236,7 +214,7 @@ class curriculum {
 			}
 			else{
 				$list.=
-					"<div class='w3-container'>"
+					"<div class='w3-container' id='eduRow_". $id_edu ."'>"
 						
 						."<div class='w3-row'>"
 							
@@ -249,7 +227,7 @@ class curriculum {
 							."</div>"
 							
 							."<div class='m2 l2 w3-hide-small w3-show-block-inline'>"
-								. (isset($this->cvOwnerLoggedIn) && $this->getCvOwnerLoggedIn() == 1 ? "<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_edu ."&actionDelete=edu' class='w3-button w3-circle w3-right w3-white' type='submit' name='delete_edu'><i class='fa fa-trash-alt'></i></a>" : "" )
+								. (isset($this->cvOwnerLoggedIn) && $this->getCvOwnerLoggedIn() == 1 ? "<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_edu ."&actionDelete=edu' class='w3-button w3-circle w3-right w3-white' type='submit'><i class='fa fa-trash-alt'></i></a>" : "" )
 							."</div>"
 							
 						."</div>"
@@ -262,7 +240,7 @@ class curriculum {
 						."<p>". $educations['education_description']."</p>"
 						
 						."<div class='w3-mobile w3-hide-medium w3-hide-large'>"
-							. (isset($this->cvOwnerLoggedIn) && $this->getCvOwnerLoggedIn() == 1 ? "<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_edu ."&actionDelete=edu' class='w3-border-none". $objProps->getBtnDeleteSmallScreen() ."' type='submit' name='delete_edu'><i class='fa fa-trash-alt'></i></a>" : "" )
+							. (isset($this->cvOwnerLoggedIn) && $this->getCvOwnerLoggedIn() == 1 ? "<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_edu ."&actionDelete=edu' class='w3-border-none". $objProps->getBtnDeleteSmallScreen() ."' type='submit'><i class='fa fa-trash-alt'></i></a>" : "" )
 						."</div>"
 						
 						."<hr />"
@@ -277,8 +255,8 @@ class curriculum {
 		$list.="<input type='hidden' value='". $i ."' name='rowCountEdu' id='rowCountEdu' />";
 		
 		// If we are in add-mode then we show that part in the returned form. The empty input is only filled with values if "add" is the current $_GET-variable.
-		if( !empty( $listAddEmptyInput ))
-			$list=$listAddEmptyInput . $list;
+		// if( !empty( $listAddEmptyInput ))
+			// $list=$listAddEmptyInput . $list;
 		
 		return $list;
 	}
@@ -302,41 +280,8 @@ class curriculum {
 		$listAddEmptyInput="";
 		// Nytt tomt formulär för inmatning av arbetserfarenhet.
 		if(isset($_GET['add']) && $_GET['add']=="work"){
-			$listAddEmptyInput.=
-					"<div class='w3-container w3-card w3-pale-yellow w3-margin-bottom w3-margin-top'>"
-						."<h3 class='w3-text-teal'>Ny arbetserfarenhet</h3>"
-						."<input type='hidden' value='addWork' name='submitType' />"
-						."<div class='w3-row w3-margin-bottom w3-margin-top'>"
-							."<input class='w3-input w3-border w3-third' type='text' name='work_title' id='work_title' placeholder='Jobbtitel' required='required' />"
-							."<input class='w3-input w3-border w3-mobile w3-third' type='text' name='work_employer' value='' placeholder='Arbetsgivare' required='required' />"
-							."<input class='w3-input w3-border w3-mobile w3-third ' type='text' name='work_time' id='work_time' placeholder='Heltid, deltid, projekt..' required='required' />"
-						."</div>"
-						
-						."<div class='w3-row'>"
-							."<div class='w3-mobile w3-third'>"
-								."<label class='w3-hide-medium w3-hide-large' for='start_date'>Start</label>"
-								. "<input class='w3-border w3-mobile' type='date' name='start_date' id='start_date' value='' required='required' />"
-								."<label class='w3-hide-small fa fa-calendar fa-fw w3-margin-right' for='start_date'></label>"
-							."</div>"
-							
-							."<div class='w3-mobile w3-third'>"
-								."<label class='w3-hide-medium w3-hide-large' for='end_date'>Slut</label>"
-								."<input class='w3-border w3-mobile' type='date' name='end_date' id='end_date' value='' />"
-								."<label class='w3-hide-small fa fa-calendar fa-fw w3-margin-right' for='end_date'></label>"
-							."</div>"
-							
-							."<div class='w3-mobile w3-third'>"
-								."<input class='w3-check w3-border' type='checkbox' id='current_work' name='current_work' value='' /> "
-								."<label for='current_work'>nuvarande jobb</label>"
-							."</div>"
-						."</div>"
-						
-						."<div class='w3-row w3-margin-bottom w3-margin-top'>"
-							."<div class='w3-block'>"
-								."<textarea required='required' placeholder='Din beskrivning av arbetet.' class='w3-input w3-border' name='work_description' style='resize:none; height:5em;'></textarea>"
-							."</div>"
-						."</div>"
-					."</div>";
+			// $listAddEmptyInput .= include $GLOBALS['sub_top_level'] . $GLOBALS['folder_inc'] . "modal.work_form.php";
+			// $listAddEmptyInput .= "<div><p>Hej</p></div>";
 		}
 		$i=0;
 		foreach($rowsWorkXP as $work){
@@ -363,7 +308,7 @@ class curriculum {
 						
 						."<div class='w3-row'>"
 							."<div class='w3-third'>"
-								."<label class='w3-hide-medium w3-hide-large' for='start_date_".$id_workXp."'>Start</label>"
+								."<label class='w3-hide-medium w3-hide-large' for='start_date_" . $id_workXp . "'>Start</label>"
 								. "<input class='w3-border w3-mobile' type='date' name='start_date_".$id_workXp."' id='start_date_".$id_workXp."' value='" . $work['start_date'] . "' required='required' />"
 								."<label class='w3-hide-small fa fa-calendar fa-fw w3-margin-right' for='start_date_".$id_workXp."'></label>"
 							."</div>"
@@ -388,7 +333,7 @@ class curriculum {
 			// Lista alla befintliga rader om arbetserfarenhet.
 			else{
 				$list.=
-					"<div class='w3-container'>"
+					"<div class='w3-container' id='workXpRow_". $id_workXp ."'>"
 						
 						."<div class='w3-row'>"
 						
@@ -401,7 +346,7 @@ class curriculum {
 							."</div>"
 							
 							."<div class='m2 l2 w3-hide-small'>"
-								. (isset($this->cvOwnerLoggedIn) && $this->getCvOwnerLoggedIn() == 1 ? "<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_workXp ."&actionDelete=work' class='". $objProps->getBtnDeleteNonSmallScreen() ."' type='submit' name='delete_edu'><i class='fa fa-trash-alt'></i></a>" : "")
+								. (isset($this->cvOwnerLoggedIn) ? "<a href='./?userID=". $this->getCvOwnerLoggedIn() ."&cvID=".$GLOBALS['_GETcvID']."&action=delete&actionID=". $id_workXp ."&actionDelete=work' class='". $objProps->getBtnDeleteNonSmallScreen() ."' type='submit'><i class='fa fa-trash-alt'></i></a>" : "")
 							."</div>"
 							
 						."</div>"
@@ -414,7 +359,7 @@ class curriculum {
 						."<p>". $work['work_description']."</p>"
 						
 						."<div class='w3-mobile w3-hide-medium w3-hide-large'>"
-							. (isset($this->cvOwnerLoggedIn) && $this->getCvOwnerLoggedIn() == 1 ? "<a href='./?userID=1&cvID=1&action=delete&actionID=". $id_workXp ."&actionDelete=work' class='". $objProps->getBtnDeleteSmallScreen() ."' type='submit' name='delete_edu'><i class='fa fa-trash-alt'></i></a>" : "")
+							. (isset($this->cvOwnerLoggedIn) ? "<a href='./?userID=".$this->getCvOwnerLoggedIn()."&cvID=".$GLOBALS['_GETcvID']."&action=delete&actionID=". $id_workXp ."&actionDelete=work' class='". $objProps->getBtnDeleteSmallScreen() ."' type='submit'><i class='fa fa-trash-alt'></i></a>" : "")
 						."</div>"
 						
 						."<hr />"
@@ -429,21 +374,17 @@ class curriculum {
 		$list.="<input type='hidden' value='". $i ."' name='rowCountWorkXP' id='rowCountWorkXP' />";
 		
 		// If we are in add-mode then we show that part in the returned form. The empty input is only filled with values if "add" is the current $_GET-variable.
-		if( !empty( $listAddEmptyInput ))
-			$list=$listAddEmptyInput . $list;
 		
 		return $list; // Returns the list with work experience, either in display, edit or add mode.
 	}
 	
-	public function getSkillsList($db){
-		$sqlSelectSkills="SELECT id_skill, skill, skill_level FROM t_cv_skills ski WHERE ski.id_cv = :id_cv ORDER BY skill DESC, skill_level DESC";
-		$db -> query($sqlSelectSkills);
-		$db -> bind(':id_cv', $this -> getCvId());
+	public function getSkillsList( $db ){
+		$sqlSelectSkills = "SELECT id_skill, skill, skill_level FROM t_cv_skills ski WHERE ski.id_cv = :id_cv ORDER BY skill DESC, skill_level DESC";
+		$db -> query( $sqlSelectSkills );
+		$db -> bind( ':id_cv', $this -> getCvId() );
 		$rowsSkills = $db -> resultSet();
 		$list="";
 		foreach($rowsSkills as $skill){
-			
-				
 			$list.=
 				"<p>" . $skill['skill'] . " </p>"
 				."<div class='w3-light-grey w3-round-xlarge w3-small'>"

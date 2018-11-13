@@ -102,8 +102,9 @@ class LoggedInUser implements iMyCurriculums
 		$colorArr=array(1=>"khaki", 2=>"deep-orange", 3=>"amber", 4=>"blue-gray");
 		$r=1;
 		$cvList=null;
-		$sqlGetCvRows="SELECT * FROM t_user_has_cv c WHERE c.id_user = :param_id_user";
-		$pdoDbConn->query($sqlGetCvRows);
+		
+		
+		$pdoDbConn -> query( $GLOBALS['sqlGetCvRows'] );
 		$pdoDbConn->bind(":param_id_user", $this->getUserId());
 		$resultCvRows=$pdoDbConn->resultSet();
 		$i=0;
@@ -113,9 +114,26 @@ class LoggedInUser implements iMyCurriculums
 			}
 			$cvList.=
 				"<div class='w3-col s12 m4 l3 w3-card w3-".$colorArr[$r]." w3-padding-16' style='min-height:10em;'>"
-					."<h3>". $cvRow['name'] ."</h3>"
-					."<p>". $cvRow['description'] ."</p>"
-					."<a class='w3-button w3-white w3-hover-blue' href='../cv/?userID=". $this->getUserId() ."&cvID=".$cvRow['id_cv']."'>Visa CV</a>"
+					."<div class='w3-row'>"
+						
+						."<h3>". $cvRow['name'] ."</h3>"
+						
+						."<p>". $cvRow['description'] ."</p>"
+						
+					."</div>"
+					
+					."<div class='w3-row'>"
+						."<a class='w3-button w3-white w3-hover-blue' href='../cv/?userID=". $this->getUserId() ."&cvID=".$cvRow['id_cv']."'>Visa CV</a>"
+					."</div>"
+					
+					."<div class='w3-row w3-center'>"
+						."<div style='width:25%;' class='w3-hide-small'>&nbsp;</div>" 	
+						."<input type='text' readonly='readonly' id='shortLinkId_". $cvRow['id_shortlink'] ."' style='width:75%;' class='w3-hover-black w3-hover-border-white w3-center w3-large w3-mobile w3-round w3-border w3-white w3-border-black w3-margin-top copyShortLink' value='". ( !empty($cvRow['shorturl']) ? $cvRow['shorturl'] : "&nbsp;" )."' />"
+					
+					
+					
+					."</div>"
+					
 				."</div>";
 			$r++;
 			$i++;
@@ -213,45 +231,69 @@ class RequestedProfile implements iMyCurriculums
 		return $this -> professionalText;
 	}
 	
-	protected function UserInformation($pdoDbConn){
+	protected function UserInformation($pdoDbConn)
+	{
 		$sqlGetUserInfo="SELECT name_first, name_last, registered, presentation, career_text, professional_text FROM t_users JOIN t_user_profiles up USING(id_user) WHERE id_user = :param_id_user";
 		$pdoDbConn -> query( $sqlGetUserInfo );
 		$pdoDbConn -> bind( ':param_id_user', $this -> getUserId() );
 		$userInfoRow = $pdoDbConn -> single();
-		if($pdoDbConn->rowCount() == 1){
+		if($pdoDbConn -> rowCount() == 1 )
+		{
 			$this -> setDisplayName($userInfoRow['name_first']." ".$userInfoRow['name_last']);
 			$this -> setInfoRegistered($userInfoRow['registered']);
 			$this -> setProfileCareer($userInfoRow['career_text']);
 			$this -> setProfileProfessional($userInfoRow['professional_text']);
 		}
-		else{
+		else
+		{
 			// Wrong number of profiles returned.
-			$this->wrongProfile="true";
+			$this -> wrongProfile = "true";
 		}
 	}
 	
 	// Use this method to list the blocks of clickable CVs in Profile-page.
-	public function MyCurriculums( $pdoDbConn ){
-		$colorArr=array(1=>"khaki", 2=>"deep-orange", 3=>"amber", 4=>"blue-gray");
-		$r=1;
-		$cvList=null;
-		$sqlGetCvRows="SELECT * FROM t_user_has_cv c WHERE c.id_user = :param_id_user";
-		$pdoDbConn->query($sqlGetCvRows);
-		$pdoDbConn->bind(":param_id_user", $this->getUserId());
-		$resultCvRows=$pdoDbConn->resultSet();
-		foreach($resultCvRows as $cvRow){
-			if($r==count($colorArr))
+	public function MyCurriculums( $pdoDbConn )
+	{
+		$colorArr = array( 1=>"khaki" , 2=>"deep-orange", 3=>"amber", 4=>"blue-gray" );
+		$r = 1;
+		$cvList = null;
+		
+		
+		$pdoDbConn -> query( $GLOBALS['sqlGetCvRows'] );
+		$pdoDbConn -> bind( ":param_id_user", $this -> getUserId() );
+		$resultCvRows = $pdoDbConn -> resultSet();
+		
+		foreach( $resultCvRows as $cvRow )
+		{
+			if( $r == count( $colorArr ) )
 				$r=1;
+			
 			$cvList.=
 				"<div class='w3-quarter w3-card w3-".$colorArr[$r]." w3-padding-16' style='min-height:10em;'>"
-					."<h3>". $cvRow['name'] ."</h3>"
-					."<p>". $cvRow['description'] ."</p>"
-					."<a class='w3-button w3-white w3-hover-blue' href='../cv/?userID=". $this->getUserId() ."&cvID=".$cvRow['id_cv']."'>Visa CV</a>"
+					."<div class='w3-row'>"
+						."<h3>". $cvRow['name'] ."</h3>"
+					
+						."<p>". $cvRow['description'] ."</p>"
+					."</div>"
+					
+					."<div class='w3-row'>"
+						."<a class='w3-button w3-white w3-hover-blue' href='../cv/?userID=". $this -> getUserId() ."&cvID=". $cvRow['id_cv'] ."'>Visa CV</a>"
+					."</div>"
+					
+					."<div class='w3-row>"
+						."<div style='width:25%;' class='w3-hide-small'>"
+						."<input type='text' readonly='readonly' id='shortLinkId_". $cvRow['id_shortlink'] ."' style='width:75%;' class='w3-hover-black w3-hover-border-white w3-center w3-large w3-mobile w3-round w3-border w3-white w3-border-black w3-margin-top copyShortLink' value='". ( !empty($cvRow['shorturl']) ? $cvRow['shorturl'] : "&nbsp;" )."' />"
+						
+					
+					."</div>"
+					
 				."</div>";
 			$r++;
 		}
 		
 		$this->setListOfCvs( $cvList );
 	}
-	
 }
+
+// Variables to this script.
+$sqlGetCvRows = "SELECT c.*, sl.id_shortlink, shorturl, longurl, global_hash, sl.hash FROM t_user_has_cv c LEFT JOIN t_cv_has_shortlink cvhsl USING(id_cv) LEFT JOIN t_shortlinks sl USING(id_shortlink) WHERE c.id_user = :param_id_user";

@@ -1,15 +1,21 @@
 <?php
 $top_level="../../";
+$sub_top_level="../";
 require_once $top_level . "ini/" . "settings.php";
+if(isset($_GET['cvID']))
+	$_GETcvID = filter_input(INPUT_GET, "cvID", FILTER_VALIDATE_INT);
+if(isset($_GET['userID']))
+	$_GETuserID = filter_input(INPUT_GET, "userID", FILTER_VALIDATE_INT);
+
 // if(!filter_has_var(INPUT_GET,'userID') && !filter_has_var(INPUT_GET,'cvID')){
 	// header("location: ../profile/");
 // }
 
 // echo "denna sökväg: ".$top_level.$folder_class.$file_class_cv.". Slut på sökväg.";
 // include $top_level . $folder_class . "class_lib.php";
-include $top_level . $folder_class . $file_class_cv;
+include $sub_top_level . $folder_class . $file_class_cv;
 
-$myCurriculum=new curriculum($_GETuserID,$_GETcvID, $dbConn);
+$myCurriculum = new curriculum($_GETuserID, 1, $dbConn, (isset($loggedInUser) && $_GETuserID == $loggedInUser->getUserId() ? "1" : "0") );
 
 
 ?>

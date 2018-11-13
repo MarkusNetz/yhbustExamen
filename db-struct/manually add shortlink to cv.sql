@@ -1,0 +1,2 @@
+INSERT INTO `pjdqirfm_netz`.`t_shortlinks` (`shorturl`, `longurl`) VALUES ('http://bit.ly/2EeSS0g', 'https://netzarna.eu/netzv/cv/?userID=1&cvID=12');
+insert into t_cv_has_shortlink (id_cv, id_shortlink) VALUES(12,3);

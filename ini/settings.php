@@ -5,6 +5,15 @@ ini_set("error_reporting", E_ALL);
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
+//If the HTTPS is not found to be "on"
+if( !isset($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != "on")
+{
+    //Tell the browser to redirect to the HTTPS URL.
+    header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+    //Prevent the rest of the script from executing.
+    exit;
+}
+
 // $path="/etc";
 // set_include_path(get_include_path() . PATH_SEPARATOR . $path);
 

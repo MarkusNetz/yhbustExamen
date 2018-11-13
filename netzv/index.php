@@ -1,6 +1,7 @@
 <?php
 $top_level="../";
-require_once($top_level . "ini/" . "settings.php");
+$sub_top_level=$top_level."netzv/";
+require_once($top_level . "ini/settings.php");
 
 $infoMessage=null;
 if(isset($_GET['reason'])){
@@ -13,7 +14,7 @@ if(isset($_GET['reason'])){
 <!DOCTYPE html>
 <html lang='sv'>
 	<head>
-		<title>NetZV - Spontanansök spontanare.</title>
+		<title>NetZV - Ansök mer spontant.</title>
 		<?php
 		/*	Metadata */
 		echo $metadata;
@@ -34,8 +35,9 @@ if(isset($_GET['reason'])){
 		echo $jquery; ?>
 	</head>
 	<body class="w3-theme-l5" id="myPage">
-		<!--script src="/js/fb-sdk.js"></script-->
-		<?php include $subdomain_level . $folder_inc . $file_sub_dom_nav; ?>
+		<div id="fb-root"></div>
+		<script src="<?php echo $sub_top_level . $folder_js; ?>fb.js"></script>
+		<?php include $sub_top_level . $folder_inc . $file_sub_dom_nav; ?>
 
 		<!-- Team Container -->
 		<section class="w3-container w3-center w3-white" id="team">

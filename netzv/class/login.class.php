@@ -57,6 +57,41 @@ class SignIn{
 		else{}
 	}
 	
+	public function LoginFb( $userInfoSignIn, $pdoDbConn ){
+		$sqlSelectFbConnectedRow = "select fb_email, uhf.id_user, unique_hash From t_user_has_facebook uhf RIGHT JOIN t_users u ON u.id_user = uhf.id_user WHERE uhf.fb_email = :param_user_login AND fb_id = :param_fb_id";
+		$pdoDbConn->query( $sqlSelectFbConnectedRow );
+		$pdoDbConn->bind(":param_user_login", $userInfoSignIn['fb_pri_mail']);  // Bind "$email" to parameter.
+		$pdoDbConn->bind(":param_fb_id", $userInfoSignIn['fb_uid']);  // Bind "$email" to parameter.
+		$row=$pdoDbConn->single();    // Execute the prepared query and return the first row of result.
+		
+		if($pdoDbConn->rowCount() == 1)
+		{
+			$funcIdUser = ( isset( $row['id_user'] ) ? $row['id_user'] : null );
+			
+			if( $this->CheckBrute( $funcIdUser, $pdoDbConn) == true) 
+			{
+				// Do not continue with login. The account is currently blocked by too many failed login-attempts.
+				$this -> SaveLoginAttempt( $funcIdUser, "blocked", $pdoDbConn );
+				return false;
+			}
+				
+
+			$this -> SaveLoginAttempt( $funcIdUser, "ok", $pdoDbConn );
+			
+			$user_browser = $_SERVER['HTTP_USER_AGENT'];
+			// XSS protection as we might print this value
+			$user_id = preg_replace("/[^0-9]+/", "", $row['id_user']);
+			$_SESSION['user_id'] = $user_id;
+			$_SESSION['login_string'] = hash('sha512', $row['unique_hash'] . $user_browser);
+			
+			return true;
+		}
+		else
+		{
+			//Major error.
+		}
+	}
+	
 	private function CheckBrute($user_id,$pdoDbConn){
 		$this -> setScodeErr("pwderr");
 		// Get timestamp of current time 

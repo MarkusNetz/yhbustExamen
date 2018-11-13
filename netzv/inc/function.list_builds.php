@@ -19,3 +19,14 @@ function BuildSkills($dbConn, $user){
 	
 	return $buildSkillSet."%%".$buildSkillOptions;
 }
+
+
+function AddNonExistentSkill($pdoDbConn,$skill2Add, $userReporterId){
+	$pdoDbConn->query("INSERT INTO t_skills (skill_name, user_reporter) VALUES(:param_skill_name, :param_id_user_reporter)");
+	$pdoDbConn->bind(":param_skill_name", $skill2Add);
+	$pdoDbConn->bind(":param_id_user_reporter", $userReporterId);
+	if($pdoDbConn->execute() == true)
+		return $pdoDbConn->lastInsertId;
+	else
+		return false;
+}

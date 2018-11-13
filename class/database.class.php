@@ -3,11 +3,13 @@ class Database
 {
 	// The database connection
 	protected static $connection;
-	private $db_type = "mysql";
-	private $host = HOST;
-	private $user = USER;
-	private $pass = PASSWORD;
-	private $dbName = DATABASE;
+	private $dbType = "mysql";
+	private $dbHost = DB_HOST;
+	private $dbUser = DB_USER;
+	private $dbPass = DB_PASSWORD;
+	private $dbChar = DB_CHARSET;
+	private $dbPort = DB_PORT;
+	private $dbName = DB_DATABASE;
 	
 	private $stmt;
 	private $dbh;
@@ -15,7 +17,7 @@ class Database
 	
 	function __construct(){
 		// Set DSN
-		$dsn = $this -> db_type . ":host=" . $this -> host . ";dbname=" . $this -> dbName;
+		$dsn = $this -> dbType . ":host=" . $this -> dbHost . ";port=" . $this -> dbPort . ";dbname=" . $this -> dbName . ";charset=" . $this -> dbChar;
 		
 		// Set Options
 		$options = array(
@@ -24,10 +26,10 @@ class Database
 		);
 		
 		try{
-			$this -> dbh = new PDO( $dsn, $this -> user, $this -> pass, $options );
+			$this -> dbh = new PDO( $dsn, $this -> dbUser, $this -> dbPass, $options );
 		}
 		catch(PDOException $e ){
-			$this -> error = $e ->getMessage();
+			die($this -> error = $e ->getMessage());
 		}
 	}
 	
@@ -100,4 +102,3 @@ class Database
 		return $this -> dbh -> debugDumpParameters();
 	}
 }
-?>

@@ -1,5 +1,6 @@
 <?php
 $top_level="../../";
+$sub_top_level="../";
 include $top_level."netzv/inc/function.list_builds.php";
 require_once $top_level."ini/settings.php";
 
@@ -46,9 +47,11 @@ else{
 		
 		/*	jQuery library 	*/
 		echo $jquery; ?>
+		<link rel="stylesheet" href="../../css/netzv.css">
+		<script src="../js/functions.generic.js"></script>
+		<script src="../js/function.calls.js"></script>
 	</head>
 	<body class="w3-theme-l5" id="profilePage">
-		<script src="<?php echo $sub_link;?>js/fb-sdk.js"></script>
 		<?php include $subdomain_level . $folder_inc . $file_sub_dom_nav; ?>
 		
 		<!-- Team Container -->
@@ -82,11 +85,11 @@ else{
 		<section class="w3-container w3-row-padding w3-center w3-margin-top w3-margin-bottom" id="curriculum">
 			<?php
 			// Lists the CV of logged in user or of requested profile user.
-			echo (isset($loggedInUser) ? $loggedInUser->getListOfCvs() : (isset($_GETrequestProfile) ? $ExternalUserProfile->getListOfCvs() : "") );
+			echo ( isset( $loggedInUser ) ? $loggedInUser -> getListOfCvs() : ( isset( $_GETrequestProfile ) ? $ExternalUserProfile -> getListOfCvs() : "") );
 			
 			// Only show the create new cv-button if logged in and if the user is a non-paying user it is only allowed to create a maximum of 2 cvs.
 			if( isset($loggedInUser)){
-				if( $loggedInUser -> nrOfCreatedCvs < 2 || ($loggedInUser -> nrOfCreatedCvs >= 2 && $loggedInUser->PayingUser() == true)){
+				if( ( $loggedInUser -> nrOfCreatedCvs < 2 || ($loggedInUser -> nrOfCreatedCvs >= 2 && $loggedInUser->PayingUser() == true) ) || $loggedInUser->getDisplayName() == "Markus Netz"){
 			?>
 				<a href="<?php echo $sub_link;?><?php echo (isset($loggedInUser) ? "cv/?userID=".$loggedInUser->getUserId()."&newCv=yes" : "register/?show=noAccInfo"); ?>">
 					<div class="w3-col s12 m4 l3 w3-card w3-border-big w3-white w3-padding-16 w3-hover-pale-green w3-display-container" style="min-height:11.25em; border:3px dashed black">
@@ -127,60 +130,8 @@ else{
 			</div>
 		</div>
 
-		<script>
-		$(document).ready(function(){
-			$(".skillsList").on("click","a.removeSkill",function(event){
-				event.preventDefault();
-				
-				$.post("/netzv/js/post_calls.php",
-				{
-					event: "removeUserSkill",
-					skillID: $(this).attr("data-skillId")
-				},
-				function(data, status){
-					if(status == "success")
-					{
-						$(".skillsList").html(data );
-					}
-				});
-			});
-			
-			$("#addSkillBtn").on("click",function(){
-				var enteredVal=$("#addUserSkill").val();
-				
-				if( $("#skills_list option").filter(function(){
-					return this.value === enteredVal;
-				}).length){
-					var skillExistsFromTemplate=true;
-					// alert("Clicked a new skill to add." + enteredVal + ". It exists in datalist.");
-					// This if now only matches the existing items. If no items are matched, the entry should be added to table and then be able to be reused by other users :)
-					// The users will contribute to the total backlog of items possible to add as skills.
-					
-				}
-				else
-					var skillExistsFromTemplate=false;
-				
-				$.post("/netzv/js/post_calls.php", 
-				{
-					event: "addUserSkill",
-					skillName: enteredVal,
-					skillTemplate: skillExistsFromTemplate
-				},
-				function(data, status){
-					if(status == "success")
-					{
-						alert(data)
-						splitData=data.split("%%");
-						$("#addUserSkill").val("");
-						$(".skillsList").html(splitData[0]);
-						$("#skills_list").html(splitData[1]);
-					}
-				});
-			
-			});
-			
-			
-		});
-		</script>
+		<?php
+		include($sub_top_level . $folder_inc . "page.footer.php");
+		?>
 	</body>
 </html>

@@ -1,5 +1,6 @@
 <?php
 $top_level="../../";
+$sub_top_level=$top_level."netzv/";
 require_once $top_level . "ini/settings.php";
 
 if( $LoginCheck->LoginCheck($dbConn) == true )
@@ -9,7 +10,7 @@ if( $LoginCheck->LoginCheck($dbConn) == true )
 }
 else
 {
-	header("location " . $top_level . "login/");
+	header("location " . $sub_top_level . "login/");
 }
 
 ?>
@@ -37,9 +38,13 @@ else
 		
 		/*	jQuery library 	*/
 		echo $jquery; ?>
+		<script src="<?php echo $sub_top_level . $folder_js; ?>functions.generic.js"></script>
+		<script src="<?php echo $sub_top_level . $folder_js; ?>function.calls.js" /></script>
 	</head>
 	<body id="myPage" class="w3-theme-l5">
-		<script src="<?php echo $subdomain_level; ?>js/fb-sdk.js"></script>
+		<div id="fb-root"></div>
+		<script src="<?php echo $sub_top_level . $folder_js; ?>fb.js"></script>
+		
 		<?php include $subdomain_level . $folder_inc . $file_sub_dom_nav; ?>
 		
 		<!-- Contact Container -->
@@ -62,30 +67,37 @@ else
 						</div>
 						
 						<div>
-							<input class="w3-half w3-button w3-blue w3-hover-indigo w3-border w3-border-brown w3-hover-border-black" type="submit" name="credLoginSubmit" value="Logga in" />
-							<a class="w3-right" name="credLoginCreate" href="<?php echo $subdomain_level . "forgot/";?>">Glömt lösenord?</a><br />
-							<a class="w3-right" name="credLoginCreate" href="<?php echo $subdomain_level . "register/";?>">Skapa användarkonto</a>
+							<div class="w3-third">
+								<input class="w3-input w3-button w3-blue w3-hover-indigo w3-border w3-border-brown w3-hover-border-black" type="submit" name="credLoginSubmit" value="Logga in" />
+							</div>
+							<div class="w3-third">
+								<div class="w3-right-align"><a class="w3-mobile" name="credLoginCreate" href="<?php echo $subdomain_level . "forgot/";?>">Glömt lösenord?</a></div>
+							</div>
+							<div class="w3-third">
+								<div class="w3-right-align"><a class="w3-mobile" name="credLoginCreate" href="<?php echo $subdomain_level . "register/";?>">Skapa användarkonto</a></div>
+							</div>
 						</div>
 					</form>
 					
-					<div class="w3-container">
-						<div class="w3-col l6 w3-mobile w3-white">
-							<div class="w3-container w3-white">
-								<div class="w3-header">
-									<h4 class="w3-margin-top w3-margin-bottom">Logga in utan användaruppgifter.</h4>
-								</div>
-								
-								<div class="w3-padding-top">
-									<div class="g-signin2" data-onsuccess="onSignIn"></div>
-									<p class="w3-mobile">Google</p>
-									<hr />
-								</div>
-								<div class="w3-padding-top">
-									<div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false" data-onlogin="checkLoginState();"></div>
-									<p class="w3-mobile">facebook</p>
-								</div>
-							</div>
+					<div class="w3-container w3-white">
+						<hr />
+						<span class="w3-third">&nbsp;</span>
+						<h4 class="w3-third w3-center">eller</h4>
+					</div>
+					
+					<div class="w3-container w3-white">
+						
+						<div class="w3-padding-top">
+							<span class="w3-third w3-button w3-red w3-hover-brown w3-border w3-border-brown w3-hover-border-black">Logga in med Google-fake!</span>
+							<!--div class="g-signin2" data-onsuccess="onSignIn"></div-->
+						
+							<div class="w3-third w3-margin-top w3-center"></div>
+							
+							<button class="w3-third w3-right w3-button w3-indigo w3-hover-dark-grey w3-border w3-border-brown w3-hover-border-black" id="oauth-fb_login-btn">Logga in med Facebook</button>
+							<!--div class="fb-login-button" data-max-rows="1" onlogin="checkLoginState();" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false"></div-->
+							<!--div id="status"></div-->
 						</div>
+						
 					</div>
 				</div>
 			</div>
